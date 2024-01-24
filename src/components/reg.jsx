@@ -1,42 +1,186 @@
 import React from 'react';
+import { useState } from 'react';
+
 import {
   Box,
-  Heading,
-  VStack,
-  Input,
   Button,
-  HStack,
   Image,
+  Input,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 
-function RegistrationForm() {
+import { ChevronRightIcon } from '@chakra-ui/icons';
+
+
+function Reg() {
+
+  const [nidValue, setNidValue] = useState('');
+
   return (
     <>
-      <Box as="main" p={4}>
-        <Box as="header" mb={4}>
-          <HStack>
-            <Image src="/vite.svg" alt="ReMan logo" mr={4} />
-            <Text fontSize="xl" fontWeight="bold">Connecting Shops</Text>
-          </HStack>
+      <VStack className='reg' spacing="0.1rem" align='center'>
+        <Image
+          pt={{ base: '2%', }}
+          width={{ base: '6%', }}
+          height={{ base: '6%', }}
+          src="reman-logo.svg"
+          alt="ReMan" />
+
+        <Text
+          pt={{ base: '0%', }}
+          fontSize={{ base: '4xl', }}
+          fontWeight={{ base: 'bold', }}
+          color='gray.700'>
+          ReMan
+        </Text>
+
+        <Text
+          pt={{ base: '0%', }}
+          fontSize={{ base: '2xl', }}
+          color='gray.650'
+          fontWeight={{ base: 'bold', }}>
+          Connecting Shops
+        </Text>
+
+        <Text        
+          pt={{ base: '1.5%', }}
+          fontSize={{ base: 'lg', }}
+          fontWeight={{ base: 'bold', }}>
+          Please Enter Your Information
+        </Text>
+
+        <Box
+          borderRadius={{ base: 'xl', }}
+          bg={{ base: 'black', }}
+          mt={{ base: '1%', }}
+          height={{ base: '4rem', }}
+          width={{ base: '40%' }}>
+          <Text
+            mt={{ base: '1%', }}
+            pl={{ base: '3%', }}
+            color={{ base: 'white', }}
+            fontSize={{ base: '0.85rem', }}
+            fontWeight={{ base: 'bold', }}>
+            Full Name
+          </Text>
+          <Input
+            fontSize={{ base: '1.3rem', }}
+            color={{ base: 'green', }}
+            fontWeight={{ base: 'bold', }}
+            placeholder="ABC DEF"
+            pl={{ base: '3%', }}
+            variant={{ base: 'unstyled', }}
+            required={true}
+          >
+          </Input>
         </Box>
 
-        <Heading as="h1" mb={4}>
-          Please enter your Personal Information
-        </Heading>
+        <Box
+          borderRadius={{ base: 'xl', }}
+          bg={{ base: 'black', }}
+          mt={{ base: '1%', }}
+          height={{ base: '4rem', }}
+          width={{ base: '40%' }}>
+          <Text
+            mt={{ base: '1%', }}
+            pl={{ base: '3%', }}
+            color={{ base: 'white', }}
+            fontSize={{ base: '0.85rem', }}
+            fontWeight={{ base: 'bold', }}>
+            NID
+          </Text>
+          <Input
+            fontSize={{ base: '1.3rem', }}
+            color={{ base: 'green', }}
+            fontWeight={{ base: 'bold', }}
+            placeholder="1111111111111"
+            pl={{ base: '3%', }}
+            variant={{ base: 'unstyled', }}
+            required={true}
+            value={nidValue}
+            onChange={(e) => {
+              const currNIDValue = e.target.value.replace(/\D/g, '');
+              if (currNIDValue.length <= 13) {
+                setNidValue(currNIDValue);
+              }
+            }
+            }
+          >
+          </Input>
+        </Box>
 
-        <VStack spacing={4}>
-          <Input label="Full Name" placeholder="Enter your full name" />
-          <Input label="NID" placeholder="Enter your NID number" />
-          <Input label="Shop Name" placeholder="Enter your shop name" />
-          <Input label="Email (Optional)" placeholder="Enter your email" />
-          <Button colorScheme="blue" variant="solid">
+        <Box
+          borderRadius={{ base: 'xl', }}
+          bg={{ base: 'black', }}
+          mt={{ base: '1%', }}
+          height={{ base: '4rem', }}
+          width={{ base: '40%' }}>
+          <Text
+            mt={{ base: '1%', }}
+            pl={{ base: '3%', }}
+            color={{ base: 'white', }}
+            fontSize={{ base: '0.85rem', }}
+            fontWeight={{ base: 'bold', }}>
+            Shop Name
+          </Text>
+          <Input
+            fontSize={{ base: '1.3rem', }}
+            color={{ base: 'green', }}
+            fontWeight={{ base: 'bold', }}
+            placeholder="ABC DEF"
+            pl={{ base: '3%', }}
+            variant={{ base: 'unstyled', }}
+            required={true}
+          >
+          </Input>
+        </Box>
+
+        <Box
+          borderRadius={{ base: 'xl', }}
+          bg={{ base: 'black', }}
+          mt={{ base: '1%', }}
+          height={{ base: '4rem', }}
+          width={{ base: '40%' }}>
+          <Text
+            mt={{ base: '1%', }}
+            pl={{ base: '3%', }}
+            color={{ base: 'white', }}
+            fontSize={{ base: '0.85rem', }}
+            fontWeight={{ base: 'bold', }}>
+            Email (Optional)
+          </Text>
+          <Input
+            fontSize={{ base: '1.3rem', }}
+            color={{ base: 'green', }}
+            fontWeight={{ base: 'bold', }}
+            placeholder="ABC DEF"
+            pl={{ base: '3%', }}
+            variant={{ base: 'unstyled', }}
+            type='email'
+            required={false}
+          >
+          </Input>
+        </Box>
+
+        <Button
+          bg={{ base: '#C8B7F7', }}
+          _hover={{ bg: '#957AE3' }}
+          borderRadius={{ base: 'full', }}
+          mt={{ base: '1.5%', }}
+          size={{ base: 'lg', }}
+          rightIcon={<ChevronRightIcon boxSize={6} />}
+        >
+          <Text
+            color={{ base: 'black', }}
+            pl={{ base: '5%' }}>
             Create New Account
-          </Button>
-        </VStack>
-      </Box>
+          </Text>
+        </Button>
+
+      </VStack>
     </>
   );
 }
 
-export default RegistrationForm;
+export default Reg;
