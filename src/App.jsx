@@ -10,8 +10,8 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<LoginPhoneNum/>} />
-        {/* <Route path='/reg' element={<Reg/>} />/ */}
-        {/* <Route path='/regOk' element={<RegOk/>} /> */}
+        <Route path='/reg' element={<Reg/>} />/
+        <Route path='/regOk' element={<RegOk/>} />
       </Routes>
     </Router>
   );

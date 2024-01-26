@@ -89,7 +89,7 @@ export default function LoginPhoneNum() {
             >
                 <Text
                     color={{ base: 'black', }}
-                    pl={{ base: '5%' }}>
+                    pl={{ base: '15%' }}>
                     Continue
                 </Text>
             </Button>
