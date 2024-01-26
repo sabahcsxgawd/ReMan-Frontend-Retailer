@@ -13,7 +13,7 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import Logo from './logo';
 
 
-function Reg() {
+export default function Reg() {
 
   const NID_LENGTH = 13;
   const [nidValue, setNidValue] = useState('');
@@ -187,5 +187,3 @@ function Reg() {
     </VStack>
   );
 }
-
-export default Reg;
