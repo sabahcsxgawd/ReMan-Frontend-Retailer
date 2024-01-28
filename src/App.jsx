@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<LoginPIN />} />
+        <Route path='/' element={<Reg />} />
         <Route path='/loginPIN' element={<LoginPIN />} />
         <Route path='/loginOTP' element={<LoginPhoneOTP />} />
         <Route path='/loginPhn' element={<LoginPhoneNum />} />

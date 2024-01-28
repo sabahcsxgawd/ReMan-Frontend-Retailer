@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Box,
   Button,
   Input,
+  Select,
   Text,
   VStack,
 } from '@chakra-ui/react';
@@ -17,12 +19,13 @@ export default function Reg() {
 
   const NID_LENGTH = 13;
   const [nidValue, setNidValue] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [shopType, setShopType] = useState('Select Shop Type');
   const [shopName, setShopName] = useState('');
 
-  const handleFullNameChange = (e) => {
-    const sanitizedInput = e.target.value.replace(/[^A-Za-z\s]/g, '');
-    setFullName(getFormattedInput(sanitizedInput));
+  const navigate = useNavigate();
+
+  const handleShopTypeChange = (e) => {
+    setShopType(e.target.value);
   }
 
   const handleShopNameChange = (e) => {
@@ -64,9 +67,9 @@ export default function Reg() {
           color={{ base: 'white', }}
           fontSize={{ base: '0.85rem', }}
           fontWeight={{ base: 'bold', }}>
-          Full Name
+          Shop Name
         </Text>
-        <Input
+        <Input        
           fontSize={{ base: '1.3rem', }}
           color={{ base: 'green', }}
           fontWeight={{ base: 'bold', }}
@@ -74,8 +77,8 @@ export default function Reg() {
           pl={{ base: '3%', }}
           variant={{ base: 'unstyled', }}
           required={true}
-          value={fullName}
-          onChange={handleFullNameChange}
+          value={shopName}
+          onChange={handleShopNameChange}
         >
         </Input>
       </Box>
@@ -92,7 +95,7 @@ export default function Reg() {
           color={{ base: 'white', }}
           fontSize={{ base: '0.85rem', }}
           fontWeight={{ base: 'bold', }}>
-          NID
+          Owner NID
         </Text>
         <Input
           fontSize={{ base: '1.3rem', }}
@@ -126,20 +129,22 @@ export default function Reg() {
           color={{ base: 'white', }}
           fontSize={{ base: '0.85rem', }}
           fontWeight={{ base: 'bold', }}>
-          Shop Name
+          Shop Type
         </Text>
-        <Input
+        <Select
           fontSize={{ base: '1.3rem', }}
           color={{ base: 'green', }}
           fontWeight={{ base: 'bold', }}
-          placeholder="ABC DEF"
+          placeholder="Select Shop Type"
           pl={{ base: '3%', }}
           variant={{ base: 'unstyled', }}
           required={true}
-          value={shopName}
-          onChange={handleShopNameChange}
+          value={shopType}
+          onChange={handleShopTypeChange}                   
         >
-        </Input>
+          <option value="Grocery">Grocery</option>
+          <option value="Electronics">Electronics</option>          
+        </Select>
       </Box>
 
       <Box
@@ -170,6 +175,7 @@ export default function Reg() {
       </Box>
 
       <Button
+        onClick={() => navigate('/regok')}
         bg={{ base: '#C8B7F7', }}
         _hover={{ bg: '#957AE3' }}
         borderRadius={{ base: 'full', }}
@@ -180,7 +186,7 @@ export default function Reg() {
         <Text
           color={{ base: 'black', }}
           pl={{ base: '5%' }}>
-          Create New Account
+          Continue
         </Text>
       </Button>
 
