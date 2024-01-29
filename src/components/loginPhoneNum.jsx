@@ -33,8 +33,10 @@ export default function LoginPhoneNum() {
     const loginRetailer = async () => {
         const postData = {
             phoneNumber: mobileNum,
-            password: parseInt(pin, 10)
+            password: pin
         };
+
+        console.log(postData);
 
         try {
             const response = await axios.post('https://reman.us.to/api/authentication/retailer', postData);
