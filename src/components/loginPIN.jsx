@@ -14,11 +14,19 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import Logo from './logo';
 
 
-export default function LoginPIN() {
+export default function LoginPIN({ handlePINContinueClick }) {
 
     const pinRegex = /^\d{0,5}$/;
     const [pin, setPIN] = useState('');
     const [confirmPin, setConfirmPin] = useState('');
+
+    const continueButtonDisabled = () => {
+        return pin.length !== 5 || confirmPin.length !== 5 || pin !== confirmPin;
+    }
+
+    const submitPIN = () => {
+        handlePINContinueClick(pin);
+    }
 
     return (
         <VStack className='baloo' spacing="0.1rem" align='center'>
@@ -118,6 +126,8 @@ export default function LoginPIN() {
                 mt={{ base: '1.5%', }}
                 size={{ base: 'lg', }}
                 rightIcon={<ChevronRightIcon boxSize={6} />}
+                isDisabled={continueButtonDisabled()}
+                onClick={submitPIN}
             >
                 <Text
                     color={{ base: 'black', }}

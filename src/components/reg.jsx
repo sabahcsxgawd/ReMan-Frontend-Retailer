@@ -15,6 +15,7 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 
 import Logo from './logo';
 import LoginPhoneOTP from './loginPhoneOTP';
+import LoginPIN from './loginPIN';
 
 
 export default function Reg() {
@@ -45,42 +46,37 @@ export default function Reg() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (regPageState === 5) {
-      const postData = {
-        ShopPhoneNumber: mobileNum,
-        TIN: tinValue,
-        ShopName: shopName,
-        ShopType: shopType,
-        Website: shopWebsite,
-        ShopEmail: shopEmail,
-        Password: 'abcdef',
-        ShopImage: `/public/${shopName}.png`,
-        HouseNumber: 'A-210',
-        Street: street,
-        ZIP: parseInt(zipCode, 10),
-        Thana: thana,
-        Division: division,
-        AddressDetails: addressDetails,
-        OwnerName: 'Rahim Malick',
-        OwnerDateOfBirth: '',
-        OwnerImage: '/public/owner.png',
-        OwnerNID: nidValue,
-      };
-      async function addRetailer() {
-        try {
-          const response = await axios.post('https://reman.us.to/api/registration/addRetailer', postData);
-          // If successful, you can handle the response
-          console.log('Response from server:', response.data);
-          navigate('/regok');
-        } catch (error) {
-          // Handle the error response
-          console.error('Failed to post data:', error.message);
-        }
-      }
-      addRetailer();
+  const addRetailer = async (pin) => {
+    const postData = {
+      ShopPhoneNumber: mobileNum,
+      TIN: tinValue,
+      ShopName: shopName,
+      ShopType: shopType,
+      Website: shopWebsite,
+      ShopEmail: shopEmail,
+      Password: pin,
+      ShopImage: `/public/${shopName}.png`,
+      HouseNumber: 'A-210',
+      Street: street,
+      ZIP: parseInt(zipCode, 10),
+      Thana: thana,
+      Division: division,
+      AddressDetails: addressDetails,
+      OwnerName: 'Rahim Malick',
+      OwnerDateOfBirth: '',
+      OwnerImage: '/public/owner.png',
+      OwnerNID: nidValue,
+    };
+    try {
+      const response = await axios.post('https://reman.us.to/api/registration/addRetailer', postData);
+      // If successful, you can handle the response
+      console.log('Response from server:', response.data);
+      navigate('/regok');
+    } catch (error) {
+      // Handle the error response
+      console.error('Failed to post data:', error.message);
     }
-  }, [regPageState, navigate]);
+  }
 
   const getFormattedInput = (sanitizedInput) => {
     const formattedInput = sanitizedInput
@@ -653,6 +649,10 @@ export default function Reg() {
       {
         regPageState === 4 &&
         <LoginPhoneOTP handleOTPContinueClick={handleOTPContinueClick} />
+      }
+      {
+        regPageState === 5 &&
+        <LoginPIN handlePINContinueClick={addRetailer}/>
       }
     </>
   );
