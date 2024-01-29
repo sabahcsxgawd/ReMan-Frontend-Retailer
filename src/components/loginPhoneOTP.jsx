@@ -14,12 +14,26 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import Logo from './logo';
 
 
-export default function LoginPhoneOTP() {
+export default function LoginPhoneOTP({ handleOTPContinueClick }) {
 
     const otpRegex = /^\d{0,6}$/;
     const [otp, setOTP] = useState('');
     const OTP_RESEND_TIME = 20;
     const [counter, setCounter] = useState(OTP_RESEND_TIME);
+
+    const checkOTP = () => {
+        if (otp === '111111') {
+            handleOTPContinueClick(5);
+        }
+        else {
+            alert('OTP mismatch');
+            handleOTPContinueClick(4);
+        }
+    }
+
+    const continueButtonDisabled = () => {
+        return otp.length !== 6;
+    }
 
     useEffect(() => {
         let timer;
@@ -116,6 +130,8 @@ export default function LoginPhoneOTP() {
                 mt={{ base: '1.5%', }}
                 size={{ base: 'lg', }}
                 rightIcon={<ChevronRightIcon boxSize={6} />}
+                isDisabled={continueButtonDisabled()}
+                onClick={checkOTP}
             >
                 <Text
                     color={{ base: 'black', }}

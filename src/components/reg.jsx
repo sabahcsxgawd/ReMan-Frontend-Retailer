@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import {
   Box,
@@ -13,6 +14,7 @@ import {
 import { ChevronRightIcon } from '@chakra-ui/icons';
 
 import Logo from './logo';
+import LoginPhoneOTP from './loginPhoneOTP';
 
 
 export default function Reg() {
@@ -42,6 +44,43 @@ export default function Reg() {
   const [regPageState, setregPageState] = useState(1);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (regPageState === 5) {
+      const postData = {
+        ShopPhoneNumber: mobileNum,
+        TIN: tinValue,
+        ShopName: shopName,
+        ShopType: shopType,
+        Website: shopWebsite,
+        ShopEmail: shopEmail,
+        Password: 'abcdef',
+        ShopImage: `/public/${shopName}.png`,
+        HouseNumber: 'A-210',
+        Street: street,
+        ZIP: parseInt(zipCode, 10),
+        Thana: thana,
+        Division: division,
+        AddressDetails: addressDetails,
+        OwnerName: 'Rahim Malick',
+        OwnerDateOfBirth: '',
+        OwnerImage: '/public/owner.png',
+        OwnerNID: nidValue,
+      };
+      async function addRetailer() {
+        try {
+          const response = await axios.post('https://reman.us.to/api/registration/addRetailer', postData);
+          // If successful, you can handle the response
+          console.log('Response from server:', response.data);
+          navigate('/regok');
+        } catch (error) {
+          // Handle the error response
+          console.error('Failed to post data:', error.message);
+        }
+      }
+      addRetailer();
+    }
+  }, [regPageState, navigate]);
 
   const getFormattedInput = (sanitizedInput) => {
     const formattedInput = sanitizedInput
@@ -110,25 +149,25 @@ export default function Reg() {
   }
 
   const handleContinueClick = () => {
-    if(regPageState === 1) {
-      if(checkShopName() && checkOwnerNID() && checkTIN() && checkMobileNum()) {
+    if (regPageState === 1) {
+      if (checkShopName() && checkOwnerNID() && checkTIN() && checkMobileNum()) {
         setregPageState(2);
       }
       else {
         alert('Please fill all the required fields');
       }
     }
-    else if(regPageState === 2) {
-      if(checkShopType() && checkEmail()) {
+    else if (regPageState === 2) {
+      if (checkShopType() && checkEmail()) {
         setregPageState(3);
       }
       else {
         alert('Please fill all the required fields');
       }
     }
-    else if(regPageState === 3) {
-      if(checkStreet() && checkAddressDetails() && checkZIP() && checkThana() && checkDivision()) {
-        navigate('/loginotp');
+    else if (regPageState === 3) {
+      if (checkStreet() && checkAddressDetails() && checkZIP() && checkThana() && checkDivision()) {
+        setregPageState(4);
       }
       else {
         alert('Please fill all the required fields');
@@ -136,256 +175,263 @@ export default function Reg() {
     }
   }
 
+  const handleOTPContinueClick = (regPageState) => {
+    setregPageState(regPageState)
+  }
+
   return (
-    <VStack className='baloo' spacing="0.1rem" align='center'>
+    <>
+      {regPageState < 4 &&
 
-      <Logo pt={'5%'} imgSize={'20%'} fontSize1={'3xl'} fontSize2={'xl'} />
+        <VStack className='baloo' spacing="0.1rem" align='center'>
 
-      <Text
-        pt={{ base: '1.5%', }}
-        fontSize={{ base: 'lg', }}
-        fontWeight={{ base: 'bold', }}>
-        Please Enter Your Information
-      </Text>
+          <Logo pt={'5%'} imgSize={'20%'} fontSize1={'3xl'} fontSize2={'xl'} />
 
-      {regPageState === 1 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
           <Text
-            mt={{ base: '1%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
+            pt={{ base: '1.5%', }}
+            fontSize={{ base: 'lg', }}
             fontWeight={{ base: 'bold', }}>
-            Shop Name
+            Please Enter Your Information
           </Text>
-          <Input
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            placeholder="ABC DEF"
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            required={true}
-            value={shopName}
-            onChange={handleShopNameChange}
-          >
-          </Input>
-        </Box>
-      }
 
-      {regPageState === 1 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '1%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            Owner NID
-          </Text>
-          <Input
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            placeholder="1111111111111"
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            required={true}
-            value={nidValue}
-            onChange={(e) => {
-              const currNIDValue = e.target.value;
-              if (nidRegex.test(currNIDValue)) {
-                setNidValue(currNIDValue);
-              }
-            }
-            }
-          >
-          </Input>
-        </Box>
-      }
+          {regPageState === 1 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4.2rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '1%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                Shop Name
+              </Text>
+              <Input
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                placeholder="ABC DEF"
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                required={true}
+                value={shopName}
+                onChange={handleShopNameChange}
+              >
+              </Input>
+            </Box>
+          }
+
+          {regPageState === 1 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4.2rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '1%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                Owner NID
+              </Text>
+              <Input
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                placeholder="1111111111111"
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                required={true}
+                value={nidValue}
+                onChange={(e) => {
+                  const currNIDValue = e.target.value;
+                  if (nidRegex.test(currNIDValue)) {
+                    setNidValue(currNIDValue);
+                  }
+                }
+                }
+              >
+              </Input>
+            </Box>
+          }
 
 
-      {regPageState === 1 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '1%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            TIN
-          </Text>
-          <Input
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            placeholder="111111111111"
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            required={true}
-            value={tinValue}
-            onChange={(e) => {
-              const currTINValue = e.target.value;
-              if (tinRegex.test(currTINValue)) {
-                setTinValue(currTINValue);
-              }
-            }
-            }
-          >
-          </Input>
-        </Box>
-      }
+          {regPageState === 1 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4.2rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '1%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                TIN
+              </Text>
+              <Input
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                placeholder="111111111111"
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                required={true}
+                value={tinValue}
+                onChange={(e) => {
+                  const currTINValue = e.target.value;
+                  if (tinRegex.test(currTINValue)) {
+                    setTinValue(currTINValue);
+                  }
+                }
+                }
+              >
+              </Input>
+            </Box>
+          }
 
-      {regPageState === 1 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '2%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            Shop Mobile Number
-          </Text>
-          <Input
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            required={true}
-            value={mobileNum}
-            onChange={(e) => {
-              const inputNumber = e.target.value;
-              if (mobileRegex.test(inputNumber)) {
-                setMobileNum(inputNumber);
-              }
-            }
-            }
-          >
-          </Input>
-        </Box>
-      }
+          {regPageState === 1 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4.2rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '2%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                Shop Mobile Number
+              </Text>
+              <Input
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                required={true}
+                value={mobileNum}
+                onChange={(e) => {
+                  const inputNumber = e.target.value;
+                  if (mobileRegex.test(inputNumber)) {
+                    setMobileNum(inputNumber);
+                  }
+                }
+                }
+              >
+              </Input>
+            </Box>
+          }
 
-      {regPageState === 2 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '1%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            Shop Type
-          </Text>
-          <Select
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            placeholder="Select Shop Type"
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            required={true}
-            value={shopType}
-            onChange={(e) => {
-              setShopType(e.target.value);
-            }}
-          >
-            <option value="Grocery">Grocery</option>
-            <option value="Electronics">Electronics</option>
-          </Select>
-        </Box>
-      }
+          {regPageState === 2 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '1%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                Shop Type
+              </Text>
+              <Select
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                placeholder="Select Shop Type"
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                required={true}
+                value={shopType}
+                onChange={(e) => {
+                  setShopType(e.target.value);
+                }}
+              >
+                <option value="Grocery">Grocery</option>
+                <option value="Electronics">Electronics</option>
+              </Select>
+            </Box>
+          }
 
-      {regPageState === 2 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '1%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            Shop Email (Optional)
-          </Text>
-          <Input
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            placeholder="ABC DEF"
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            type='email'
-            required={false}
-            value={shopEmail}
-            onChange={(e) => {
-              setShopEmail(e.target.value);
-            }}
-          >
-          </Input>
-        </Box>
-      }
+          {regPageState === 2 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4.2rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '1%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                Shop Email (Optional)
+              </Text>
+              <Input
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                placeholder="ABC DEF"
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                type='email'
+                required={false}
+                value={shopEmail}
+                onChange={(e) => {
+                  setShopEmail(e.target.value);
+                }}
+              >
+              </Input>
+            </Box>
+          }
 
-      {regPageState === 2 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '1%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            Shop Website (Optional)
-          </Text>
-          <Input
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            placeholder="ABC DEF"
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            required={false}
-            value={shopWebsite}
-            onChange={(e) => {
-              setShopWebsite(e.target.value);
-            }}
-          >
-          </Input>
-        </Box>
-      }
+          {regPageState === 2 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4.2rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '1%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                Shop Website (Optional)
+              </Text>
+              <Input
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                placeholder="ABC DEF"
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                required={false}
+                value={shopWebsite}
+                onChange={(e) => {
+                  setShopWebsite(e.target.value);
+                }}
+              >
+              </Input>
+            </Box>
+          }
 
-      {/* {regPageState === 3 &&
+          {/* {regPageState === 3 &&
         <Box
           borderRadius={{ base: 'xl', }}
           bg={{ base: 'black', }}
@@ -417,192 +463,197 @@ export default function Reg() {
         </Box>
       } */}
 
-      {regPageState === 3 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '1%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            Street
-          </Text>
-          <Input
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            placeholder="Rankin Street"
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            required={true}
-            value={street}
-            onChange={(e) => {
-              setStreet(e.target.value);
-            }}
+          {regPageState === 3 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4.2rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '1%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                Street
+              </Text>
+              <Input
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                placeholder="Rankin Street"
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                required={true}
+                value={street}
+                onChange={(e) => {
+                  setStreet(e.target.value);
+                }}
+              >
+              </Input>
+            </Box>
+          }
+
+          {regPageState === 3 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4.2rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '1%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                Address Details
+              </Text>
+              <Input
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                placeholder="A-210, Beside Mosque"
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                required={true}
+                value={addressDetails}
+                onChange={(e) => {
+                  setAddressDetails(e.target.value);
+                }}
+              >
+              </Input>
+            </Box>
+          }
+
+          {regPageState === 3 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4.2rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '2%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                ZIP
+              </Text>
+              <Input
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                placeholder='1200'
+                required={true}
+                value={zipCode}
+                onChange={(e) => {
+                  const inputZIP = e.target.value;
+                  if (zipCodeRegex.test(inputZIP)) {
+                    setZipCode(inputZIP);
+                  }
+                }
+                }
+              >
+              </Input>
+            </Box>
+          }
+
+          {regPageState === 3 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4.2rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '1%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                Thana
+              </Text>
+              <Input
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                placeholder="Cityville"
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                required={true}
+                value={thana}
+                onChange={handleThanaChange}
+              >
+              </Input>
+            </Box>
+          }
+
+          {regPageState === 3 &&
+            <Box
+              borderRadius={{ base: 'xl', }}
+              bg={{ base: 'black', }}
+              mt={{ base: '1%', }}
+              height={{ base: '4rem', }}
+              width={{ base: '40%' }}>
+              <Text
+                mt={{ base: '1%', }}
+                pl={{ base: '3%', }}
+                color={{ base: 'white', }}
+                fontSize={{ base: '0.85rem', }}
+                fontWeight={{ base: 'bold', }}>
+                Division
+              </Text>
+              <Select
+                fontSize={{ base: '1.3rem', }}
+                color={{ base: 'green', }}
+                fontWeight={{ base: 'bold', }}
+                placeholder="Select Division"
+                pl={{ base: '3%', }}
+                variant={{ base: 'unstyled', }}
+                required={true}
+                value={division}
+                onChange={(e) => {
+                  setDivision(e.target.value);
+                }}
+              >
+                <option value="Dhaka">Dhaka Division</option>
+                <option value="Chattogram">Chattogram Division</option>
+                <option value="Rajshahi">Rajshahi Division</option>
+                <option value="Khulna">Khulna Division</option>
+                <option value="Barishal">Barishal Division</option>
+                <option value="Sylhet">Sylhet Division</option>
+                <option value="Rangpur">Rangpur Division</option>
+                <option value="Mymensingh">Mymensingh Division</option>
+              </Select>
+            </Box>
+          }
+          <Button
+            bg={{ base: '#C8B7F7', }}
+            _hover={{ bg: '#957AE3' }}
+            borderRadius={{ base: 'full', }}
+            mt={{ base: '1.5%', }}
+            size={{ base: 'lg', }}
+            rightIcon={<ChevronRightIcon boxSize={6} />}
+            onClick={handleContinueClick}
           >
-          </Input>
-        </Box>
+            <Text
+              color={{ base: 'black', }}
+              pl={{ base: '5%' }}>
+              {regPageState === 3 ? 'Create New Account' : 'Continue'}
+            </Text>
+          </Button>
+
+        </VStack>
       }
-
-      {regPageState === 3 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '1%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            Address Details
-          </Text>
-          <Input
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            placeholder="A-210, Beside Mosque"
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            required={true}
-            value={addressDetails}
-            onChange={(e) => {
-              setAddressDetails(e.target.value);
-            }}
-          >
-          </Input>
-        </Box>
+      {
+        regPageState === 4 &&
+        <LoginPhoneOTP handleOTPContinueClick={handleOTPContinueClick} />
       }
-
-      {regPageState === 3 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '2%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            ZIP
-          </Text>
-          <Input
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            placeholder='1200'
-            required={true}
-            value={zipCode}
-            onChange={(e) => {
-              const inputZIP = e.target.value;
-              if (zipCodeRegex.test(inputZIP)) {
-                setZipCode(inputZIP);
-              }
-            }
-            }
-          >
-          </Input>
-        </Box>
-      }
-
-      {regPageState === 3 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '1%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            Thana
-          </Text>
-          <Input
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            placeholder="Cityville"
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            required={true}
-            value={thana}
-            onChange={handleThanaChange}
-          >
-          </Input>
-        </Box>
-      }
-
-      {regPageState === 3 &&
-        <Box
-          borderRadius={{ base: 'xl', }}
-          bg={{ base: 'black', }}
-          mt={{ base: '1%', }}
-          height={{ base: '4rem', }}
-          width={{ base: '40%' }}>
-          <Text
-            mt={{ base: '1%', }}
-            pl={{ base: '3%', }}
-            color={{ base: 'white', }}
-            fontSize={{ base: '0.85rem', }}
-            fontWeight={{ base: 'bold', }}>
-            Division
-          </Text>
-          <Select
-            fontSize={{ base: '1.3rem', }}
-            color={{ base: 'green', }}
-            fontWeight={{ base: 'bold', }}
-            placeholder="Select Division"
-            pl={{ base: '3%', }}
-            variant={{ base: 'unstyled', }}
-            required={true}
-            value={division}
-            onChange={(e) => {
-              setDivision(e.target.value);
-            }}
-          >
-            <option value="Dhaka">Dhaka Division</option>
-            <option value="Chattogram">Chattogram Division</option>
-            <option value="Rajshahi">Rajshahi Division</option>
-            <option value="Khulna">Khulna Division</option>
-            <option value="Barishal">Barishal Division</option>
-            <option value="Sylhet">Sylhet Division</option>
-            <option value="Rangpur">Rangpur Division</option>
-            <option value="Mymensingh">Mymensingh Division</option>
-          </Select>
-        </Box>
-      }
-
-      <Button
-        bg={{ base: '#C8B7F7', }}
-        _hover={{ bg: '#957AE3' }}
-        borderRadius={{ base: 'full', }}
-        mt={{ base: '1.5%', }}
-        size={{ base: 'lg', }}
-        rightIcon={<ChevronRightIcon boxSize={6} />}
-        onClick={handleContinueClick}
-      >
-        <Text
-          color={{ base: 'black', }}
-          pl={{ base: '5%' }}>
-          {regPageState === 3 ? 'Create New Account' : 'Continue'}
-        </Text>
-      </Button>
-
-    </VStack>
+    </>
   );
 }
