@@ -128,7 +128,7 @@ export default function Reg() {
     }
     else if(regPageState === 3) {
       if(checkStreet() && checkAddressDetails() && checkZIP() && checkThana() && checkDivision()) {
-        // navigate('/regok');
+        navigate('/loginotp');
       }
       else {
         alert('Please fill all the required fields');

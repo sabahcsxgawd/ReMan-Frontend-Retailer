@@ -58,7 +58,7 @@ export default function LoginPhoneOTP() {
                 borderRadius={{ base: 'xl', }}
                 bg={{ base: 'black', }}
                 mt={{ base: '1%', }}
-                height={{ base: '5rem', }}
+                height={{ base: '5.2rem', }}
                 width={{ base: '40%' }}>
                 <Text
                     mt={{ base: '2%', }}
