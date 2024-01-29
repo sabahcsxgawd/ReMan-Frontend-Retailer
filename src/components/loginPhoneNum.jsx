@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import {
     Box,
@@ -18,6 +20,31 @@ export default function LoginPhoneNum() {
 
     const mobileRegex = /^\+880\d{0,10}$/;
     const [mobileNum, setMobileNum] = useState('+880');
+
+    const pinRegex = /^\d{0,5}$/;
+    const [pin, setPIN] = useState('');
+
+    const navigate = useNavigate();
+
+    const continueButtonDisabled = () => {
+        return mobileNum.length !== 14 || pin.length !== 5;
+    }
+
+    const loginRetailer = async () => {
+        const postData = {
+            phoneNumber: mobileNum,
+            password: parseInt(pin, 10)
+        };
+
+        try {
+            const response = await axios.post('https://reman.us.to/api/authentication/retailer', postData);
+            console.log('Response from server:', response.data);
+            navigate('/regok');
+        } catch (error) {
+            // Handle the error response
+            console.error('Failed to post data:', error.message);
+        }
+    }
 
     return (
         <VStack className='baloo' spacing="0.1rem" align='center'>
@@ -66,7 +93,40 @@ export default function LoginPhoneNum() {
                 </Input>
             </Box>
 
-            <Checkbox
+            <Box
+                borderRadius={{ base: 'xl', }}
+                bg={{ base: 'black', }}
+                height={{ base: '5rem', }}
+                width={{ base: '40%' }}>
+                <Text
+                    mt={{ base: '2%', }}
+                    pl={{ base: '3%', }}
+                    color={{ base: 'white', }}
+                    fontSize={{ base: '1.2rem', }}
+                    fontWeight={{ base: 'bold', }}>
+                    PIN
+                </Text>
+                <Input
+                    fontSize={{ base: '1.4rem', }}
+                    color={{ base: 'green', }}
+                    fontWeight={{ base: 'bold', }}
+                    pl={{ base: '3%', }}
+                    variant={{ base: 'unstyled', }}
+                    required={true}
+                    type='password'
+                    value={pin}
+                    onChange={(e) => {
+                        const inputPIN = e.target.value;
+                        if (pinRegex.test(inputPIN)) {
+                            setPIN(inputPIN);
+                        }
+                    }
+                    }
+                >
+                </Input>
+            </Box>
+
+            {/* <Checkbox
                 mt={'2%'}
                 colorScheme='green'
                 size={'lg'}  
@@ -78,7 +138,7 @@ export default function LoginPhoneNum() {
                 >
                     I agree to Terms and Conditions
                 </Text>
-            </Checkbox>
+            </Checkbox> */}
             <Button
                 bg={{ base: '#C8B7F7', }}
                 _hover={{ bg: '#957AE3' }}
@@ -86,11 +146,13 @@ export default function LoginPhoneNum() {
                 mt={{ base: '1.5%', }}
                 size={{ base: 'lg', }}
                 rightIcon={<ChevronRightIcon boxSize={6} />}
+                isDisabled={continueButtonDisabled()}
+                onClick={loginRetailer}
             >
                 <Text
                     color={{ base: 'black', }}
                     pl={{ base: '15%' }}>
-                    Continue
+                    Login
                 </Text>
             </Button>
 
