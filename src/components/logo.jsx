@@ -4,7 +4,7 @@ function Logo({ pt, imgSize, fontSize1, fontSize2 }) {
     return (
         <Box
         >
-            <VStack className="baloo" spacing="0rem" align="center">
+            <VStack className="baloo" spacing="0rem" align={'center'}>
                 <Image
                     pt={pt}
                     boxSize={imgSize}
