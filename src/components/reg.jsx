@@ -42,7 +42,7 @@ export default function Reg() {
   const [thana, setThana] = useState('');
   const [division, setDivision] = useState('');
 
-  const [regPageState, setregPageState] = useState(5);
+  const [regPageState, setregPageState] = useState(1);
 
   const navigate = useNavigate();
 
