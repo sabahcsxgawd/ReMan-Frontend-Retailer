@@ -11,7 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import { ChevronRightIcon } from '@chakra-ui/icons';
+import { ChevronRightIcon, ChevronLeftIcon } from '@chakra-ui/icons';
 
 import Logo from './logo';
 import LoginPhoneOTP from './loginPhoneOTP';
@@ -42,7 +42,7 @@ export default function Reg() {
   const [thana, setThana] = useState('');
   const [division, setDivision] = useState('');
 
-  const [regPageState, setregPageState] = useState(1);
+  const [regPageState, setregPageState] = useState(5);
 
   const navigate = useNavigate();
 
@@ -177,6 +177,49 @@ export default function Reg() {
 
   return (
     <>
+
+      {regPageState < 6 && regPageState > 1 &&
+        <Button
+          ml={{ base: '5%', }}
+          mt={{ base: '10%', }}
+          position={{ base: 'absolute', }}
+          className='baloo'
+          bg={{ base: '#000000', }}
+          borderRadius={{ base: 'full', }}
+          size={{ base: 'md', }}
+          onClick={() => {
+            setregPageState(Math.max(1, regPageState - 1));
+          }}
+        >
+          <Text
+            color={{ base: 'white' }}
+          >
+            Go Back
+          </Text>
+        </Button>
+      }
+
+      {regPageState < 6 &&
+        <Button
+          ml={{ base: '75%', }}
+          mt={{ base: '10%', }}
+          position={{ base: 'absolute', }}
+          className='baloo'
+          bg={{ base: '#000000', }}
+          borderRadius={{ base: 'full', }}
+          size={{ base: 'md', }}
+          onClick={() => {
+            navigate('/login');
+          }}
+        >
+          <Text
+            color={{ base: 'white' }}
+          >
+            Login
+          </Text>
+        </Button>
+      }
+
       {regPageState < 4 &&
 
         <VStack className='baloo' spacing="0.4rem" align='center'>
@@ -652,7 +695,7 @@ export default function Reg() {
       }
       {
         regPageState === 5 &&
-        <LoginPIN handlePINContinueClick={addRetailer}/>
+        <LoginPIN handlePINContinueClick={addRetailer} />
       }
     </>
   );

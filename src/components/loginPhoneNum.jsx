@@ -49,87 +49,107 @@ export default function LoginPhoneNum() {
     }
 
     return (
-        <VStack className='baloo' spacing="0.1rem" align='center'>
-
-            <Logo pt={'5%'} imgSize={'20%'} fontSize1={'3xl'} fontSize2={'xl'} />
-
-            <Text
-                mt={{ base: '5%', }}
-                fontSize={{ base: 'xl', }}
-                fontWeight={{ base: 'bold', }}
+        <>
+            <Button
+                ml={{ base: '73%', }}
+                mt={{ base: '10%', }}
+                position={{ base: 'absolute', }}
+                className='baloo'
+                bg={{ base: '#000000', }}
+                borderRadius={{ base: 'full', }}
+                size={{ base: 'md', }}
+                onClick={() => {
+                    navigate('/reg');
+                }}
             >
-                Please Provide Your Mobile Number
-            </Text>
-
-
-            <Box
-                borderRadius={{ base: 'xl', }}
-                bg={{ base: 'black', }}
-                mt={{ base: '2%', }}
-                height={{ base: '5rem', }}
-                width={{ base: '85%' }}>
                 <Text
-                    mt={{ base: '2%', }}
-                    pl={{ base: '3%', }}
-                    color={{ base: 'white', }}
-                    fontSize={{ base: '1rem', }}
-                    fontWeight={{ base: 'bold', }}>
-                    Mobile Number
-                </Text>
-                <Input
-                    fontSize={{ base: '1.6rem', }}
-                    color={{ base: 'green', }}
-                    fontWeight={{ base: 'bold', }}
-                    pl={{ base: '3%', }}
-                    variant={{ base: 'unstyled', }}
-                    required={true}
-                    value={mobileNum}
-                    onChange={(e) => {
-                        const inputNumber = e.target.value;
-                        if (mobileRegex.test(inputNumber)) {
-                            setMobileNum(inputNumber);
-                        }
-                    }
-                    }
+                    color={{ base: 'white' }}
                 >
-                </Input>
-            </Box>
+                    Register
+                </Text>
+            </Button>
 
-            <Box
-                mt={{ base: '5%', }}
-                borderRadius={{ base: 'xl', }}
-                bg={{ base: 'black', }}
-                height={{ base: '5rem', }}
-                width={{ base: '85%' }}>
+            <VStack className='baloo' spacing="0.1rem" align='center'>
+
+                <Logo pt={'5%'} imgSize={'20%'} fontSize1={'3xl'} fontSize2={'xl'} />
+
                 <Text
-                    mt={{ base: '2%', }}
-                    pl={{ base: '3%', }}
-                    color={{ base: 'white', }}
-                    fontSize={{ base: '1.2rem', }}
-                    fontWeight={{ base: 'bold', }}>
-                    PIN
-                </Text>
-                <Input
-                    fontSize={{ base: '1.4rem', }}
-                    color={{ base: 'green', }}
+                    mt={{ base: '5%', }}
+                    fontSize={{ base: 'xl', }}
                     fontWeight={{ base: 'bold', }}
-                    pl={{ base: '3%', }}
-                    variant={{ base: 'unstyled', }}
-                    required={true}
-                    type='password'
-                    value={pin}
-                    onChange={(e) => {
-                        const inputPIN = e.target.value;
-                        if (pinRegex.test(inputPIN)) {
-                            setPIN(inputPIN);
-                        }
-                    }
-                    }
                 >
-                </Input>
-            </Box>
+                    Please Provide Your Mobile Number
+                </Text>
 
-            {/* <Checkbox
+
+                <Box
+                    borderRadius={{ base: 'xl', }}
+                    bg={{ base: 'black', }}
+                    mt={{ base: '2%', }}
+                    height={{ base: '5rem', }}
+                    width={{ base: '85%' }}>
+                    <Text
+                        mt={{ base: '2%', }}
+                        pl={{ base: '3%', }}
+                        color={{ base: 'white', }}
+                        fontSize={{ base: '1rem', }}
+                        fontWeight={{ base: 'bold', }}>
+                        Mobile Number
+                    </Text>
+                    <Input
+                        fontSize={{ base: '1.6rem', }}
+                        color={{ base: 'green', }}
+                        fontWeight={{ base: 'bold', }}
+                        pl={{ base: '3%', }}
+                        variant={{ base: 'unstyled', }}
+                        required={true}
+                        value={mobileNum}
+                        onChange={(e) => {
+                            const inputNumber = e.target.value;
+                            if (mobileRegex.test(inputNumber)) {
+                                setMobileNum(inputNumber);
+                            }
+                        }
+                        }
+                    >
+                    </Input>
+                </Box>
+
+                <Box
+                    mt={{ base: '5%', }}
+                    borderRadius={{ base: 'xl', }}
+                    bg={{ base: 'black', }}
+                    height={{ base: '5rem', }}
+                    width={{ base: '85%' }}>
+                    <Text
+                        mt={{ base: '2%', }}
+                        pl={{ base: '3%', }}
+                        color={{ base: 'white', }}
+                        fontSize={{ base: '1.2rem', }}
+                        fontWeight={{ base: 'bold', }}>
+                        PIN
+                    </Text>
+                    <Input
+                        fontSize={{ base: '1.4rem', }}
+                        color={{ base: 'green', }}
+                        fontWeight={{ base: 'bold', }}
+                        pl={{ base: '3%', }}
+                        variant={{ base: 'unstyled', }}
+                        required={true}
+                        type='password'
+                        value={pin}
+                        onChange={(e) => {
+                            const inputPIN = e.target.value;
+                            if (pinRegex.test(inputPIN)) {
+                                setPIN(inputPIN);
+                            }
+                        }
+                        }
+                    >
+                    </Input>
+                </Box>
+
+                {/* <Checkbox
                 mt={'2%'}
                 colorScheme='green'
                 size={'lg'}  
@@ -142,23 +162,24 @@ export default function LoginPhoneNum() {
                     I agree to Terms and Conditions
                 </Text>
             </Checkbox> */}
-            <Button
-                bg={{ base: '#C8B7F7', }}
-                _hover={{ bg: '#957AE3' }}
-                borderRadius={{ base: 'full', }}
-                mt={{ base: '5%', }}
-                size={{ base: 'lg', }}
-                rightIcon={<ChevronRightIcon boxSize={6} />}
-                isDisabled={continueButtonDisabled()}
-                onClick={loginRetailer}
-            >
-                <Text
-                    color={{ base: 'black', }}
-                    pl={{ base: '15%' }}>
-                    Login
-                </Text>
-            </Button>
+                <Button
+                    bg={{ base: '#C8B7F7', }}
+                    _hover={{ bg: '#957AE3' }}
+                    borderRadius={{ base: 'full', }}
+                    mt={{ base: '5%', }}
+                    size={{ base: 'lg', }}
+                    rightIcon={<ChevronRightIcon boxSize={6} />}
+                    isDisabled={continueButtonDisabled()}
+                    onClick={loginRetailer}
+                >
+                    <Text
+                        color={{ base: 'black', }}
+                        pl={{ base: '15%' }}>
+                        Login
+                    </Text>
+                </Button>
 
-        </VStack>
+            </VStack>
+        </>
     );
 }
