@@ -16,10 +16,10 @@ export default function RegOk() {
                 bg={'#957AE3'}
                 borderRadius={'2xl'}
                 mt={'2%'}
-                width={'30%'}
+                width={'85%'}
             >
                 <Image
-                    mt={'2%'}
+                    mt={'4%'}
                     src="tick.svg"
                     alt='tick'
                     boxSize={'15%'}
