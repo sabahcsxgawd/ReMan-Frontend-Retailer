@@ -507,7 +507,7 @@ export default function Reg() {
               borderRadius={{ base: 'xl', }}
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
-              height={{ base: '4.2rem', }}
+              height={{ base: '4rem', }}
               width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
@@ -539,7 +539,7 @@ export default function Reg() {
               borderRadius={{ base: 'xl', }}
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
-              height={{ base: '4.2rem', }}
+              height={{ base: '4rem', }}
               width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
@@ -571,7 +571,7 @@ export default function Reg() {
               borderRadius={{ base: 'xl', }}
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
-              height={{ base: '4.2rem', }}
+              height={{ base: '4rem', }}
               width={{ base: '85%' }}>
               <Text
                 mt={{ base: '2%', }}
@@ -607,7 +607,7 @@ export default function Reg() {
               borderRadius={{ base: 'xl', }}
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
-              height={{ base: '4.2rem', }}
+              height={{ base: '4rem', }}
               width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
