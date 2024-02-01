@@ -179,13 +179,13 @@ export default function Reg() {
     <>
       {regPageState < 4 &&
 
-        <VStack className='baloo' spacing="0.1rem" align='center'>
+        <VStack className='baloo' spacing="0.4rem" align='center'>
 
           <Logo pt={'5%'} imgSize={'20%'} fontSize1={'3xl'} fontSize2={'xl'} />
 
           <Text
             pt={{ base: '1.5%', }}
-            fontSize={{ base: 'lg', }}
+            fontSize={{ base: 'md', }}
             fontWeight={{ base: 'bold', }}>
             Please Enter Your Information
           </Text>
@@ -196,7 +196,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4.2rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
                 pl={{ base: '3%', }}
@@ -226,7 +226,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4.2rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
                 pl={{ base: '3%', }}
@@ -263,7 +263,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4.2rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
                 pl={{ base: '3%', }}
@@ -299,7 +299,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4.2rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '2%', }}
                 pl={{ base: '3%', }}
@@ -334,7 +334,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
                 pl={{ base: '3%', }}
@@ -368,7 +368,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4.2rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
                 pl={{ base: '3%', }}
@@ -401,7 +401,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4.2rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
                 pl={{ base: '3%', }}
@@ -433,7 +433,7 @@ export default function Reg() {
           bg={{ base: 'black', }}
           mt={{ base: '1%', }}
           height={{ base: '4.2rem', }}
-          width={{ base: '40%' }}>
+          width={{ base: '85%' }}>
           <Text
             mt={{ base: '1%', }}
             pl={{ base: '3%', }}
@@ -465,7 +465,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4.2rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
                 pl={{ base: '3%', }}
@@ -497,7 +497,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4.2rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
                 pl={{ base: '3%', }}
@@ -529,7 +529,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4.2rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '2%', }}
                 pl={{ base: '3%', }}
@@ -565,7 +565,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4.2rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
                 pl={{ base: '3%', }}
@@ -595,7 +595,7 @@ export default function Reg() {
               bg={{ base: 'black', }}
               mt={{ base: '1%', }}
               height={{ base: '4rem', }}
-              width={{ base: '40%' }}>
+              width={{ base: '85%' }}>
               <Text
                 mt={{ base: '1%', }}
                 pl={{ base: '3%', }}

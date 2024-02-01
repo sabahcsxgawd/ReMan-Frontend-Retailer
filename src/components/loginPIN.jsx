@@ -34,8 +34,8 @@ export default function LoginPIN({ handlePINContinueClick }) {
             <Logo pt={'5%'} imgSize={'20%'} fontSize1={'3xl'} fontSize2={'xl'} />
 
             <Text
-                pt={{ base: '1.5%', }}
-                fontSize={{ base: '2xl', }}
+                mt={{ base: '10%', }}
+                fontSize={{ base: 'xl', }}
                 fontWeight={{ base: 'bold', }}
             >
                 Create a 5-digit PIN Number
@@ -46,7 +46,7 @@ export default function LoginPIN({ handlePINContinueClick }) {
                 borderRadius={{ base: 'xl', }}
                 bg={{ base: 'black', }}
                 height={{ base: '5rem', }}
-                width={{ base: '40%' }}>
+                width={{ base: '85%' }}>
                 <Text
                     mt={{ base: '2%', }}
                     pl={{ base: '3%', }}
@@ -76,8 +76,8 @@ export default function LoginPIN({ handlePINContinueClick }) {
             </Box>
 
             <Text
-                pt={{ base: '1.5%', }}
-                fontSize={{ base: '2xl', }}
+                mt={{ base: '10%', }}
+                fontSize={{ base: 'xl', }}
                 fontWeight={{ base: 'bold', }}
             >
                 Confirm Your PIN Number
@@ -88,7 +88,7 @@ export default function LoginPIN({ handlePINContinueClick }) {
                 borderRadius={{ base: 'xl', }}
                 bg={{ base: 'black', }}
                 height={{ base: '5rem', }}
-                width={{ base: '40%' }}>
+                width={{ base: '85%' }}>
                 <Text
                     mt={{ base: '2%', }}
                     pl={{ base: '3%', }}
@@ -123,7 +123,7 @@ export default function LoginPIN({ handlePINContinueClick }) {
                 bg={{ base: '#C8B7F7', }}
                 _hover={{ bg: '#957AE3' }}
                 borderRadius={{ base: 'full', }}
-                mt={{ base: '1.5%', }}
+                mt={{ base: '8%', }}
                 size={{ base: 'lg', }}
                 rightIcon={<ChevronRightIcon boxSize={6} />}
                 isDisabled={continueButtonDisabled()}

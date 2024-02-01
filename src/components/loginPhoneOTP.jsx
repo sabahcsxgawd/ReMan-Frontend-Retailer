@@ -60,20 +60,22 @@ export default function LoginPhoneOTP({ handleOTPContinueClick }) {
             <Logo pt={'5%'} imgSize={'20%'} fontSize1={'3xl'} fontSize2={'xl'} />
 
             <Text
-                pt={{ base: '1.5%', }}
+                mt={{ base: '10%', }}
                 fontSize={{ base: 'xl', }}
+                align={{ base: 'center', }}
                 fontWeight={{ base: 'bold', }}
             >
-                A 6-digit OTP has been sent to your mobile number
+                A 6-digit OTP <br />
+                has been sent to your mobile number
             </Text>
 
 
             <Box
                 borderRadius={{ base: 'xl', }}
                 bg={{ base: 'black', }}
-                mt={{ base: '1%', }}
+                mt={{ base: '3%', }}
                 height={{ base: '5.2rem', }}
-                width={{ base: '40%' }}>
+                width={{ base: '85%' }}>
                 <Text
                     mt={{ base: '2%', }}
                     pl={{ base: '3%', }}
@@ -106,7 +108,7 @@ export default function LoginPhoneOTP({ handleOTPContinueClick }) {
                 bg={'#B2A425'}
                 _hover={'#B2A425'}
                 borderRadius={{ base: 'full', }}
-                mt={{ base: '1.5%', }}
+                mt={{ base: '5%', }}
                 size={{ base: 'lg', }}
                 isDisabled={counter > 0 ? true : false}
                 onClick={() => {
@@ -127,7 +129,7 @@ export default function LoginPhoneOTP({ handleOTPContinueClick }) {
                 bg={{ base: '#C8B7F7', }}
                 _hover={{ bg: '#957AE3' }}
                 borderRadius={{ base: 'full', }}
-                mt={{ base: '1.5%', }}
+                mt={{ base: '5%', }}
                 size={{ base: 'lg', }}
                 rightIcon={<ChevronRightIcon boxSize={6} />}
                 isDisabled={continueButtonDisabled()}
