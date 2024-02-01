@@ -2,8 +2,10 @@ import {
     Text,
     VStack,
     Image,
-    Box
+    Button
 } from '@chakra-ui/react'
+
+import { ChevronRightIcon } from '@chakra-ui/icons';
 
 import Logo from "./logo";
 import InfoText from "./infoText";
@@ -31,8 +33,26 @@ export default function RegOk() {
                 <InfoText mb={'0%'} fontSize={'1.2rem'} color={'white'} text={'verify you as soon as possible.'} />
                 <InfoText mb={'0%'} fontSize={'1.2rem'} color={'white'} text={'After successful verification,'} />
                 <InfoText mb={'3%'} fontSize={'1.2rem'} color={'white'} text={'you can log into the app.'} />
-                
+
             </VStack>
+
+            <Button
+                bg={{ base: '#C8B7F7', }}
+                _hover={{ bg: '#957AE3' }}
+                borderRadius={{ base: 'full', }}
+                mt={{ base: '5%', }}
+                size={{ base: 'lg', }}
+                rightIcon={<ChevronRightIcon boxSize={8} />}
+                onClick={() => {
+                    window.location.href = '/login';
+                }}
+            >
+                <Text
+                    color={{ base: 'black', }}
+                    pl={{ base: '15%' }}>
+                    Continue
+                </Text>
+            </Button>
         </VStack>
     );
 }

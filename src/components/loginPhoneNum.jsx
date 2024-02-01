@@ -54,7 +54,7 @@ export default function LoginPhoneNum() {
             <Logo pt={'5%'} imgSize={'20%'} fontSize1={'3xl'} fontSize2={'xl'} />
 
             <Text
-                pt={{ base: '1.5%', }}
+                mt={{ base: '5%', }}
                 fontSize={{ base: 'xl', }}
                 fontWeight={{ base: 'bold', }}
             >
@@ -65,9 +65,9 @@ export default function LoginPhoneNum() {
             <Box
                 borderRadius={{ base: 'xl', }}
                 bg={{ base: 'black', }}
-                mt={{ base: '1%', }}
+                mt={{ base: '2%', }}
                 height={{ base: '5rem', }}
-                width={{ base: '40%' }}>
+                width={{ base: '85%' }}>
                 <Text
                     mt={{ base: '2%', }}
                     pl={{ base: '3%', }}
@@ -96,10 +96,11 @@ export default function LoginPhoneNum() {
             </Box>
 
             <Box
+                mt={{ base: '5%', }}
                 borderRadius={{ base: 'xl', }}
                 bg={{ base: 'black', }}
                 height={{ base: '5rem', }}
-                width={{ base: '40%' }}>
+                width={{ base: '85%' }}>
                 <Text
                     mt={{ base: '2%', }}
                     pl={{ base: '3%', }}
@@ -145,7 +146,7 @@ export default function LoginPhoneNum() {
                 bg={{ base: '#C8B7F7', }}
                 _hover={{ bg: '#957AE3' }}
                 borderRadius={{ base: 'full', }}
-                mt={{ base: '1.5%', }}
+                mt={{ base: '5%', }}
                 size={{ base: 'lg', }}
                 rightIcon={<ChevronRightIcon boxSize={6} />}
                 isDisabled={continueButtonDisabled()}
