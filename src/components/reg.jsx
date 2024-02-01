@@ -11,7 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import { ChevronRightIcon, ChevronLeftIcon } from '@chakra-ui/icons';
+import { ChevronRightIcon } from '@chakra-ui/icons';
 
 import Logo from './logo';
 import LoginPhoneOTP from './loginPhoneOTP';
