@@ -11,6 +11,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<HomePage />} />
+        <Route path='/home' element={<HomePage />} />
         <Route path='/login' element={<LoginPhoneNum />} />
         <Route path='/reg' element={<Reg />} />/
         <Route path='/regOk' element={<RegOk />} />
