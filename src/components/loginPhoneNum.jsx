@@ -39,7 +39,7 @@ export default function LoginPhoneNum() {
         console.log(postData);
 
         try {
-            const response = await axios.post('https://reman.us.to/api/authentication/retailer', postData);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/authentication/retailer`, postData);
             console.log('Response from server:', response.data);
             navigate('/regok');
         } catch (error) {

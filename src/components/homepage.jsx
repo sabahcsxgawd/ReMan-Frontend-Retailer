@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import {
@@ -18,7 +18,7 @@ import {
 
 } from '@chakra-ui/react';
 
-
+import HomeCategoryItem from "./home-category-item";
 
 export default function HomePage() {
 
@@ -30,6 +30,23 @@ export default function HomePage() {
 
     const logoSize = topFixedHeight * 0.5;
     const searchBoxHeight = screenHeight * 0.1;
+
+    const categoryMarginTop = screenHeight * 0.05;
+    const categoryMarginBottom = screenHeight * 0.01;
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        async function fetchCategories() {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/allCategories`);
+                setCategories(response.data.categories);
+            } catch (error) {
+                alert("Error fetching categories. Please try again later.");
+            }
+        }
+        fetchCategories();
+    }, []);
 
 
     return (
@@ -124,80 +141,27 @@ export default function HomePage() {
 
             <Box
                 className="baloo"
-                top={`${topFixedHeight + searchBoxHeight}px`}
-                bottom={`${bottomFixedHeight}px`}
-                w={`${screenWidth}px`}
+                top={`${topFixedHeight + searchBoxHeight + categoryMarginTop}px`}
+                bottom={`${bottomFixedHeight + categoryMarginBottom}px`}
+                w={`${screenWidth * 0.88}px`}
+                ml={`${screenWidth * 0.06}px`}
                 pos={'fixed'}
                 overflow={'auto'}
             >
-                <OrderedList
-                    mt={`${screenHeight * 0.03}px`}
-                    mb={`${screenHeight * 0.05}px`}
-                    ml={`${screenWidth * 0.22}px`}
-                    spacing={3}
-                    fontSize={`${screenWidth * 0.04}px`}
-                >
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                    <ListItem>Lorem ipsum dolor sit amet</ListItem>
-                    <ListItem>Consectetur adipiscing elit</ListItem>
-                    <ListItem>Integer molestie lorem at massa</ListItem>
-                    <ListItem>Facilisis in pretium nisl aliquet</ListItem>
-                </OrderedList>
+                <VStack>
+                    {
+                        categories.map((category, index) => (
+                            <HomeCategoryItem
+                                screenHeight={screenHeight}
+                                screenWidth={screenWidth}
+                                categoryName={category.CategoryName}
+                                categoryImagePath={category.Image}
+                                key={index}
+                            />
+                        ))
+                    }
+                </VStack>
+
             </Box>
 
             <Box
@@ -206,6 +170,7 @@ export default function HomePage() {
                 h={`${bottomFixedHeight}px`}
                 bottom={'0px'}
                 position={'fixed'}
+                border={'1px solid black'}
                 zIndex={100}
             >
                 <HStack>

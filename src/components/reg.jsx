@@ -68,7 +68,7 @@ export default function Reg() {
       OwnerNID: nidValue,
     };
     try {
-      const response = await axios.post('https://reman.us.to/api/registration/addRetailer', postData);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/registration/addRetailer`, postData);
       // If successful, you can handle the response
       console.log('Response from server:', response.data);
       navigate('/regok');
