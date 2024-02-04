@@ -129,7 +129,9 @@ export function CategoryPage() {
                 <VStack>
                     <HStack
                         mt={`${popularPartHeight * 0.05}px`}
-                        mr={`${screenWidth * 0.07}px`}
+                        display={'flex'}
+                        justifyContent={'center'}
+                        alignItems={'center'}
                     >
                         <Spacer />
                         <Image
@@ -169,8 +171,10 @@ export function CategoryPage() {
                 top={`${topPartHeight + searchPartHeight + popularPartHeight}px`}
             >
                 <HStack
-                    mt={`${allCategoriesHeight * 0.15}px`}
-                    mr={`${screenWidth * 0.07}px`}
+                    mt={`${allCategoriesHeight * 0.2}px`}
+                    display={'flex'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
                 >
                     <Spacer />
                     <Image
