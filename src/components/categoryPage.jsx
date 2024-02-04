@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react';
+
+import axios from 'axios';
+
 import {
     Box,
     HStack,
@@ -14,14 +18,11 @@ import {
 
 } from '@chakra-ui/react';
 
-import { ChevronRightIcon } from '@chakra-ui/icons';
-
 import PopularCategoryItems from './popularCategoryItems';
-import { getRandomColor } from './home-category-item';
+import AllCategoryItems from './allCategoryItems';
 
 export function CategoryPage() {
-    // we need topPart, searchPart, PopularCategories, AllCategories, A scrollable list of products
-    // and bottomPart
+
     const screenWidth = window.screen.width;
     const screenHeight = window.screen.height;
 
@@ -32,6 +33,31 @@ export function CategoryPage() {
     const bottomPartHeight = screenHeight * 0.1;
 
     const logoSize = topPartHeight * 0.5;
+
+    const [allCategories, setAllCategories] = useState([]);
+    const [popularCategories, setPopularCategories] = useState([]);
+
+    useEffect(() => {
+        async function fetchAllCategories() {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/allCategories`);
+                setAllCategories(response.data.categories);
+            } catch (error) {
+                alert("Error fetching categories. Please try again later.");
+            }
+        }
+        async function fetchPopularCategories() {
+            try {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/products/recommendedCategories`);
+                console.log(response.data);
+                setPopularCategories(response.data.categories);
+            } catch (error) {
+                alert("Error fetching popular categories. Please try again later.");
+            }
+        }
+        fetchAllCategories();
+        fetchPopularCategories();
+    }, []);
 
     return (
         <VStack className="baloo">
@@ -100,7 +126,8 @@ export function CategoryPage() {
                             <Image src="search.svg" />
                         </InputLeftElement>
                         <Input
-                            placeholder="Search for products"
+                            fontSize={'md'}
+                            placeholder="Search products by category"
                             focusBorderColor="transparent"
                             borderRadius={'full'}
                             bg={'#d9d9d9'}
@@ -151,14 +178,18 @@ export function CategoryPage() {
                         spacingX={`${screenWidth * 0.95 / 63}px`}
                         spacingY={`${popularPartHeight * 0.12}px`}
                     >
-                        <PopularCategoryItems screenWidth={screenWidth} category="Toothpaste" />
-                        <PopularCategoryItems screenWidth={screenWidth} category="Chips" />
-                        <PopularCategoryItems screenWidth={screenWidth} category="Soap" />
-                        <PopularCategoryItems screenWidth={screenWidth} category="Chips" />
-                        <PopularCategoryItems screenWidth={screenWidth} category="Chips" />
-                        <PopularCategoryItems screenWidth={screenWidth} category="Chips" />
-                        <PopularCategoryItems screenWidth={screenWidth} category="Egg" />
-                        <PopularCategoryItems screenWidth={screenWidth} category="Chips" />
+                        {
+                            popularCategories.map((category, index) => {
+                                return (
+                                    <PopularCategoryItems
+                                        key={index}
+                                        screenWidth={screenWidth}
+                                        category={category.CategoryName}
+                                    />
+                                );
+                            }
+                            )
+                        }
                     </SimpleGrid>
                 </VStack>
             </Box>
@@ -199,118 +230,15 @@ export function CategoryPage() {
                 overflow={'auto'}
             >
                 <VStack>
-                    <Button
-                        w={'100%'}
-                        h={'90px'}
-                        borderRadius={'full'}
-                        rightIcon={<ChevronRightIcon boxSize={12}/>}
-                        bg={getRandomColor()}            
-                    >
-                        <Text
-                            fontSize={'40px'}
-                            ml={'20px'}
-                        >
-                            Chips
-                        </Text>
-                    </Button>
-                    <Button
-                        w={'100%'}
-                        h={'90px'}
-                        borderRadius={'full'}
-                        rightIcon={<ChevronRightIcon boxSize={12}/>}
-                        bg={getRandomColor()}            
-                    >
-                        <Text
-                            fontSize={'40px'}
-                            ml={'20px'}
-                        >
-                            Chips
-                        </Text>
-                    </Button>
-                    <Button
-                        w={'100%'}
-                        h={'90px'}
-                        borderRadius={'full'}
-                        rightIcon={<ChevronRightIcon boxSize={12}/>}
-                        bg={getRandomColor()}            
-                    >
-                        <Text
-                            fontSize={'40px'}
-                            ml={'20px'}
-                        >
-                            Chips
-                        </Text>
-                    </Button>
-                    <Button
-                        w={'100%'}
-                        h={'90px'}
-                        borderRadius={'full'}
-                        rightIcon={<ChevronRightIcon boxSize={12}/>}
-                        bg={getRandomColor()}            
-                    >
-                        <Text
-                            fontSize={'40px'}
-                            ml={'20px'}
-                        >
-                            Chips
-                        </Text>
-                    </Button>
-                    <Button
-                        w={'100%'}
-                        h={'90px'}
-                        borderRadius={'full'}
-                        rightIcon={<ChevronRightIcon boxSize={12}/>}
-                        bg={getRandomColor()}            
-                    >
-                        <Text
-                            fontSize={'40px'}
-                            ml={'20px'}
-                        >
-                            Chips
-                        </Text>
-                    </Button>
-                    <Button
-                        w={'100%'}
-                        h={'90px'}
-                        borderRadius={'full'}
-                        rightIcon={<ChevronRightIcon boxSize={12}/>}
-                        bg={getRandomColor()}            
-                    >
-                        <Text
-                            fontSize={'40px'}
-                            ml={'20px'}
-                        >
-                            Chips
-                        </Text>
-                    </Button>
-                    <Button
-                        w={'100%'}
-                        h={'90px'}
-                        borderRadius={'full'}
-                        rightIcon={<ChevronRightIcon boxSize={12}/>}
-                        bg={getRandomColor()}            
-                    >
-                        <Text
-                            fontSize={'40px'}
-                            ml={'20px'}
-                        >
-                            Chips
-                        </Text>
-                    </Button>
-                    <Button
-                        w={'100%'}
-                        h={'90px'}
-                        borderRadius={'full'}
-                        rightIcon={<ChevronRightIcon boxSize={12}/>}
-                        bg={getRandomColor()}            
-                    >
-                        <Text
-                            fontSize={'40px'}
-                            ml={'20px'}
-                        >
-                            Chips
-                        </Text>
-                    </Button>
+
+                    {
+                        allCategories.map((category, index) => (
+                            <AllCategoryItems
+                                category={category.CategoryName}
+                                key={index}
+                            />
+                        ))                        
+                    }
                 </VStack>
             </Box>
 
@@ -320,6 +248,7 @@ export function CategoryPage() {
                 position={'fixed'}
                 zIndex={100}
                 bottom={0}
+                border={'1px solid black'}
             >
                 <HStack>
                     <Spacer />
