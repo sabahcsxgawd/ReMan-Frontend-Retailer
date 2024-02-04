@@ -326,6 +326,7 @@ export function CategoryPage() {
                     <VStack
                         mt={`${bottomPartHeight * 0.1}px`}
                         align={'center'}
+                        onClick={() => window.location.href = "/home"}
                     >
                         <Image
                             src="home.svg"

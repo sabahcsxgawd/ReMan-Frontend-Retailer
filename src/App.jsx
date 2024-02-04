@@ -12,7 +12,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<CategoryPage />} />
+        <Route path='/' element={<HomePage />} />
+        <Route path='/categories' element={<CategoryPage />} />
         <Route path='/home' element={<HomePage />} />
         <Route path='/login' element={<LoginPhoneNum />} />
         <Route path='/reg' element={<Reg />} />/

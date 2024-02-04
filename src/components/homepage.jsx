@@ -176,6 +176,7 @@ export default function HomePage() {
                         className="baloo"
                         mt={`${bottomFixedHeight * 0.1}px`}
                         align={'center'}
+                        onClick={() => window.location.href = "/home"}
                     >
                         <Image
                             src="home.svg"
@@ -208,6 +209,7 @@ export default function HomePage() {
                         className="baloo"
                         mt={`${bottomFixedHeight * 0.1}px`}
                         align={'center'}
+                        onClick={() => window.location.href = "/categories"}
                     >
                         <Image
                             src="category.svg"
