@@ -237,7 +237,7 @@ export function CategoryPage() {
                                 category={category.CategoryName}
                                 key={index}
                             />
-                        ))                        
+                        ))
                     }
                 </VStack>
             </Box>
