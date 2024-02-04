@@ -64,6 +64,7 @@ export default function SpecificCategoryProduct({ category }) {
                         pos={'absolute'}
                         left={0}
                         ml={'5%'}
+                        onClick={() => window.location.href = '/home'}
                     />
                     <Text
                         color={'#ffffff'}
