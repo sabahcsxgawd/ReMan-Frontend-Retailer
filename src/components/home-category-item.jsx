@@ -6,17 +6,14 @@ import {
     Image,
 } from '@chakra-ui/react';
 
-function getRandomColor() {
-    const letters = "0123456789ABCDEF";
+export function getRandomColor() {
+    const letters = "789ABCDEF";
     let color = "#";
     for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
+        color += letters[Math.floor(Math.random() * letters.length)];
     }
     return color;
 }
-
-const randomColor = getRandomColor();
-console.log(randomColor);
 
 export default function HomeCategoryItem({ screenHeight, screenWidth, categoryName, categoryImagePath }) {
     return (
@@ -24,7 +21,8 @@ export default function HomeCategoryItem({ screenHeight, screenWidth, categoryNa
             w={'100%'}
             h={`${screenHeight * 0.15}px`}
             borderRadius={'30px'}
-            bg={getRandomColor()}
+            // bg={'#d9a9e9'}
+            bg={getRandomColor()}            
         >
             <HStack>
                 <Text

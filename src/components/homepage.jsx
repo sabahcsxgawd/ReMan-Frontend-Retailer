@@ -11,10 +11,7 @@ import {
     Text,
     InputGroup,
     InputLeftElement,
-    Input,
-
-    OrderedList,
-    ListItem
+    Input    
 
 } from '@chakra-ui/react';
 
@@ -105,8 +102,7 @@ export default function HomePage() {
                 h={`${searchBoxHeight}px`}
                 top={`${topFixedHeight}px`}
                 position={'fixed'}
-                zIndex={100}
-            // bg={'#d9d9d9'}
+                zIndex={100}        
             >
                 <HStack
                     mt={`${searchBoxHeight * 0.15}px`}
@@ -133,7 +129,8 @@ export default function HomePage() {
                         mb={`${searchBoxHeight * 0.15}px`}
                         isRound={true}
                         boxSize={`${searchBoxHeight * 0.7}px`}
-                        icon={<Image src="filter.svg" boxSize={`${searchBoxHeight * 0.6}px`} />}
+                        bg={'#dfdfdf'}
+                        icon={<Image src="filter.svg" boxSize={`${searchBoxHeight * 0.5}px`} />}
                     />
                     <Spacer />
                 </HStack>

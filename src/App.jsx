@@ -5,12 +5,14 @@ import Reg from './components/reg.jsx'
 import RegOk from './components/regOk.jsx'
 import LoginPhoneNum from './components/loginPhoneNum.jsx';
 import HomePage from './components/homepage.jsx';
+import { CategoryPage } from './components/categoryPage.jsx';
+import SliderTest from './components/sliderTest.jsx';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<HomePage />} />
+        <Route path='/' element={<CategoryPage />} />
         <Route path='/home' element={<HomePage />} />
         <Route path='/login' element={<LoginPhoneNum />} />
         <Route path='/reg' element={<Reg />} />/
