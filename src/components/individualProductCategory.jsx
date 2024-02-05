@@ -45,8 +45,7 @@ export default function IndividualProductCategory({ category, screenWidth, scree
                 <VStack spacing={'3px'}>
                     <Image
                         // TODO: Change the image path
-                        src="/category-images/juice.svg"
-                        // src={`/category-images/${category.lower()}.svg`}
+                        src={`/category-images/${category.toLowerCase()}.svg`}
                         boxSize={`${screenWidth * 0.15}px`}
                     />
                     <Text
