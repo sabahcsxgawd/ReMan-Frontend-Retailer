@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -17,7 +18,7 @@ import {
 
 import IndividualProductCategory from "./individualProductCategory";
 
-export default function SpecificCategoryProduct({ category }) {
+export default function SpecificCategoryProduct() {
 
 
     const screenWidth = window.screen.width;
@@ -28,11 +29,13 @@ export default function SpecificCategoryProduct({ category }) {
 
     const [products, setProducts] = useState([]);
 
+    const { category } = useParams();
+
     useEffect(() => {
         async function fetchProducts() {
             try {
                 const postData = {
-                    categoryName: category
+                    CategoryName: category
                 }
                 const response = await axios.post(`${import.meta.env.VITE_API_URL}/products/productByCategory`, postData);
                 setProducts(response.data.products);
@@ -131,17 +134,18 @@ export default function SpecificCategoryProduct({ category }) {
                 // bg={'#00ccdd'}
                 overflow={'auto'}
             >
-                <VStack spacing={'20px'}>                    
+                <VStack spacing={'20px'}>
                     {
                         products.map((product, index) => (
                             <IndividualProductCategory
+                                category={category}
                                 screenHeight={screenHeight}
                                 screenWidth={screenWidth}
-                                manufacturerName={product.manufacturerName}
-                                productName={product.productName}
-                                weightVolume={product.weightVolume}
-                                unit={product.unit}
-                                unitPrice={product.unitPrice}
+                                manufacturerName={product.ManufacturerName}
+                                productName={product.ProductName}
+                                weightVolume={product.Weight_volume}
+                                unit={product.Unit}
+                                unitPrice={product.UnitPrice}
                                 key={index}
                             />
                         ))

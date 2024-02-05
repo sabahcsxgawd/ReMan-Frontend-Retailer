@@ -13,8 +13,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/categories/Bevarage' element={<SpecificCategoryProduct category={'Bevarage'} />} />
+        <Route path='/' element={<LoginPhoneNum />} />
+        {/* <Route path='/' element={<HomePage />} /> */}
+        <Route path='/categories/:category' element={<SpecificCategoryProduct />} />
         <Route path='/categories' element={<CategoryPage />} />
         <Route path='/home' element={<HomePage />} />
         <Route path='/login' element={<LoginPhoneNum />} />

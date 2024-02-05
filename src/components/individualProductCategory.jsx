@@ -7,7 +7,7 @@ import {
     Image
 } from '@chakra-ui/react';
 
-export default function IndividualProductCategory({ screenWidth, screenHeight, manufacturerName, productName, weightVolume, unit, unitPrice }) {
+export default function IndividualProductCategory({ category, screenWidth, screenHeight, manufacturerName, productName, weightVolume, unit, unitPrice }) {
     return (
         <Box
             w={'100%'}
@@ -23,7 +23,7 @@ export default function IndividualProductCategory({ screenWidth, screenHeight, m
                 <VStack
                     spacing={'0px'}
                     align={'left'}
-                    ml={'-15%'}
+                // ml={'-15%'}
                 >
                     <Text
                         color={'#007321'}
@@ -45,7 +45,8 @@ export default function IndividualProductCategory({ screenWidth, screenHeight, m
                 <VStack spacing={'3px'}>
                     <Image
                         // TODO: Change the image path
-                        src="/category-images/soft-drinks.svg"
+                        src="/category-images/juice.svg"
+                        // src={`/category-images/${category.lower()}.svg`}
                         boxSize={`${screenWidth * 0.15}px`}
                     />
                     <Text
@@ -55,7 +56,10 @@ export default function IndividualProductCategory({ screenWidth, screenHeight, m
                     </Text>
                 </VStack>
                 <Spacer />
-                <VStack spacing={'15px'} mr={'-12%'}>
+                <VStack
+                    spacing={'15px'}
+                // mr={'-12%'}
+                >
                     <Image
                         src="/add-to-cart.svg"
                         boxSize={`${screenWidth * 0.12}px`}

@@ -21,8 +21,8 @@ export default function HomeCategoryItem({ screenHeight, screenWidth, categoryNa
             w={'100%'}
             h={`${screenHeight * 0.15}px`}
             borderRadius={'30px'}
-            // bg={'#d9a9e9'}
-            bg={getRandomColor()}            
+            bg={getRandomColor()}
+            onClick={() => window.location.href = `/categories/${categoryName}`}
         >
             <HStack>
                 <Text
