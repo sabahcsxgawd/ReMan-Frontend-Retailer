@@ -15,6 +15,7 @@ export default function AllCategoryItems({ category }) {
             borderRadius={'full'}
             rightIcon={<ChevronRightIcon boxSize={12} />}
             bg={getRandomColor()}
+            onClick={() => window.location.href = `/categories/${category}`}
         >
             <Text
                 fontSize={'40px'}
