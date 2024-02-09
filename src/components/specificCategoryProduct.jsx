@@ -131,27 +131,26 @@ export default function SpecificCategoryProduct() {
                 top={`${topPartHeight + searchPartHeight + 15}px`}
                 bottom={10}
                 position={'fixed'}
-                // bg={'#00ccdd'}
                 overflow={'auto'}
             >
-                <VStack spacing={'20px'}>
-                    {
-                        products.map((product, index) => (
+                {
+                    products.map((product, index) => {
+                        return (
                             <IndividualProductCategory
-                                category={category}
-                                screenHeight={screenHeight}
-                                screenWidth={screenWidth}
+                                index={index}
+                                key={product.pid}
                                 manufacturerName={product.ManufacturerName}
                                 productName={product.ProductName}
                                 weightVolume={product.Weight_volume}
                                 unit={product.Unit}
                                 unitPrice={product.UnitPrice}
-                                key={index}
+                                category={category}
                             />
-                        ))
-                    }
-                </VStack>
-            </Box>
-        </VStack>
+                        )
+
+                    })
+                }
+            </Box >
+        </VStack >
     );
 }

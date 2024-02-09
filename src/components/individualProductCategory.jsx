@@ -7,70 +7,134 @@ import {
     Image
 } from '@chakra-ui/react';
 
-export default function IndividualProductCategory({ category, screenWidth, screenHeight, manufacturerName, productName, weightVolume, unit, unitPrice }) {
+export default function IndividualProductCategory({ index, category, manufacturerName, productName, weightVolume, unit, unitPrice }) {
     return (
-        <Box
-            w={'100%'}
-            h={`${screenHeight * 0.2}px`}
-            borderWidth={2}
-            borderColor={'#000000'}
-            borderRadius={'3xl'}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-        >
-            <HStack>
-                <VStack
-                    spacing={'0px'}
-                    align={'left'}
-                // ml={'-15%'}
+        <>
+            {
+                index > 0 &&
+                <Box
+                    w={'100%'}
+                    h={'4%'}
+                />
+            }
+
+            <Box
+                w={'100%'}
+                h={'48%'}
+                borderWidth={2}
+                borderRadius={'3xl'}
+                borderColor={'#000000'}
+                display={'flex'}
+            >
+                <Box
+                    w={'44%'}
+                    h={'100%'}
+                    display={'flex'}
+                    alignItems={'center'}
                 >
-                    <Text
-                        color={'#007321'}
+                    <VStack
+                        ml={'5%'}
+                        align={'left'}
                     >
-                        {manufacturerName}
-                    </Text>
-                    <Text
-                        color={'#13529B'}
-                    >
-                        {productName}
-                    </Text>
-                    <Text
-                        color={'#007321'}
-                    >
-                        {`${weightVolume}${unit}`}
-                    </Text>
-                </VStack>
-                <Spacer />
-                <VStack spacing={'3px'}>
-                    <Image
-                        // TODO: Change the image path
-                        src={`/category-images/${category.toLowerCase()}.svg`}
-                        boxSize={`${screenWidth * 0.15}px`}
-                    />
-                    <Text
-                        color={'#122F79'}
-                    >
-                        {`Tk. ${unitPrice} Per Unit`}
-                    </Text>
-                </VStack>
-                <Spacer />
-                <VStack
-                    spacing={'15px'}
-                // mr={'-12%'}
+                        <Text
+                            noOfLines={2}
+                            color={'#007321'}
+                            fontSize={'md'}
+                        >
+                            {manufacturerName}
+                        </Text>
+                        <Text
+                            noOfLines={4}
+                            color={'#13529B'}
+                            fontSize={'md'}
+                        >
+                            {productName}
+                        </Text>
+                        <Text
+                            noOfLines={1}
+                            color={'#007321'}
+                            fontSize={'md'}
+                        >
+                            {weightVolume}{unit}
+                        </Text>
+                    </VStack>
+                </Box>
+
+                <Box
+                    w={'30%'}
+                    h={'100%'}
+                    display={'flex'}
+                    flexDir={'column'}
                 >
-                    <Image
-                        src="/add-to-cart.svg"
-                        boxSize={`${screenWidth * 0.12}px`}
-                    />
-                    <Text
-                        color={'#AC0101'}
+                    <Box
+                        w={'100%'}
+                        h={'80%'}
+                        display={'flex'}
+                        justifyContent={'center'}
+                        alignItems={'center'}
                     >
-                        {/* TODO: Change the MRP value */}
-                        {`(MRP : ${unitPrice})`}
-                    </Text>
-                </VStack>
-            </HStack>
-        </Box>
+                        <Image
+                            w={'80%'}
+                            src={`/category-images/${category.toLowerCase()}.svg`}
+                        />
+                    </Box>
+
+                    <Box
+                        w={'100%'}
+                        h={'20%'}
+                        display={'flex'}
+                        justifyContent={'center'}
+                        alignItems={'flex-start'}
+                    >
+                        <Text
+                            noOfLines={3}
+                            fontSize={'sm'}
+                            color={'#122F79'}
+                        >
+                            {`Tk. ${unitPrice} Per Unit`}
+                        </Text>
+                    </Box>
+
+                </Box>
+
+                <Box
+                    w={'26%'}
+                    h={'100%'}
+                    display={'flex'}
+                    flexDir={'column'}
+                >
+                    <Box
+                        w={'100%'}
+                        h={'80%'}
+                        display={'flex'}
+                        justifyContent={'center'}
+                        alignItems={'center'}
+                    >
+                        <Image
+                            boxSize={'60%'}
+                            src="/add-to-cart.svg"
+                        />
+                    </Box>
+
+                    <Box
+                        w={'100%'}
+                        h={'20%'}
+                        display={'flex'}
+                        justifyContent={'center'}
+                        alignItems={'flex-start'}
+                    >
+                        <Text
+                            noOfLines={3}
+                            fontSize={'sm'}
+                            color={'#AC0101'}
+                        >
+                            {`(MRP : Tk. ${Math.round(unitPrice * 1.2)})`}
+                        </Text>
+                    </Box>
+
+                </Box>
+
+            </Box>
+        </>
     )
 }
