@@ -36,6 +36,8 @@ export function CategoryPage() {
 
     const [allCategories, setAllCategories] = useState([]);
     const [popularCategories, setPopularCategories] = useState([]);
+    const [searchText, setSearchText] = useState('');
+    const [filteredCategories, setFilteredCategories] = useState([]);
 
     useEffect(() => {
         async function fetchAllCategories() {
@@ -58,6 +60,18 @@ export function CategoryPage() {
         fetchAllCategories();
         fetchPopularCategories();
     }, []);
+
+    useEffect(() => {
+        if (searchText === '') {
+            setFilteredCategories(allCategories);
+        }
+        else {
+            const filtered = allCategories.filter((category) => {
+                return category.CategoryName.toLowerCase().includes(searchText.toLowerCase());
+            });
+            setFilteredCategories(filtered);
+        }
+    }, [searchText, allCategories]);
 
     return (
         <VStack className="baloo">
@@ -131,6 +145,7 @@ export function CategoryPage() {
                             focusBorderColor="transparent"
                             borderRadius={'full'}
                             bg={'#d9d9d9'}
+                            onChange={(e) => setSearchText(e.target.value)}
                         >
                         </Input>
                     </InputGroup>
@@ -232,7 +247,7 @@ export function CategoryPage() {
                 <VStack>
 
                     {
-                        allCategories.map((category, index) => (
+                        filteredCategories.map((category, index) => (
                             <AllCategoryItems
                                 category={category.CategoryName}
                                 key={index}

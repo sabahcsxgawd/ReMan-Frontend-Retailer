@@ -7,7 +7,21 @@ import {
     Image
 } from '@chakra-ui/react';
 
-export default function IndividualProductCategory({ index, category, manufacturerName, productName, weightVolume, unit, unitPrice }) {
+import { useNavigate } from 'react-router-dom';
+
+export default function IndividualProductCategory({ pid, index, category, manufacturerName, productName, weightVolume, unit, unitPrice }) {
+    const navigate = useNavigate();
+
+    const additionalInfo = {
+        pid,
+        category,
+        manufacturerName,
+        productName,
+        weightVolume,
+        unit,
+        unitPrice
+    }
+
     return (
         <>
             {
@@ -109,6 +123,12 @@ export default function IndividualProductCategory({ index, category, manufacture
                         display={'flex'}
                         justifyContent={'center'}
                         alignItems={'center'}
+                        onClick={() => navigate(`/categories/${category}/select-quantity`,
+                            {
+                                state: {
+                                    additionalInfo
+                                }
+                            })}
                     >
                         <Image
                             boxSize={'60%'}

@@ -28,6 +28,8 @@ export default function SpecificCategoryProduct() {
     const searchPartHeight = screenHeight * 0.1;
 
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [searchText, setSearchText] = useState('');
 
     const { category } = useParams();
 
@@ -39,12 +41,26 @@ export default function SpecificCategoryProduct() {
                 }
                 const response = await axios.post(`${import.meta.env.VITE_API_URL}/products/productByCategory`, postData);
                 setProducts(response.data.products);
+                setFilteredProducts(response.data.products);
             } catch (error) {
                 alert("Error fetching products. Please try again later.");
             }
         }
         fetchProducts();
     }, [category]);
+
+    useEffect(() => {
+        if (searchText === '') {
+            setFilteredProducts(products);
+        }
+        else {
+            const filtered = products.filter((product) => {
+                return product.ManufacturerName.toLowerCase().includes(searchText.toLowerCase()) || product.ProductName.toLowerCase().includes(searchText.toLowerCase());
+            });
+            setFilteredProducts(filtered);
+        }
+
+    }, [searchText, products]);
 
     return (
         <VStack className="baloo">
@@ -112,6 +128,7 @@ export default function SpecificCategoryProduct() {
                             focusBorderColor="transparent"
                             borderRadius={'full'}
                             bg={'#d9d9d9'}
+                            onChange={(e) => setSearchText(e.target.value)}
                         >
                         </Input>
                     </InputGroup>
@@ -134,11 +151,12 @@ export default function SpecificCategoryProduct() {
                 overflow={'auto'}
             >
                 {
-                    products.map((product, index) => {
+                    filteredProducts.map((product, index) => {
                         return (
                             <IndividualProductCategory
                                 index={index}
                                 key={product.pid}
+                                pid={product.pid}
                                 manufacturerName={product.ManufacturerName}
                                 productName={product.ProductName}
                                 weightVolume={product.Weight_volume}
