@@ -13,13 +13,7 @@ export default function IndividualProductCategory({ pid, index, category, manufa
     const navigate = useNavigate();
 
     const additionalInfo = {
-        pid,
-        category,
-        manufacturerName,
-        productName,
-        weightVolume,
-        unit,
-        unitPrice
+        pid
     }
 
     return (
