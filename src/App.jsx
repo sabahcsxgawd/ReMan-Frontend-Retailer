@@ -9,6 +9,7 @@ import { CategoryPage } from './components/categoryPage.jsx';
 import SliderTest from './components/sliderTest.jsx';
 import SpecificCategoryProduct from './components/specificCategoryProduct.jsx';
 import SelectQuantityProduct from './components/selectQuantityProduct.jsx';
+import Cart from './components/cart.jsx';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPhoneNum />} />
         {/* <Route path='/' element={<HomePage />} /> */}
+        <Route path='/cart' element={<Cart />} />
         <Route path='/categories/:category/select-quantity' element={<SelectQuantityProduct />} />
         <Route path='/categories/:category' element={<SpecificCategoryProduct />} />
         <Route path='/categories' element={<CategoryPage />} />

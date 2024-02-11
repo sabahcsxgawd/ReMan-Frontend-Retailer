@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import axios from "axios";
 
@@ -17,6 +17,7 @@ import {
 
 export default function SelectQuantityProduct() {
     const location = useLocation();
+    const navigate = useNavigate();
 
     const additionalInfo = location.state?.additionalInfo || {};
     const { pid } = additionalInfo;
@@ -54,9 +55,6 @@ export default function SelectQuantityProduct() {
     }, []);
 
     useEffect(() => {
-        if (orderQuantity < productInfo.MinQuantityForSale) {
-            setOrderQuantity(productInfo.MinQuantityForSale);
-        }
 
         if (orderQuantity < productInfo.MinQuantityForDiscount) {
             setDiscount(0);
@@ -77,6 +75,7 @@ export default function SelectQuantityProduct() {
                 display={'flex'}
                 justifyContent={'center'}
                 alignItems={'center'}
+                pos={'fixed'}
             >
                 <Text
                     fontSize={'3xl'}
@@ -107,6 +106,11 @@ export default function SelectQuantityProduct() {
                     display={'flex'}
                     justifyContent={'center'}
                     alignItems={'center'}
+                    onClick={
+                        () => {
+                            navigate(-1);
+                        }
+                    }
                 >
                     <Image
                         boxSize={'55%'}
@@ -272,19 +276,11 @@ export default function SelectQuantityProduct() {
                                 textAlign={'center'}
                                 placeholder={'30'}
                                 variant={'unstyled'}
+                                type="number"
                                 value={orderQuantity}
                                 onChange={
                                     (e) => {
-                                        if (e.target.value > productInfo.TotalQuantity) {
-                                            alert("Not enough stock available.");
-                                        }
-                                        else if (e.target.value < productInfo.MinQuantityForSale) {
-                                            setOrderQuantity(productInfo.MinQuantityForSale);
-                                        }
-                                        else {
-                                            setOrderQuantity(e.target.value);
-                                        }
-
+                                        setOrderQuantity(e.target.value);
                                     }
                                 }
                             />
@@ -299,6 +295,7 @@ export default function SelectQuantityProduct() {
                                         }
                                         else {
                                             setOrderQuantity(productInfo.MinQuantityForSale);
+                                            alert("Minimum order quantity is " + productInfo.MinQuantityForSale);
                                         }
                                     }
                                 }
@@ -397,7 +394,22 @@ export default function SelectQuantityProduct() {
                             src="/shopping-cart-white.svg"
                         />
                     }
+                    onClick={
+                        () => {
+                            if (orderQuantity < productInfo.MinQuantityForSale) {
+                                alert("Minimum order quantity is " + productInfo.MinQuantityForSale);
+                                setOrderQuantity(productInfo.MinQuantityForSale);
+                            }
+                            else if (orderQuantity > productInfo.TotalQuantity) {
+                                alert("Not enough stock available.");
+                                setOrderQuantity(productInfo.TotalQuantity);
+                            }
+                            else {
+                                navigate('/categories');
+                            }
+                        }
 
+                    }
                 >
                     <Spacer></Spacer>
                     Add To Cart
