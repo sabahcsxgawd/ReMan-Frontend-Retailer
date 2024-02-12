@@ -30,20 +30,7 @@ export default function Cart() {
     const [appliedVoucher, setAppliedVoucher] = useState({ mid: '', VoucherCode: '', VoucherPercentage: 0 });
 
     const proceedToPay = async () => {
-        const postData = {
-            sid: "37c86bde-7c02-4bd5-923a-b302efdcf466",
-            VoucherCode: appliedVoucher.VoucherCode,
-            PaymentMethod: "Cash On Delivery",
-            TransactionID: null
-        }
-        const apiUrl = `${import.meta.env.VITE_API_URL}/order/addOrder`;
-        try {
-            const response = await axios.post(apiUrl, postData);
-            alert(response.data.message);
-            navigate('/home')
-        } catch (error) {
-            alert('Error making payment')
-        }
+        nren
     }
 
     useEffect(() => {
