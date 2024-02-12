@@ -405,7 +405,7 @@ export default function SelectQuantityProduct() {
                                 setOrderQuantity(productInfo.TotalQuantity);
                             }
                             else {
-                                navigate('/categories');
+                                navigate('/cart');
                             }
                         }
 
