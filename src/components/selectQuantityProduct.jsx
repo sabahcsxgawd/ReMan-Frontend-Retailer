@@ -262,7 +262,7 @@ export default function SelectQuantityProduct() {
                                             alert("Not enough stock available.");
                                         }
                                         else {
-                                            setOrderQuantity(orderQuantity + 1);
+                                            setOrderQuantity(parseInt(orderQuantity) + 1);
                                         }
                                     }
                                 }

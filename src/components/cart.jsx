@@ -6,7 +6,8 @@ import {
     Input,
     Spacer,
     HStack,
-    VStack
+    VStack,
+    Select,
 
 } from "@chakra-ui/react";
 
@@ -20,16 +21,19 @@ export default function Cart() {
 
     const [loading, setLoading] = useState(true);
     const [cartInfo, setCartInfo] = useState([]);
+    const [voucherInfo, setVoucherInfo] = useState([]);
 
     const [subTotal, setSubTotal] = useState(0);
     const [deliveryCharge, setDeliveryCharge] = useState(0);
+    const [appliedVoucher, setAppliedVoucher] = useState({ VoucherCode: '', VoucherPercentage: 0 });
 
     useEffect(() => {
+        const postData = {
+            sid: "37c86bde-7c02-4bd5-923a-b302efdcf466"
+        }
+
         const fetchCartInfo = async () => {
             try {
-                const postData = {
-                    sid: "37c86bde-7c02-4bd5-923a-b302efdcf466"
-                }
                 const apiUrl = `${import.meta.env.VITE_API_URL}/cart/cartInfo`;
 
                 const response = await axios.post(apiUrl, postData);
@@ -41,6 +45,19 @@ export default function Cart() {
         }
 
         fetchCartInfo();
+
+        const fetchVoucherInfo = async () => {
+            try {
+                const apiUrl = `${import.meta.env.VITE_API_URL}/vouchers/fetchVouchers`;
+
+                const response = await axios.post(apiUrl, postData);
+                setVoucherInfo(response.data);
+            } catch (error) {
+                alert('Failed to fetch voucher info');
+            }
+        }
+
+        fetchVoucherInfo();
 
     }, [])
 
@@ -60,7 +77,19 @@ export default function Cart() {
         });
         setSubTotal(subTotal);
         setDeliveryCharge(deliveryCharge);
-    }, [cartInfo]);
+
+        const uniqueMID = [...new Set(cartInfo.map(orderFragment => orderFragment.mid))];
+
+        if (voucherInfo.length !== 0) {
+            const filteredVoucherInfo = voucherInfo.filter(voucher => {
+                return uniqueMID.includes(voucher.mid) &&
+                    voucher.MinPurchase <= subTotal &&
+                    new Date(voucher.Validity) >= new Date();
+            });
+            setVoucherInfo(filteredVoucherInfo);
+        }
+
+    }, [cartInfo, voucherInfo]);
 
 
     if (loading) {
@@ -190,7 +219,7 @@ export default function Cart() {
                 <VStack spacing={'auto'}>
                     <Button
                         fontSize={'md'}
-                        h={'30%'}
+                        size={'xs'}
                         w={'70%'}
                         borderRadius={'full'}
                     >
@@ -203,7 +232,7 @@ export default function Cart() {
                         <Text
                             noOfLines={1}
                             textAlign={'left'}
-                            fontSize={'2xl'}
+                            fontSize={'lg'}
                         >
                             SubTotal
                         </Text>
@@ -211,7 +240,7 @@ export default function Cart() {
                         <Text
                             noOfLines={1}
                             textAlign={'right'}
-                            fontSize={'2xl'}
+                            fontSize={'lg'}
                         >
                             {`Tk. ${subTotal}`}
                         </Text>
@@ -221,7 +250,7 @@ export default function Cart() {
                         <Text
                             noOfLines={1}
                             textAlign={'left'}
-                            fontSize={'2xl'}
+                            fontSize={'lg'}
                         >
                             Delivery Fee
                         </Text>
@@ -229,17 +258,83 @@ export default function Cart() {
                         <Text
                             noOfLines={1}
                             textAlign={'right'}
-                            fontSize={'2xl'}
+                            fontSize={'lg'}
                         >
                             {`Tk. ${deliveryCharge}`}
                         </Text>
+                    </HStack>
+
+                    {
+                        appliedVoucher.VoucherCode !== '' &&
+                        <HStack>
+                            <Text
+                                color={'red'}
+                            >
+                                Voucher Applied
+                            </Text>
+                            <Spacer></Spacer>
+                            <Text
+                                color={'red'}
+                                fontSize={'lg'}
+                            >
+                                {`-Tk. ${(subTotal * appliedVoucher.VoucherPercentage / 100)}`}
+                            </Text>
+
+                        </HStack>
+                    }
+
+                    <HStack>
+
+                        <Select
+                            w={'70%'}
+                            h={'70%'}
+                            border={'2px'}
+                            textAlign={'center'}
+                            onChange={
+                                (e) => {
+                                    setAppliedVoucher(JSON.parse(e.target.value));
+                                }
+                            }
+                        >
+                            <option value={JSON.stringify({ VoucherCode: '', VoucherPercentage: 0 })}> Voucher </option>
+
+                            {
+                                voucherInfo.map((voucher, index) => {
+                                    return (
+                                        <option
+                                            key={voucher.VoucherCode}
+                                            value={JSON.stringify(voucher)}
+                                        >
+                                            {voucher.VoucherCode}
+                                        </option>
+                                    )
+                                })
+                            }
+
+                        </Select>
+
+                        <Spacer></Spacer>
+
+                        <Button
+                            bg={'green'}
+                            color={'white'}
+                            size='sm'
+                            onClick={
+                                () => {
+                                    alert(appliedVoucher.VoucherPercentage);
+                                }
+                            }
+                        >
+                            Apply
+                        </Button>
+
                     </HStack>
 
                     <HStack>
                         <Text
                             noOfLines={1}
                             textAlign={'left'}
-                            fontSize={'2xl'}
+                            fontSize={'lg'}
                             color={'#122F79'}
                         >
                             Total
@@ -248,28 +343,30 @@ export default function Cart() {
                         <Text
                             noOfLines={1}
                             textAlign={'right'}
-                            fontSize={'2xl'}
+                            fontSize={'lg'}
                             color={'#122F79'}
                         >
-                            {`Tk. ${subTotal + deliveryCharge}`}
+                            {`Tk. ${subTotal + deliveryCharge - (subTotal * appliedVoucher.VoucherPercentage / 100)}`}
                         </Text>
                     </HStack>
-                    
+
                 </VStack>
 
-                <VStack>
+
+                <VStack spacing={'auto'}>
                     <Button
-                        w={'90%'}
+                        mt={1}
+                        w={'60%'}
+                        size={'md'}
                         borderRadius={'full'}
                         bg={'red'}
                         color={'white'}
-                        fontSize={'2xl'}
+                        fontSize={'lg'}
                     >
                         Proceed to Checkout
                     </Button>
 
                 </VStack>
-
             </Box >
         </>
     );
