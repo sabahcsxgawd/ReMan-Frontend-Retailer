@@ -28,7 +28,7 @@ export default function Cart() {
     const [subTotal, setSubTotal] = useState(0);
     const [deliveryCharge, setDeliveryCharge] = useState(0);
     const [appliedVoucher, setAppliedVoucher] = useState({ mid: '', VoucherCode: '', VoucherPercentage: 0 });
-    
+
     const proceedToPay = async () => {
         const postData = {
             sid: "37c86bde-7c02-4bd5-923a-b302efdcf466",
@@ -38,6 +38,7 @@ export default function Cart() {
         };
 
         const apiUrl = `${import.meta.env.VITE_API_URL}/order/addOrder`;
+
         try {
             const response = await axios.post(apiUrl, postData);
             alert(response.data.message);
@@ -102,7 +103,7 @@ export default function Cart() {
 
         const uniqueMID = [...new Set(cartInfo.map(orderFragment => orderFragment.mid))];
 
-        if (voucherInfo.length !== 0) {
+        if (voucherInfo.length > 0) {
             const filteredVoucherInfo = voucherInfo.filter(voucher => {
                 return uniqueMID.includes(voucher.mid) &&
                     voucher.MinPurchase <= subTotal &&
@@ -111,7 +112,7 @@ export default function Cart() {
             setVoucherInfo(filteredVoucherInfo);
         }
 
-    }, [cartInfo, voucherInfo]);
+    }, [cartInfo]);
 
 
     if (loading) {
