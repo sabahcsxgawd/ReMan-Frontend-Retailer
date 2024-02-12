@@ -19,13 +19,32 @@ import OrderFragment from "./orderFragment";
 
 export default function Cart() {
 
+    const navigate = useNavigate();
+
     const [loading, setLoading] = useState(true);
     const [cartInfo, setCartInfo] = useState([]);
     const [voucherInfo, setVoucherInfo] = useState([]);
 
     const [subTotal, setSubTotal] = useState(0);
     const [deliveryCharge, setDeliveryCharge] = useState(0);
-    const [appliedVoucher, setAppliedVoucher] = useState({ VoucherCode: '', VoucherPercentage: 0 });
+    const [appliedVoucher, setAppliedVoucher] = useState({ mid: '', VoucherCode: '', VoucherPercentage: 0 });
+
+    const proceedToPay = async () => {
+        const postData = {
+            sid: "37c86bde-7c02-4bd5-923a-b302efdcf466",
+            VoucherCode: appliedVoucher.VoucherCode,
+            PaymentMethod: "Cash On Delivery",
+            TransactionID: null
+        }
+        const apiUrl = `${import.meta.env.VITE_API_URL}/order/addOrder`;
+        try {
+            const response = await axios.post(apiUrl, postData);
+            alert(response.data);
+            navigate('/home')
+        } catch (error) {
+            alert('Error making payment')
+        }
+    }
 
     useEffect(() => {
         const postData = {
@@ -64,6 +83,7 @@ export default function Cart() {
     useEffect(() => {
         let subTotal = 0;
         let deliveryCharge = 0;
+
         cartInfo.forEach(orderFragment => {
             deliveryCharge += orderFragment.totalDeliveryCharge;
             let fragmentTotal = 0;
@@ -75,6 +95,7 @@ export default function Cart() {
                 alert('Fragment total price mismatch');
             }
         });
+
         setSubTotal(subTotal);
         setDeliveryCharge(deliveryCharge);
 
@@ -277,7 +298,7 @@ export default function Cart() {
                                 color={'red'}
                                 fontSize={'lg'}
                             >
-                                {`-Tk. ${(subTotal * appliedVoucher.VoucherPercentage / 100)}`}
+                                {`-Tk. ${(cartInfo.find(man => man.mid === appliedVoucher.mid).totalPrice * appliedVoucher.VoucherPercentage / 100)}`}
                             </Text>
 
                         </HStack>
@@ -317,11 +338,16 @@ export default function Cart() {
 
                         <Button
                             bg={'green'}
-                            color={'white'}
+                            color={'black'}
                             size='sm'
+                            isDisabled={
+                                appliedVoucher.VoucherCode === ''
+                            }
                             onClick={
                                 () => {
-                                    alert(appliedVoucher.VoucherPercentage);
+                                    if (appliedVoucher.VoucherCode !== '') {
+                                        alert('Voucher Applied')
+                                    }
                                 }
                             }
                         >
@@ -362,6 +388,11 @@ export default function Cart() {
                         bg={'red'}
                         color={'white'}
                         fontSize={'lg'}
+                        onClick={
+                            () => {
+                                navigate('/home')
+                            }
+                        }
                     >
                         Proceed to Checkout
                     </Button>
