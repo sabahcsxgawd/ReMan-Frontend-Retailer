@@ -160,7 +160,11 @@ export default function Cart() {
                     display={'flex'}
                     justifyContent={'center'}
                     alignItems={'center'}
-                    onClick={navigate('/home')}
+                    onClick={
+                        () => {
+                            navigate('/home')
+                        }
+                    }
                 >
                     <Image
                         mb={4}

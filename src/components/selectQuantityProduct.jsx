@@ -44,7 +44,7 @@ export default function SelectQuantityProduct() {
         try {
             const response = await axios.post(apiUrl, postData);
             alert(response.data.message);
-            navigate('/cart')
+            navigate('/cart');
         } catch (error) {
             alert('Error adding to cart')
         }
