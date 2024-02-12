@@ -39,7 +39,7 @@ export default function Cart() {
         const apiUrl = `${import.meta.env.VITE_API_URL}/order/addOrder`;
         try {
             const response = await axios.post(apiUrl, postData);
-            alert(response.data);
+            alert(response.data.message);
             navigate('/home')
         } catch (error) {
             alert('Error making payment')
