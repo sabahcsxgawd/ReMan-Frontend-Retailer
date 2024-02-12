@@ -33,10 +33,12 @@ export default function SelectQuantityProduct() {
 
     const goToCart = async () => {
         const postData = {
-            sid: "37c86bde-7c02-4bd5-923a-b302efdcf466",
-            pid: pid,
-            Quantity: parseInt(orderQuantity),
-            Price: parseFloat(orderQuantity * productInfo.UnitPrice * (100 - discount) / 100)
+            product: {
+                sid: "37c86bde-7c02-4bd5-923a-b302efdcf466",
+                pid: pid,
+                Quantity: parseInt(orderQuantity),
+                Price: parseFloat(orderQuantity * productInfo.UnitPrice * (100 - discount) / 100)
+            }
         }
         const apiUrl = `${import.meta.env.VITE_API_URL}/cart/addToCart`;
         try {
