@@ -388,11 +388,7 @@ export default function Cart() {
                         bg={'red'}
                         color={'white'}
                         fontSize={'lg'}
-                        onClick={
-                            () => {
-                                navigate('/home')
-                            }
-                        }
+                        onClick={proceedToPay}
                     >
                         Proceed to Checkout
                     </Button>
