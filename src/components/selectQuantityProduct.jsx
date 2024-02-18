@@ -18,7 +18,7 @@ import {
 export default function SelectQuantityProduct() {
 
     const navigate = useNavigate();
-    const locationData = useLocation().state;
+    let locationData = useLocation().state;
 
     const { pid, sid } = locationData;
 
@@ -28,10 +28,13 @@ export default function SelectQuantityProduct() {
 
     const [productInfo, setProductInfo] = useState({});
     const [loading, setLoading] = useState(true);
-    const [orderQuantity, setOrderQuantity] = useState(0);
+    const [orderQuantity, setOrderQuantity] = useState(locationData.prevOrderQuantity ? locationData.prevOrderQuantity : 0);
     const [discount, setDiscount] = useState(0);
 
     const goToCart = async () => {
+
+        locationData.prevOrderQuantity = 0;
+
         const postData = {
             product: {
                 sid,

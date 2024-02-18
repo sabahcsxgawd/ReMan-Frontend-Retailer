@@ -45,7 +45,7 @@ export default function Cart() {
         try {
             const response = await axios.post(apiUrl, postData);
             alert(response.data.message);
-            navigate('/home', {state: locationData})
+            navigate('/home', { state: locationData })
         } catch (error) {
             alert('Error making payment')
         }
@@ -83,39 +83,41 @@ export default function Cart() {
 
         fetchVoucherInfo();
 
-    }, [])
+    }, []);
 
-    useEffect(() => {
-        let subTotal = 0;
-        let deliveryCharge = 0;
+    useEffect(
+        () => {
+            let subTotal = 0;
+            let deliveryCharge = 0;
 
-        cartInfo.forEach(orderFragment => {
-            deliveryCharge += orderFragment.totalDeliveryCharge;
-            let fragmentTotal = 0;
-            orderFragment.products.forEach(product => {
-                fragmentTotal += product.Price;
+            cartInfo.forEach(orderFragment => {
+                deliveryCharge += orderFragment.totalDeliveryCharge;
+                let fragmentTotal = 0;
+                orderFragment.products.forEach(product => {
+                    fragmentTotal += product.Price;
+                });
+                subTotal += fragmentTotal;
+                if (fragmentTotal !== orderFragment.totalPrice) {
+                    alert('Fragment total price mismatch');
+                }
             });
-            subTotal += fragmentTotal;
-            if (fragmentTotal !== orderFragment.totalPrice) {
-                alert('Fragment total price mismatch');
-            }
-        });
 
-        setSubTotal(subTotal);
-        setDeliveryCharge(deliveryCharge);
+            setSubTotal(subTotal);
+            setDeliveryCharge(deliveryCharge);
+        }, [cartInfo]
+    );
 
+    const handleVoucherSelect = () => {
         const uniqueMID = [...new Set(cartInfo.map(orderFragment => orderFragment.mid))];
 
-        if (voucherInfo.length > 0) {
-            const filteredVoucherInfo = voucherInfo.filter(voucher => {
-                return uniqueMID.includes(voucher.mid) &&
-                    voucher.MinPurchase <= subTotal &&
-                    new Date(voucher.Validity) >= new Date();
-            });
-            setVoucherInfo(filteredVoucherInfo);
-        }
+        const filteredVoucherInfo = voucherInfo.filter(voucher => {
+            return uniqueMID.includes(voucher.mid) &&
+                voucher.MinPurchase <= subTotal &&
+                new Date(voucher.Validity) >= new Date();
+        });
 
-    }, [cartInfo]);
+        setVoucherInfo(filteredVoucherInfo);
+    }
 
 
     if (loading) {
@@ -165,7 +167,7 @@ export default function Cart() {
                     alignItems={'center'}
                     onClick={
                         () => {
-                            navigate('/home', {state: locationData})
+                            navigate('/home', { state: locationData })
                         }
                     }
                 >
@@ -255,7 +257,7 @@ export default function Cart() {
                         borderRadius={'full'}
                         onClick={
                             () => {
-                                navigate('/categories', {state: locationData})
+                                navigate('/categories', { state: locationData })
                             }
                         }
                     >
@@ -331,6 +333,7 @@ export default function Cart() {
                                     setAppliedVoucher(JSON.parse(e.target.value));
                                 }
                             }
+                            onClick={handleVoucherSelect}
                         >
                             <option value={JSON.stringify({ VoucherCode: '', VoucherPercentage: 0 })}> Voucher </option>
 

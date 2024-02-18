@@ -2,10 +2,38 @@ import {
     Box,
     Text,
     Image,
+    VStack,
+    Button
 
 } from "@chakra-ui/react";
 
+import { useLocation, useNavigate } from "react-router-dom";
+
+import axios from "axios";
+
 export default function SingleOrderFragment({ order }) {
+
+    const navigate = useNavigate();
+    let locationData = useLocation().state;
+
+    const deleteProductFromCart = async () => {
+        const postData = {
+            pid: order.pid,
+            sid: locationData.sid
+        };
+
+        const apiUrl = `${import.meta.env.VITE_API_URL}/cart/deleteProduct`;
+
+        try {
+            const response = await axios.delete(apiUrl, postData);
+            if (response.status === 201) {
+                alert('Product deleted from cart');
+                window.location.reload();
+            }
+        } catch (error) {
+            alert('Error deleting product from cart');
+        }
+    }
 
     const discount = ((order.UnitPrice * order.Quantity) - order.Price) * 100 / (order.UnitPrice * order.Quantity);
 
@@ -44,6 +72,7 @@ export default function SingleOrderFragment({ order }) {
                     <Image
                         src={'/trash.svg'}
                         boxSize={'80%'}
+                        onClick={deleteProductFromCart}
                     />
 
                 </Box>
@@ -52,14 +81,29 @@ export default function SingleOrderFragment({ order }) {
                     w={'35%'}
                     h={'100%'}
                 >
-                    <Text
-                        noOfLines={2}
-                        fontSize={'lg'}
-                        color={'orange.400'}
-                        textAlign={'right'}
-                    >
-                        {`Tk. ${order.Price}`}
-                    </Text>
+                    <VStack spacing={'auto'}>
+                        <Text
+                            noOfLines={2}
+                            fontSize={'lg'}
+                            color={'orange.400'}
+                            textAlign={'right'}
+                        >
+                            {`Tk. ${order.Price}`}
+                        </Text>
+                        <Button
+                            colorScheme={'yellow'}
+                            size={'xs'}
+                            onClick={
+                                () => {
+                                    locationData.prevOrderQuantity = order.Quantity;
+                                    locationData.pid = order.pid;
+                                    navigate(`/categories/${order.CategoryName}/select-quantity`, { state: locationData });
+                                }
+                            }
+                        >
+                            Change Quantity
+                        </Button>
+                    </VStack>
 
                 </Box>
 
