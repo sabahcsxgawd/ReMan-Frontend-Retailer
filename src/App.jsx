@@ -10,13 +10,19 @@ import SliderTest from './components/sliderTest.jsx';
 import SpecificCategoryProduct from './components/specificCategoryProduct.jsx';
 import SelectQuantityProduct from './components/selectQuantityProduct.jsx';
 import Cart from './components/cart.jsx';
+import Checkout from './components/Checkout.jsx';
+import PaymentSuccess from './components/PaymentSuccess.jsx';
+import PaymentFail from './components/PaymentFail.jsx';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path='/' element={<LoginPhoneNum />} />
+        <Route path='/payment/success' element={<PaymentSuccess />} />
+        <Route path='/payment/fail' element={<PaymentFail />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/checkout' element={<Checkout />} />
         <Route path='/categories/:category/select-quantity' element={<SelectQuantityProduct />} />
         <Route path='/categories/:category' element={<SpecificCategoryProduct />} />
         <Route path='/categories' element={<CategoryPage />} />

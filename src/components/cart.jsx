@@ -33,22 +33,29 @@ export default function Cart() {
     const [appliedVoucher, setAppliedVoucher] = useState({ mid: '', VoucherCode: '', VoucherPercentage: 0 });
 
     const proceedToPay = async () => {
-        const postData = {
-            sid,
-            VoucherCode: appliedVoucher.VoucherCode,
-            PaymentMethod: "Cash On Delivery",
-            TransactionID: null
-        };
+        // const postData = {
+        //     sid,
+        //     VoucherCode: appliedVoucher.VoucherCode,
+        //     PaymentMethod: "Cash On Delivery",
+        //     TransactionID: null
+        // };
 
-        const apiUrl = `${import.meta.env.VITE_API_URL}/order/addOrder`;
+        // const apiUrl = `${import.meta.env.VITE_API_URL}/order/addOrder`;
 
-        try {
-            const response = await axios.post(apiUrl, postData);
-            alert(response.data.message);
-            navigate('/home', { state: locationData })
-        } catch (error) {
-            alert('Error making payment')
+        // try {
+        //     const response = await axios.post(apiUrl, postData);
+        //     alert(response.data.message);
+        //     navigate('/home', { state: locationData })
+        // } catch (error) {
+        //     alert('Error making payment')
+        // }
+
+
+        // TODO change locationData according to need and navigate to checkout page
+        locationData.proceedToPayData = {
+            appliedVoucher: appliedVoucher.VoucherCode
         }
+        navigate('/checkout', { state: locationData });
     }
 
     useEffect(() => {
