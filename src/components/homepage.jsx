@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -11,13 +12,18 @@ import {
     Text,
     InputGroup,
     InputLeftElement,
-    Input    
+    Input,
+    filter
 
 } from '@chakra-ui/react';
 
 import HomeCategoryItem from "./home-category-item";
 
 export default function HomePage() {
+
+    const navigate = useNavigate();
+    const locationData = useLocation().state;
+
 
     const screenWidth = window.screen.width;
     const screenHeight = window.screen.height;
@@ -31,7 +37,10 @@ export default function HomePage() {
     const categoryMarginTop = screenHeight * 0.05;
     const categoryMarginBottom = screenHeight * 0.01;
 
+    const [searchText, setSearchText] = useState('');
+
     const [categories, setCategories] = useState([]);
+    const [filteredCategories, setFilteredCategories] = useState([]);
 
     useEffect(() => {
         async function fetchCategories() {
@@ -44,6 +53,21 @@ export default function HomePage() {
         }
         fetchCategories();
     }, []);
+
+    useEffect(
+        () => {
+            if (searchText === '') {
+                setFilteredCategories(categories);
+            }
+            else {
+                setFilteredCategories(
+                    categories.filter(
+                        (category) => category.CategoryName.toLowerCase().includes(searchText.toLowerCase())
+                    )
+                );
+            }
+        }, [searchText, categories]
+    );
 
 
     return (
@@ -85,6 +109,11 @@ export default function HomePage() {
                         isRound={true}
                         boxSize={`${topFixedHeight * 0.6}px`}
                         icon={<Image src="shopping-cart.svg" boxSize={`${topFixedHeight * 0.4}px`} />}
+                        onClick={
+                            () => {
+                                navigate('/cart', {state: locationData})
+                            }
+                        }
                     />
                     <IconButton
                         mr={`${screenWidth * 0.05}px`}
@@ -102,7 +131,7 @@ export default function HomePage() {
                 h={`${searchBoxHeight}px`}
                 top={`${topFixedHeight}px`}
                 position={'fixed'}
-                zIndex={100}        
+                zIndex={100}
             >
                 <HStack
                     mt={`${searchBoxHeight * 0.15}px`}
@@ -116,10 +145,15 @@ export default function HomePage() {
                             <Image src="search.svg" />
                         </InputLeftElement>
                         <Input
-                            placeholder="Search for products"
+                            placeholder="Search for categories"
                             focusBorderColor="transparent"
                             borderRadius={'full'}
                             bg={'#d9d9d9'}
+                            onChange={
+                                (e) => {
+                                    setSearchText(e.target.value);
+                                }
+                            }
                         >
                         </Input>
                     </InputGroup>
@@ -147,7 +181,7 @@ export default function HomePage() {
             >
                 <VStack>
                     {
-                        categories.map((category, index) => (
+                        filteredCategories.map((category, index) => (
                             <HomeCategoryItem
                                 screenHeight={screenHeight}
                                 screenWidth={screenWidth}
@@ -176,7 +210,11 @@ export default function HomePage() {
                         className="baloo"
                         mt={`${bottomFixedHeight * 0.1}px`}
                         align={'center'}
-                        onClick={() => window.location.href = "/home"}
+                        onClick={
+                            () => {
+                                navigate('/home', { state: locationData });
+                            }
+                        }
                     >
                         <Image
                             src="home.svg"
@@ -209,7 +247,11 @@ export default function HomePage() {
                         className="baloo"
                         mt={`${bottomFixedHeight * 0.1}px`}
                         align={'center'}
-                        onClick={() => window.location.href = "/categories"}
+                        onClick={
+                            () => {
+                                navigate('/categories', { state: locationData });
+                            }
+                        }
                     >
                         <Image
                             src="category.svg"

@@ -7,14 +7,12 @@ import {
     Image
 } from '@chakra-ui/react';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function IndividualProductCategory({ pid, index, category, manufacturerName, productName, weightVolume, unit, unitPrice }) {
-    const navigate = useNavigate();
 
-    const additionalInfo = {
-        pid
-    }
+    const navigate = useNavigate();
+    let locationData = useLocation().state;
 
     return (
         <>
@@ -116,13 +114,13 @@ export default function IndividualProductCategory({ pid, index, category, manufa
                         h={'80%'}
                         display={'flex'}
                         justifyContent={'center'}
-                        alignItems={'center'}
-                        onClick={() => navigate(`/categories/${category}/select-quantity`,
-                            {
-                                state: {
-                                    additionalInfo
-                                }
-                            })}
+                        alignItems={'center'}                        
+                        onClick={
+                            () => {
+                                locationData.pid = pid;
+                                navigate(`/categories/${category}/select-quantity`, { state: locationData });                        
+                            }
+                        }
                     >
                         <Image
                             boxSize={'60%'}

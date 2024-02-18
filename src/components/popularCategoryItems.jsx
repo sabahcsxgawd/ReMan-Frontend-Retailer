@@ -2,10 +2,16 @@ import {
     Box,
     Text
 } from '@chakra-ui/react';
+
 import { getRandomColor } from './home-category-item';
 
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function PopularCategoryItems({ screenWidth, category }) {
+
+    const navigate = useNavigate();
+    const locationData = useLocation().state;
+
     return (
         <Box
             bg={getRandomColor()}
@@ -15,7 +21,11 @@ export default function PopularCategoryItems({ screenWidth, category }) {
             justifyContent={'center'}
             alignItems={'center'}
             display={'flex'}
-            onClick={() => window.location.href = `/categories/${category}`}
+            onClick={
+                () => {
+                    navigate(`/categories/${category}`, {state: locationData})
+                }
+            }
         >
             <Text fontSize={'md'}>{category}</Text>
         </Box>

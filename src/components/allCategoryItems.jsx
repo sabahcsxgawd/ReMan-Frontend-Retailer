@@ -1,4 +1,5 @@
 import { getRandomColor } from "./home-category-item";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import {
     Button,
@@ -8,6 +9,10 @@ import {
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 export default function AllCategoryItems({ category }) {
+
+    const navigate = useNavigate();
+    const locationData = useLocation().state;
+
     return (
         <Button
             w={'100%'}
@@ -15,7 +20,11 @@ export default function AllCategoryItems({ category }) {
             borderRadius={'full'}
             rightIcon={<ChevronRightIcon boxSize={12} />}
             bg={getRandomColor()}
-            onClick={() => window.location.href = `/categories/${category}`}
+            onClick={
+                () => {
+                    navigate(`/categories/${category}`, {state: locationData})
+                }
+            }
         >
             <Text
                 fontSize={'40px'}

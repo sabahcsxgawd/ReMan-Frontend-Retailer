@@ -16,11 +16,11 @@ import {
 } from "@chakra-ui/react";
 
 export default function SelectQuantityProduct() {
-    const location = useLocation();
-    const navigate = useNavigate();
 
-    const additionalInfo = location.state?.additionalInfo || {};
-    const { pid } = additionalInfo;
+    const navigate = useNavigate();
+    const locationData = useLocation().state;
+
+    const { pid, sid } = locationData;
 
     const screenWidth = window.screen.width;
     const screenHeight = window.screen.height;
@@ -34,8 +34,8 @@ export default function SelectQuantityProduct() {
     const goToCart = async () => {
         const postData = {
             product: {
-                sid: "37c86bde-7c02-4bd5-923a-b302efdcf466",
-                pid: pid,
+                sid,
+                pid,
                 Quantity: parseInt(orderQuantity),
                 Price: parseFloat(orderQuantity * productInfo.UnitPrice * (100 - discount) / 100)
             }
@@ -44,7 +44,7 @@ export default function SelectQuantityProduct() {
         try {
             const response = await axios.post(apiUrl, postData);
             alert(response.data.message);
-            navigate('/cart');
+            navigate('/cart', { state: locationData });
         } catch (error) {
             alert('Error adding to cart')
         }
@@ -125,7 +125,7 @@ export default function SelectQuantityProduct() {
                     alignItems={'center'}
                     onClick={
                         () => {
-                            navigate(-1);
+                            navigate(-1, { state: locationData });
                         }
                     }
                 >
@@ -163,6 +163,11 @@ export default function SelectQuantityProduct() {
                         />}
                         isRound={true}
                         size={'lg'}
+                        onClick={
+                            () => {
+                                navigate('/cart', { state: locationData });
+                            }
+                        }
                     />
                 </Box>
             </Box>

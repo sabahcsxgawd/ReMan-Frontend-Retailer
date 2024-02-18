@@ -6,6 +6,8 @@ import {
     Image,
 } from '@chakra-ui/react';
 
+import { useNavigate, useLocation } from 'react-router-dom';
+
 export function getRandomColor() {
     const letters = "789ABCDEF";
     let color = "#";
@@ -16,13 +18,21 @@ export function getRandomColor() {
 }
 
 export default function HomeCategoryItem({ screenHeight, screenWidth, categoryName, categoryImagePath }) {
+
+    const navigate = useNavigate();
+    const locationData = useLocation().state;
+
     return (
         <Box
             w={'100%'}
             h={`${screenHeight * 0.15}px`}
             borderRadius={'30px'}
             bg={getRandomColor()}
-            onClick={() => window.location.href = `/categories/${categoryName}`}
+            onClick={
+                () => {
+                    navigate(`/categories/${categoryName}`, {state: locationData})
+                }
+            }
         >
             <HStack>
                 <Text

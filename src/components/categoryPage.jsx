@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -22,6 +23,9 @@ import PopularCategoryItems from './popularCategoryItems';
 import AllCategoryItems from './allCategoryItems';
 
 export function CategoryPage() {
+
+    const navigate = useNavigate();
+    const locationData = useLocation().state;
 
     const screenWidth = window.screen.width;
     const screenHeight = window.screen.height;
@@ -111,6 +115,11 @@ export function CategoryPage() {
                         isRound={true}
                         boxSize={`${topPartHeight * 0.6}px`}
                         icon={<Image src="shopping-cart.svg" boxSize={`${topPartHeight * 0.4}px`} />}
+                        onClick={
+                            () => {
+                                navigate('/cart', { state: locationData });
+                            }
+                        }
                     />
                     <IconButton
                         mr={`${screenWidth * 0.05}px`}
@@ -270,7 +279,11 @@ export function CategoryPage() {
                     <VStack
                         mt={`${bottomPartHeight * 0.1}px`}
                         align={'center'}
-                        onClick={() => window.location.href = "/home"}
+                        onClick={
+                            () => {
+                                navigate('/home', { state: locationData });
+                            }
+                        }
                     >
                         <Image
                             src="home.svg"

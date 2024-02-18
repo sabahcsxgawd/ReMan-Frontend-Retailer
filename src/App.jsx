@@ -16,7 +16,6 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<LoginPhoneNum />} />
-        {/* <Route path='/' element={<HomePage />} /> */}
         <Route path='/cart' element={<Cart />} />
         <Route path='/categories/:category/select-quantity' element={<SelectQuantityProduct />} />
         <Route path='/categories/:category' element={<SpecificCategoryProduct />} />

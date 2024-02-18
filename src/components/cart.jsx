@@ -20,6 +20,9 @@ import OrderFragment from "./orderFragment";
 export default function Cart() {
 
     const navigate = useNavigate();
+    const locationData = useLocation().state;
+
+    const { sid } = locationData.sid;
 
     const [loading, setLoading] = useState(true);
     const [cartInfo, setCartInfo] = useState([]);
@@ -31,7 +34,7 @@ export default function Cart() {
 
     const proceedToPay = async () => {
         const postData = {
-            sid: "37c86bde-7c02-4bd5-923a-b302efdcf466",
+            sid,
             VoucherCode: appliedVoucher.VoucherCode,
             PaymentMethod: "Cash On Delivery",
             TransactionID: null
@@ -42,7 +45,7 @@ export default function Cart() {
         try {
             const response = await axios.post(apiUrl, postData);
             alert(response.data.message);
-            navigate('/home')
+            navigate('/home', {state: locationData})
         } catch (error) {
             alert('Error making payment')
         }
@@ -50,7 +53,7 @@ export default function Cart() {
 
     useEffect(() => {
         const postData = {
-            sid: "37c86bde-7c02-4bd5-923a-b302efdcf466"
+            sid,
         }
 
         const fetchCartInfo = async () => {
@@ -162,7 +165,7 @@ export default function Cart() {
                     alignItems={'center'}
                     onClick={
                         () => {
-                            navigate('/home')
+                            navigate('/home', {state: locationData})
                         }
                     }
                 >
@@ -250,6 +253,11 @@ export default function Cart() {
                         size={'xs'}
                         w={'70%'}
                         borderRadius={'full'}
+                        onClick={
+                            () => {
+                                navigate('/categories', {state: locationData})
+                            }
+                        }
                     >
                         Click to Add More Items...
                     </Button>

@@ -7,10 +7,15 @@ import {
 
 import { ChevronRightIcon } from '@chakra-ui/icons';
 
+import { useNavigate } from 'react-router-dom';
+
 import Logo from "./logo";
 import InfoText from "./infoText";
 
 export default function RegOk() {
+
+    const navigate = useNavigate();
+
     return (
         <VStack className="baloo" spacing="0rem" align="center">
             <Logo pt={'5%'} imgSize={'20%'} fontSize1={'3xl'} fontSize2={'xl'} />
@@ -43,9 +48,11 @@ export default function RegOk() {
                 mt={{ base: '5%', }}
                 size={{ base: 'lg', }}
                 rightIcon={<ChevronRightIcon boxSize={8} />}
-                onClick={() => {
-                    window.location.href = '/login';
-                }}
+                onClick={
+                    () => {
+                        navigate(`/login`)                    
+                    }
+                }
             >
                 <Text
                     color={{ base: 'black', }}

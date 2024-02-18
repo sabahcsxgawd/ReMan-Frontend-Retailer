@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -20,6 +20,8 @@ import IndividualProductCategory from "./individualProductCategory";
 
 export default function SpecificCategoryProduct() {
 
+    const navigate = useNavigate();
+    const locationData = useLocation().state;
 
     const screenWidth = window.screen.width;
     const screenHeight = window.screen.height;
@@ -83,7 +85,11 @@ export default function SpecificCategoryProduct() {
                         pos={'absolute'}
                         left={0}
                         ml={'5%'}
-                        onClick={() => window.location.href = '/home'}
+                        onClick={
+                            () => {
+                                navigate('/home');
+                            }
+                        }
                     />
                     <Text
                         color={'#ffffff'}
@@ -99,6 +105,11 @@ export default function SpecificCategoryProduct() {
                         pos={'absolute'}
                         right={0}
                         mr={'5%'}
+                        onClick={
+                            () => {
+                                navigate('/cart', { state: locationData });
+                            }
+                        }
                     />
                 </HStack>
             </Box>
