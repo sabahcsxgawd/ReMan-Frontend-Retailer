@@ -15,7 +15,7 @@ export default function PaymentSuccess() {
 
     // log locationData.proceedToPayData in console
     useEffect(() => {
-        console.log(locationData.proceedToPayData);
+        console.log(locationData);
     }, []);
 
     return (
