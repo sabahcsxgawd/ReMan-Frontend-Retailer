@@ -6,11 +6,17 @@ import {
     VStack,
 
 } from "@chakra-ui/react"
+import { useEffect } from "react";
 
 export default function PaymentSuccess() {
 
     const navigate = useNavigate();
     const locationData = useLocation().state;
+
+    // log locationData.proceedToPayData in console
+    useEffect(() => {
+        console.log(locationData.proceedToPayData);
+    }, []);
 
     return (
         <>

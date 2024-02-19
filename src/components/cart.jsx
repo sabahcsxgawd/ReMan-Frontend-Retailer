@@ -53,7 +53,7 @@ export default function Cart() {
 
         // TODO change locationData according to need and navigate to checkout page
         locationData.proceedToPayData = {
-            appliedVoucher: appliedVoucher.VoucherCode
+            VoucherCode: appliedVoucher.VoucherCode
         }
         navigate('/checkout', { state: locationData });
     }

@@ -27,7 +27,7 @@ export default function Checkout() {
         if (checkoutMethod === 'Cash On Delivery') {
             const postData = {
                 sid: locationData.sid,
-                VoucherCode: locationData.proceedToPayData.appliedVoucher,
+                VoucherCode: locationData.proceedToPayData.VoucherCode,
                 PaymentMethod: "Cash On Delivery",
                 TransactionID: null
             };
@@ -44,7 +44,20 @@ export default function Checkout() {
             }
         }
         else if (checkoutMethod === 'Online Payment') {
-            // navigate('/cart', { state: locationData });
+            const apiUrl = `${import.meta.env.VITE_API_URL}/payment/paymentOnline`;
+
+            try {
+                const response = await axios.post(apiUrl);
+                console.log(response.data);
+                locationData.proceedToPayData.PaymentMethod = 'Online Payment';
+                locationData.proceedToPayData.TransactionID = response.data.TransactionID;
+
+                window.location.href = response.data.url;
+
+
+            } catch (error) {
+                alert('Error making payment')
+            }
         }
         else {
             alert('Please select a payment method');
@@ -208,7 +221,8 @@ export default function Checkout() {
                     />
 
                     <RadioGroup
-                        defaultValue="Cash On Delivery"
+                        onChange={setCheckoutMethod}
+                        value={checkoutMethod}
                     >
                         <Stack>
 
@@ -216,11 +230,6 @@ export default function Checkout() {
                                 size={'lg'}
                                 colorScheme="orange"
                                 value="Cash On Delivery"
-                                onClick={
-                                    () => {
-                                        setCheckoutMethod('Cash On Delivery');
-                                    }
-                                }
                             >
                                 Cash On Delivery
                             </Radio>
@@ -229,11 +238,6 @@ export default function Checkout() {
                                 size={'lg'}
                                 colorScheme="orange"
                                 value="Online Payment"
-                                onClick={
-                                    () => {
-                                        setCheckoutMethod('Online Payment');
-                                    }
-                                }
                             >
                                 Online Payment
                             </Radio>
