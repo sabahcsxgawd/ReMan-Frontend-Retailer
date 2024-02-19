@@ -156,7 +156,11 @@ export default function PaymentSuccess() {
                     noOfLines={1}
                     onClick={
                         () => {
-                            navigate('/home', { state: { sid } })
+                            navigate('/home', {
+                                state: {
+                                    sid: sid
+                                }
+                            });
                         }
                     }
                 >

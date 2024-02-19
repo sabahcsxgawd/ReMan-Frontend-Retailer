@@ -149,7 +149,11 @@ export default function PaymentFail() {
                     noOfLines={1}
                     onClick={
                         () => {
-                            navigate('/home', { state: { sid } })
+                            navigate('/home', {
+                                state: {
+                                    sid: sid
+                                }
+                            });
                         }
                     }
                 >
