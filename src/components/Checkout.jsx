@@ -44,11 +44,14 @@ export default function Checkout() {
             }
         }
         else if (checkoutMethod === 'Online Payment') {
+            const postData = {
+                TotalAmount: locationData.proceedToPayData.TotalAmount,
+            };
+
             const apiUrl = `${import.meta.env.VITE_API_URL}/payment/paymentOnline`;
 
             try {
-                const response = await axios.post(apiUrl);
-                console.log(response.data);
+                const response = await axios.post(apiUrl, postData);
                 locationData.proceedToPayData.PaymentMethod = 'Online Payment';
                 locationData.proceedToPayData.TransactionID = response.data.TransactionID;
 

@@ -53,7 +53,8 @@ export default function Cart() {
 
         // TODO change locationData according to need and navigate to checkout page
         locationData.proceedToPayData = {
-            VoucherCode: appliedVoucher.VoucherCode
+            VoucherCode: appliedVoucher.VoucherCode,
+            TotalAmount: subTotal + deliveryCharge - (subTotal * appliedVoucher.VoucherPercentage / 100)
         }
         navigate('/checkout', { state: locationData });
     }

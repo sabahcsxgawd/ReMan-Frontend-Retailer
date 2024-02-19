@@ -13,11 +13,6 @@ export default function PaymentSuccess() {
     const navigate = useNavigate();
     const locationData = useLocation().state;
 
-    // log locationData.proceedToPayData in console
-    useEffect(() => {
-        console.log(locationData);
-    }, []);
-
     return (
         <>
             <Box
