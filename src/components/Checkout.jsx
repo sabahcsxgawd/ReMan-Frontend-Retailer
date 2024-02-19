@@ -61,12 +61,14 @@ export default function Checkout() {
                     TransactionID: response.data.TransactionID
                 };
 
+                console.log(postData1);
+
                 const apiUrl1 = `${import.meta.env.VITE_API_URL}/order/addOrder`;
 
                 try {
                     const response1 = await axios.post(apiUrl1, postData1);
                     locationData.proceedToPayData = {};
-                    window.location.href = response1.data.url;
+                    window.location.href = response.data.url;
                 } catch (error) {
                     alert('Error making payment')
                 }
