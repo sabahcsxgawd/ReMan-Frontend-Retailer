@@ -106,7 +106,7 @@ export default function Cart() {
                 });
                 subTotal += fragmentTotal;
                 if (fragmentTotal !== orderFragment.totalPrice) {
-                    alert('Fragment total price mismatch');
+                    // alert('Fragment total price mismatch');
                 }
             });
 

@@ -43,6 +43,7 @@ export default function Checkout() {
                 alert('Error making payment')
             }
         }
+
         else if (checkoutMethod === 'Online Payment') {
             const postData = {
                 TotalAmount: locationData.proceedToPayData.TotalAmount,
@@ -52,11 +53,23 @@ export default function Checkout() {
 
             try {
                 const response = await axios.post(apiUrl, postData);
-                locationData.proceedToPayData.PaymentMethod = 'Online Payment';
-                locationData.proceedToPayData.TransactionID = response.data.TransactionID;
 
-                window.location.href = response.data.url;
+                const postData1 = {
+                    sid: locationData.sid,
+                    VoucherCode: locationData.proceedToPayData.VoucherCode,
+                    PaymentMethod: "Online Payment",
+                    TransactionID: response.data.TransactionID
+                };
 
+                const apiUrl1 = `${import.meta.env.VITE_API_URL}/order/addOrder`;
+
+                try {
+                    const response1 = await axios.post(apiUrl1, postData1);
+                    locationData.proceedToPayData = {};
+                    window.location.href = response1.data.url;
+                } catch (error) {
+                    alert('Error making payment')
+                }
 
             } catch (error) {
                 alert('Error making payment')
