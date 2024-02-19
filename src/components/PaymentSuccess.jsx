@@ -6,12 +6,14 @@ import {
     VStack,
 
 } from "@chakra-ui/react"
-import { useEffect } from "react";
 
 export default function PaymentSuccess() {
 
     const navigate = useNavigate();
-    const locationData = useLocation().state;
+    let locationData = useLocation().state;
+    locationData.sid = localStorage.getItem('sid');
+    console.log(locationData);
+    // localStorage.clear();
 
     return (
         <>
@@ -127,7 +129,7 @@ export default function PaymentSuccess() {
                         fontSize={'1.2rem'}
                     >
                         successfully processed
-                    </Text>                    
+                    </Text>
 
                 </VStack>
 

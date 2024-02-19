@@ -7,10 +7,13 @@ import {
 
 } from "@chakra-ui/react"
 
-export default function PaymentSuccess() {
+export default function PaymentFail() {
 
     const navigate = useNavigate();
-    const locationData = useLocation().state;    
+    let locationData = useLocation().state;
+    locationData.sid = localStorage.getItem('sid');
+    console.log(locationData);
+    // localStorage.clear();
 
     return (
         <>
