@@ -43,7 +43,11 @@ export default function PaymentFail() {
                     alignItems={'center'}
                     onClick={
                         () => {
-                            navigate('/home', { state: locationData })
+                            navigate('/home', {
+                                state: {
+                                    sid: sid
+                                }
+                            });
                         }
                     }
                 >
