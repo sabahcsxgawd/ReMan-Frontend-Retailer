@@ -87,7 +87,7 @@ export default function SpecificCategoryProduct() {
                         ml={'5%'}
                         onClick={
                             () => {
-                                navigate('/home');
+                                navigate('/home', { state: locationData });
                             }
                         }
                     />
