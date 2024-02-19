@@ -25,7 +25,7 @@ export default function SingleOrderFragment({ order }) {
         const apiUrl = `${import.meta.env.VITE_API_URL}/cart/deleteProduct`;
 
         try {
-            const response = await axios.delete(apiUrl, postData);
+            const response = await axios.delete(apiUrl, {data: postData});
             if (response.status === 201) {
                 alert('Product deleted from cart');
                 window.location.reload();
