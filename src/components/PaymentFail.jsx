@@ -10,10 +10,12 @@ import {
 export default function PaymentFail() {
 
     const navigate = useNavigate();
-    let locationData = useLocation().state;
-    locationData.sid = localStorage.getItem('sid');
-    console.log(locationData);
+    // let locationData = useLocation().state;
+    // locationData.sid = localStorage.getItem('sid');
+    // console.log(locationData);
     // localStorage.clear();
+    const sid = localStorage.getItem('sid');
+    localStorage.clear();
 
     return (
         <>
@@ -147,7 +149,7 @@ export default function PaymentFail() {
                     noOfLines={1}
                     onClick={
                         () => {
-                            navigate('/home', { state: locationData })
+                            navigate('/home', { state: { sid } })
                         }
                     }
                 >
