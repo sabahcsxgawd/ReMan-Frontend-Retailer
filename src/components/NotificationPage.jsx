@@ -11,11 +11,17 @@ import {
 } from "@chakra-ui/react";
 
 import NotificationList from "./NotificationList";
+import UserProfileDrawer from "./UserProfileDrawer";
 
 export default function NotificationPage() {
 
     // TODO : fetch data from server
     const [isloading, setIsLoading] = useState(false);
+
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+    const handleOpenDrawer = () => setDrawerOpen(true);
+    const handleCloseDrawer = () => setDrawerOpen(false);
+
 
     const profilePicPixel = window.screen.height * 0.07;
 
@@ -89,7 +95,10 @@ export default function NotificationPage() {
                     boxSize={`${profilePicPixel}px`}
                     bg={'white'}
                     borderRadius={"full"}
+                    onClick={handleOpenDrawer}
                 />
+
+                <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer}/>
 
                 <Spacer />
 
