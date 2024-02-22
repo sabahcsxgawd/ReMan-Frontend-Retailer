@@ -14,6 +14,7 @@ import NotificationList from "./NotificationList";
 
 export default function NotificationPage() {
 
+    // TODO : fetch data from server
     const [isloading, setIsLoading] = useState(false);
 
     const profilePicPixel = window.screen.height * 0.07;
@@ -93,8 +94,6 @@ export default function NotificationPage() {
                 <Spacer />
 
             </Box>
-
-            {/* read status */}
 
             {/* notification list */}
             <Box
