@@ -47,32 +47,36 @@ export default function Checkout() {
         else if (checkoutMethod === 'Online Payment') {
             const postData = {
                 TotalAmount: locationData.proceedToPayData.TotalAmount,
+                sid: locationData.sid,
+                VoucherCode: locationData.proceedToPayData.VoucherCode,
             };
 
             const apiUrl = `${import.meta.env.VITE_API_URL}/payment/paymentOnline`;
 
             try {
                 const response = await axios.post(apiUrl, postData);
+                locationData.proceedToPayData = {};
+                window.location.href = response.data.url;
 
-                const postData1 = {
-                    sid: locationData.sid,
-                    VoucherCode: locationData.proceedToPayData.VoucherCode,
-                    PaymentMethod: "Online Payment",
-                    TransactionID: response.data.TransactionID
-                };
+                // const postData1 = {
+                //     sid: locationData.sid,
+                //     VoucherCode: locationData.proceedToPayData.VoucherCode,
+                //     PaymentMethod: "Online Payment",
+                //     TransactionID: response.data.TransactionID
+                // };
 
-                console.log(postData1);
+                // console.log(postData1);
 
-                const apiUrl1 = `${import.meta.env.VITE_API_URL}/order/addOrder`;
+                // const apiUrl1 = `${import.meta.env.VITE_API_URL}/order/addOrder`;
 
-                try {
-                    const response1 = await axios.post(apiUrl1, postData1);
-                    locationData.proceedToPayData = {};
-                    localStorage.setItem('sid', locationData.sid);
-                    window.location.href = response.data.url;
-                } catch (error) {
-                    alert('Error making payment')
-                }
+                // try {
+                //     const response1 = await axios.post(apiUrl1, postData1);
+                //     localStorage.setItem('sid', locationData.sid);
+                //     locationData.proceedToPayData = {};
+                //     window.location.href = response.data.url;
+                // } catch (error) {
+                //     alert('Error making payment')
+                // }
 
             } catch (error) {
                 alert('Error making payment')
