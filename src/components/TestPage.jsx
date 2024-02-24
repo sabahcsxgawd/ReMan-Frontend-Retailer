@@ -44,8 +44,8 @@ export default function TestPage() {
     const fetchCategories = async () => {
         try {
             const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/allCategories`);
-            setCategories(response.data.categories);
-            setFilteredCategories(response.data.categories);
+            setCategories(await response.data.categories);
+            setFilteredCategories(categories);
             setIsLoading(false);
         } catch (error) {
             alert("Error fetching categories. Please try again later.");
@@ -58,7 +58,7 @@ export default function TestPage() {
                 CategoryName: category
             }
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/products/productByCategory`, postData);
-            return response.data.products;
+            return await response.data.products;
         } catch (error) {
             alert("Error fetching products. Please try again later.");
         }
@@ -68,6 +68,7 @@ export default function TestPage() {
 
     useEffect(() => {
         fetchCategories();
+        
         categories.map(async (category) => {
             let newProducts = await fetchProducts(category.CategoryName);
             newProducts.forEach((newProduct) => {
