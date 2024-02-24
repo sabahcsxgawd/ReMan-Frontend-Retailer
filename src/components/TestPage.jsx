@@ -80,6 +80,7 @@ export default function TestPage() {
         }
         );
         setFilteredProducts(products);
+        console.log(filteredProducts);
         setIsLoading(false);
     }, [categories]);
 
