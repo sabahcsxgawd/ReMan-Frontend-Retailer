@@ -68,9 +68,6 @@ export default function TestPage() {
 
     useEffect(() => {
         fetchCategories();
-    }, []);
-
-    useEffect(() => {
         categories.map(async (category) => {
             let newProducts = await fetchProducts(category.CategoryName);
             newProducts.forEach((newProduct) => {
@@ -80,9 +77,9 @@ export default function TestPage() {
         }
         );
         setFilteredProducts(products);
+        console.log(filteredCategories);
         console.log(filteredProducts);
-        setIsLoading(false);
-    }, [categories]);
+    }, []);
 
     useEffect(
         () => {
