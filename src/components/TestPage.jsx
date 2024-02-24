@@ -66,7 +66,14 @@ export default function TestPage() {
     useEffect(() => {
         const fetchData = async () => {
             await fetchCategories();
+            setIsLoading(false);
+        };
 
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchProductsData = async () => {
             const promises = categories.map(async (category) => {
                 let newProducts = await fetchProducts(category.CategoryName);
                 newProducts.forEach((newProduct) => {
@@ -83,11 +90,13 @@ export default function TestPage() {
 
             setProducts(flattenedProducts);
             setFilteredProducts(flattenedProducts);
-            setIsLoading(false);
         };
 
-        fetchData();
-    }, [categories]); // Dependency array now includes 'categories'
+        // Check if categories have been loaded before fetching products
+        if (categories.length > 0) {
+            fetchProductsData();
+        }
+    }, [categories]);
 
     useEffect(
         () => {
