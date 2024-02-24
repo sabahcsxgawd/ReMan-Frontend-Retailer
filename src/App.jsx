@@ -14,12 +14,14 @@ import Checkout from './components/Checkout.jsx';
 import PaymentSuccess from './components/PaymentSuccess.jsx';
 import PaymentFail from './components/PaymentFail.jsx';
 import NotificationPage from './components/NotificationPage.jsx';
+import TestPage from './components/TestPage.jsx';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path='/' element={<LoginPhoneNum />} />
+        <Route path='/test' element={<TestPage />} />
         <Route path='/notifications' element={<NotificationPage />} />
         <Route path='/payment/success' element={<PaymentSuccess />} />
         <Route path='/payment/fail' element={<PaymentFail />} />

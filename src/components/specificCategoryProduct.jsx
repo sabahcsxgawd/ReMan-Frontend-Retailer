@@ -29,6 +29,7 @@ export default function SpecificCategoryProduct() {
     const topPartHeight = screenHeight * 0.12;
     const searchPartHeight = screenHeight * 0.1;
 
+    const [isloading, setIsLoading] = useState(true);
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [searchText, setSearchText] = useState('');
@@ -63,6 +64,7 @@ export default function SpecificCategoryProduct() {
         }
 
     }, [searchText, products]);
+    
 
     return (
         <VStack className="baloo">

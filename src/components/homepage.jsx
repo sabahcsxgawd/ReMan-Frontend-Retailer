@@ -51,7 +51,7 @@ export default function HomePage() {
                 alert("Error fetching categories. Please try again later.");
             }
         }
-        fetchCategories();
+        // fetchCategories();
     }, []);
 
     useEffect(
@@ -111,7 +111,7 @@ export default function HomePage() {
                         icon={<Image src="shopping-cart.svg" boxSize={`${topFixedHeight * 0.4}px`} />}
                         onClick={
                             () => {
-                                navigate('/cart', {state: locationData})
+                                navigate('/cart', { state: locationData })
                             }
                         }
                     />
@@ -179,7 +179,8 @@ export default function HomePage() {
                 pos={'fixed'}
                 overflow={'auto'}
             >
-                <VStack>
+                <VStack>                    
+
                     {
                         filteredCategories.map((category, index) => (
                             <HomeCategoryItem
@@ -191,6 +192,7 @@ export default function HomePage() {
                             />
                         ))
                     }
+
                 </VStack>
 
             </Box>
