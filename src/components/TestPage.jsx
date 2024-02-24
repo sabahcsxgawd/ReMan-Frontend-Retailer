@@ -79,7 +79,7 @@ export default function TestPage() {
         }
         );
         setIsLoading(false);
-    }, [categories, products]);
+    }, [categories]);
 
     useEffect(
         () => {
