@@ -45,6 +45,7 @@ export default function TestPage() {
         try {
             const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/allCategories`);
             setCategories(response.data.categories);
+            setFilteredCategories(response.data.categories);
             setIsLoading(false);
         } catch (error) {
             alert("Error fetching categories. Please try again later.");
@@ -75,9 +76,10 @@ export default function TestPage() {
             newProducts.forEach((newProduct) => {
                 newProduct.category = category.CategoryName.toLowerCase();
             });
-            setProducts([...products, ...newProducts]);            
+            setProducts([...products, ...newProducts]);
         }
         );
+        setFilteredProducts(products);
         setIsLoading(false);
     }, [categories]);
 
