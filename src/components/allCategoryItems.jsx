@@ -1,4 +1,4 @@
-import { getRandomColor } from "./home-category-item";
+import { getRandomColor } from "./HomeCategoryItem";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import {
