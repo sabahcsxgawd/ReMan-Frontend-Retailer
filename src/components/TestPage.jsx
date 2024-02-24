@@ -44,9 +44,8 @@ export default function TestPage() {
     const fetchCategories = async () => {
         try {
             const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/allCategories`);
-            setCategories(await response.data.categories);
-            setFilteredCategories(categories);
-            setIsLoading(false);
+            setCategories(response.data.categories);
+            setFilteredCategories(response.data.categories);
         } catch (error) {
             alert("Error fetching categories. Please try again later.");
         }
@@ -58,29 +57,37 @@ export default function TestPage() {
                 CategoryName: category
             }
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/products/productByCategory`, postData);
-            return await response.data.products;
+            return response.data.products;
         } catch (error) {
             alert("Error fetching products. Please try again later.");
         }
     }
 
-
-
     useEffect(() => {
-        fetchCategories();
-        
-        categories.map(async (category) => {
-            let newProducts = await fetchProducts(category.CategoryName);
-            newProducts.forEach((newProduct) => {
-                newProduct.category = category.CategoryName.toLowerCase();
+        const fetchData = async () => {
+            await fetchCategories();
+
+            const promises = categories.map(async (category) => {
+                let newProducts = await fetchProducts(category.CategoryName);
+                newProducts.forEach((newProduct) => {
+                    newProduct.category = category.CategoryName.toLowerCase();
+                });
+                return newProducts;
             });
-            setProducts([...products, ...newProducts]);
-        }
-        );
-        setFilteredProducts(products);
-        console.log(filteredCategories);
-        console.log(filteredProducts);
-    }, []);
+
+            // Wait for all promises to resolve
+            const allProducts = await Promise.all(promises);
+
+            // Flatten the array of arrays into a single array of products
+            const flattenedProducts = allProducts.flat();
+
+            setProducts(flattenedProducts);
+            setFilteredProducts(flattenedProducts);
+            setIsLoading(false);
+        };
+
+        fetchData();
+    }, [categories]); // Dependency array now includes 'categories'
 
     useEffect(
         () => {
