@@ -45,7 +45,6 @@ export default function TestPage() {
         try {
             const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/allCategories`);
             setCategories(response.data.categories);
-            setFilteredCategories(response.data.categories);
             setIsLoading(false);
         } catch (error) {
             alert("Error fetching categories. Please try again later.");
@@ -71,18 +70,16 @@ export default function TestPage() {
     }, []);
 
     useEffect(() => {
-        filteredCategories.map(async (category) => {
-            let products = await fetchProducts(category.CategoryName);
-            products.forEach((product) => {
-                product.category = category.CategoryName.toLowerCase();
+        categories.map(async (category) => {
+            let newProducts = await fetchProducts(category.CategoryName);
+            newProducts.forEach((newProduct) => {
+                newProduct.category = category.CategoryName.toLowerCase();
             });
-            console.log(products);
-            setProducts([...products, ...products]);
-            setFilteredProducts([...products, ...products]);
-            setIsLoading(false);
+            setProducts([...products, ...newProducts]);            
         }
         );
-    }, [filteredCategories, categories]);
+        setIsLoading(false);
+    }, [categories, products]);
 
     useEffect(
         () => {
