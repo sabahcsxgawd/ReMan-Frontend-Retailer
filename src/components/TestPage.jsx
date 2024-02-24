@@ -410,7 +410,7 @@ function TestHomeCategoryItem({ categoryName, categoryImagePath, categoryImageSi
                 </Text>
                 <Spacer />
                 <Image
-                    src={`${categoryImagePath}`}
+                    src={`/category-images/${categoryName.toLowerCase()}.svg`}
                     alt={`${categoryName}`}
                     boxSize={`${categoryImageSize}px`}
                 />
