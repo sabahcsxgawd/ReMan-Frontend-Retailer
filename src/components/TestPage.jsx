@@ -328,26 +328,7 @@ export default function TestPage() {
                 alignItems={'center'}
                 borderTopColor={'black'}
                 borderTopWidth={'2px'}
-            >
-                <Spacer />
-
-                <Box>
-                    <VStack>
-                        <Image
-                            mb={'-1'}
-                            src='/home.svg'
-                            alt='home'
-                            boxSize={`${screenHeight * bottomPartHeightPercentage * 0.55}px`}
-                        />
-                        <Text
-                            mt={'-2'}
-                            noOfLines={1}
-                        >
-                            Home
-                        </Text>
-                    </VStack>
-                </Box>
-
+            >               
                 <Spacer />
 
                 <Box>
