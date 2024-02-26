@@ -159,6 +159,7 @@ export function CategoryPage() {
                         </Input>
                     </InputGroup>
                     <Spacer />
+                    {/* TODO : Add filter functionality
                     <IconButton
                         mt={`${searchPartHeight * 0.15}px`}
                         mb={`${searchPartHeight * 0.15}px`}
@@ -166,7 +167,7 @@ export function CategoryPage() {
                         boxSize={`${searchPartHeight * 0.7}px`}
                         bg={'#dfdfdf'}
                         icon={<Image src="filter.svg" boxSize={`${searchPartHeight * 0.5}px`} />}
-                    />
+                    /> */}
                     <Spacer />
                 </HStack>
             </Box>

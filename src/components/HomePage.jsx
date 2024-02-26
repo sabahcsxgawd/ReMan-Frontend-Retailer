@@ -264,6 +264,7 @@ export default function HomePage() {
 
                 </InputGroup>
 
+                {/* TODO : add filter functionality
                 <IconButton
                     mr={'5'}
                     bg={'#d9d9d9'}
@@ -276,7 +277,7 @@ export default function HomePage() {
                             boxSize={`${screenHeight * searchAndFilterPartHeightPercentage * 0.55}px`}
                         />
                     }
-                />
+                /> */}
 
             </Box>
 

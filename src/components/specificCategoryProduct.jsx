@@ -146,12 +146,13 @@ export default function SpecificCategoryProduct() {
                         </Input>
                     </InputGroup>
                     <Spacer />
+                    {/* TODO : Add filter functionality
                     <IconButton
                         isRound={true}
                         boxSize={`${searchPartHeight * 0.7}px`}
                         bg={'#dfdfdf'}
                         icon={<Image src="/filter.svg" boxSize={`${searchPartHeight * 0.5}px`} />}
-                    />
+                    /> */}
                     <Spacer />
                 </HStack>
             </Box>
