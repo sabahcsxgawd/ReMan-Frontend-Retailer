@@ -9,7 +9,7 @@ import {
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export function getFormattedDate(orderDate) {    
+export function getFormattedDate(orderDate) {
     if (orderDate === null || orderDate === undefined) {
         return '';
     }
@@ -70,145 +70,56 @@ export default function OrderHistoryItem({ order }) {
 
                 <Box
                     className='baloo'
-                    w={'50%'}
+                    w={'55%'}
                     h={'100%'}
                     display={'flex'}
                     justifyContent={'center'}
                     alignItems={'center'}
                 >
                     <VStack
-                        ml={1}
-                        mr={1}
+                        w={'100%'}
+                        ml={'2'}
                         spacing={0}
                     >
-                        <HStack
-                            w={'100%'}
-                            spacing={0}
-                        >
-                            <Text
-                                w={'70%'}
-                                noOfLines={1}
-                                color={'#3A59A7'}
-                                textAlign={'left'}
-                                fontSize={'sm'}
-                            >
-                                Payment Method :
-                            </Text>
+                        <OrderHistoryMiddleFragment
+                            w1={60}
+                            color1={'#3A59A7'}
+                            color2={'black'}
+                            text1={'Payment Method'}
+                            text2={order.PaymentMethod}
+                        />
 
-                            <Text
-                                w={'30%'}
-                                noOfLines={1}
-                                color={'#000000'}
-                                textAlign={'right'}
-                                fontSize={'sm'}
-                            >
-                                {order.PaymentMethod}
-                            </Text>
-                        </HStack>
+                        <OrderHistoryMiddleFragment
+                            w1={50}
+                            color1={'#38BA55'}
+                            color2={'#38BA55'}
+                            text1={'Manufacturer'}
+                            text2={order.ManufacturerName}
+                        />
 
-                        <HStack
-                            w={'100%'}
-                            spacing={0}
-                        >
-                            <Text
-                                w={'55%'}
-                                noOfLines={1}
-                                color={'#38BA55'}
-                                textAlign={'left'}
-                                fontSize={'sm'}
-                            >
-                                Manufacturer :
-                            </Text>
+                        <OrderHistoryMiddleFragment
+                            w1={55}
+                            color1={'#5A6131'}
+                            color2={orderStatusMap['In Progress']}
+                            text1={'Payment Status'}
+                            text2={order.PaymentStatus}
+                        />
 
-                            <Text
-                                w={'45%'}
-                                noOfLines={1}
-                                color={'#38BA55'}
-                                textAlign={'right'}
-                                fontSize={'sm'}
-                            >
-                                {order.ManufacturerName}
-                            </Text>
+                        <OrderHistoryMiddleFragment
+                            w1={55}
+                            color1={'#5A6131'}
+                            color2={orderStatusMap[order.DeliveryStatus]}
+                            text1={'Delivery Status'}
+                            text2={order.DeliveryStatus}
+                        />
 
-                        </HStack>
-
-                        <HStack
-                            w={'100%'}
-                            spacing={0}
-                        >
-                            <Text
-                                w={'65%'}
-                                noOfLines={1}
-                                color={'#5A6131'}
-                                textAlign={'left'}
-                                fontSize={'sm'}
-                            >
-                                Payment Status :
-                            </Text>
-
-                            <Text
-                                w={'35%'}
-                                noOfLines={1}
-                                color={orderStatusMap['In Progress']}
-                                textAlign={'right'}
-                                fontSize={'sm'}
-                            >
-                                {order.PaymentStatus}
-                            </Text>
-
-                        </HStack>
-
-                        <HStack
-                            w={'100%'}
-                            spacing={0}
-                        >
-                            <Text
-                                w={'65%'}
-                                noOfLines={1}
-                                color={'#5A6131'}
-                                textAlign={'left'}
-                                fontSize={'sm'}
-                            >
-                                Delivery Status :
-                            </Text>
-
-                            <Text
-                                w={'35%'}
-                                noOfLines={1}
-                                color={orderStatusMap['Cancelled']}
-                                textAlign={'right'}
-                                fontSize={'sm'}
-                            >
-                                {order.DeliveryStatus}
-                            </Text>
-
-                        </HStack>
-
-                        <HStack
-                            w={'100%'}
-                            spacing={0}
-                        >
-                            <Text
-                                w={'70%'}
-                                noOfLines={1}
-                                color={'#000000'}
-                                textAlign={'left'}
-                                fontSize={'sm'}
-                            >
-                                Shipment Status :
-                            </Text>
-
-                            <Text
-                                w={'30%'}
-                                noOfLines={1}
-                                color={'#000000'}
-                                textAlign={'right'}
-                                fontSize={'sm'}
-                            >
-                                {order.ShipmentStatus}
-                            </Text>
-
-                        </HStack>
+                        <OrderHistoryMiddleFragment
+                            w1={58}
+                            color1={'#black'}
+                            color2={'black'}
+                            text1={'Shipment Status'}
+                            text2={order.ShipmentStatus}
+                        />
 
                     </VStack>
 
@@ -216,27 +127,42 @@ export default function OrderHistoryItem({ order }) {
 
                 <Box
                     className='baloo'
-                    w={'30%'}
+                    w={'25%'}
                     h={'100%'}
                     display={'flex'}
                     justifyContent={'right'}
                     alignItems={'center'}
                 >
-                    <VStack>
+                    <VStack
+                        w={'100%'}
+                    >
                         <HStack>
-                            <Text>
+                            <Text
+                                noOfLines={1}
+                                fontSize={'md'}
+                            >
                                 10:00
                             </Text>
-                            <Text>
+
+                            <Text
+                                noOfLines={1}
+                                fontSize={'md'}
+                                color={Time_AM_PM_Map['AM']}
+                            >
                                 AM
                             </Text>
+
                         </HStack>
 
-                        <Text>
+                        <Text
+                            noOfLines={1}
+                            fontSize={'sm'}
+                        >
                             {formattedOrderDate}
                         </Text>
 
                         <Button
+                            size={'sm'}
                             bg={'#d9d9d9'}
                             borderRadius={'xl'}
                             onClick={
@@ -263,5 +189,35 @@ export default function OrderHistoryItem({ order }) {
             />
 
         </Box>
+    );
+}
+
+export function OrderHistoryMiddleFragment({ w1, color1, color2, text1, text2 }) {
+    return (
+        <HStack
+            w={'100%'}
+            display={'flex'}
+            spacing={0}
+        >
+            <Text
+                w={`${w1}%`}
+                noOfLines={1}
+                color={color1}
+                textAlign={'left'}
+                fontSize={'sm'}
+            >
+                {text1} :
+            </Text>
+
+            <Text
+                w={`${100 - w1}%`}
+                noOfLines={1}
+                color={color2}
+                textAlign={'right'}
+                fontSize={'sm'}
+            >
+                {text2}
+            </Text>
+        </HStack>
     );
 }
