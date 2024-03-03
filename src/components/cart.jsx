@@ -31,6 +31,7 @@ export default function Cart() {
 
     const [loading, setLoading] = useState(true);
     const [cartInfo, setCartInfo] = useState([]);
+    const [cartInfoLoaded, setCartInfoLoaded] = useState(false);
     const [voucherInfo, setVoucherInfo] = useState([]);
 
     const [subTotal, setSubTotal] = useState(0);
@@ -38,24 +39,6 @@ export default function Cart() {
     const [appliedVoucher, setAppliedVoucher] = useState({ mid: '', VoucherCode: '', VoucherPercentage: 0 });
 
     const proceedToPay = async () => {
-        // const postData = {
-        //     sid,
-        //     VoucherCode: appliedVoucher.VoucherCode,
-        //     PaymentMethod: "Cash On Delivery",
-        //     TransactionID: null
-        // };
-
-        // const apiUrl = `${import.meta.env.VITE_API_URL}/order/addOrder`;
-
-        // try {
-        //     const response = await axios.post(apiUrl, postData);
-        //     alert(response.data.message);
-        //     navigate('/home', { state: locationData })
-        // } catch (error) {
-        //     alert('Error making payment')
-        // }
-
-
         // TODO change locationData according to need and navigate to checkout page
         locationData.proceedToPayData = {
             VoucherCode: appliedVoucher.VoucherCode,
@@ -64,39 +47,47 @@ export default function Cart() {
         navigate('/checkout', { state: locationData });
     }
 
-    useEffect(() => {
+    const fetchCartInfo = async () => {
         const postData = {
             sid,
+        };
+
+        const apiUrl = `${import.meta.env.VITE_API_URL}/cart/cartInfo`;
+
+        try {
+            const response = await axios.post(apiUrl, postData);
+            setCartInfo(response.data.manufacturerInfo);
+            setCartInfoLoaded(true); // Set cartInfoLoaded to true after cart info is loaded
+            setLoading(false);
+        } catch (error) {
+            alert('Failed to fetch cart info');
         }
+    }
 
-        const fetchCartInfo = async () => {
-            try {
-                const apiUrl = `${import.meta.env.VITE_API_URL}/cart/cartInfo`;
+    const fetchVoucherInfo = async () => {
+        const postData = {
+            sid,
+        };
 
-                const response = await axios.post(apiUrl, postData);
-                setCartInfo(response.data.manufacturerInfo);
-                setLoading(false);
-            } catch (error) {
-                alert('Failed to fetch cart info');
-            }
+        const apiUrl = `${import.meta.env.VITE_API_URL}/vouchers/fetchVouchers`;
+
+        try {
+            const response = await axios.post(apiUrl, postData);
+            setVoucherInfo(response.data);
+        } catch (error) {
+            alert('Failed to fetch voucher info');
         }
+    }
 
+    useEffect(() => {
         fetchCartInfo();
-
-        const fetchVoucherInfo = async () => {
-            try {
-                const apiUrl = `${import.meta.env.VITE_API_URL}/vouchers/fetchVouchers`;
-
-                const response = await axios.post(apiUrl, postData);
-                setVoucherInfo(response.data);
-            } catch (error) {
-                alert('Failed to fetch voucher info');
-            }
-        }
-
-        fetchVoucherInfo();
-
     }, []);
+
+    useEffect(() => {
+        if (cartInfoLoaded) {
+            fetchVoucherInfo();
+        }
+    }, [cartInfoLoaded]);
 
     useEffect(
         () => {
