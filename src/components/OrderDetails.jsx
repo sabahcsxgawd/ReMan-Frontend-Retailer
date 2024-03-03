@@ -238,6 +238,34 @@ export default function OrderDetails() {
                             noOfLines={2}
                             fontSize={'xl'}
                         >
+                            Manufacturer
+                        </Text>
+
+                        <Text
+                            textAlign={'center'}
+                            fontSize={'xl'}
+                        >
+                            :
+                        </Text>
+
+                        <Text
+                            textAlign={'center'}
+                            fontSize={'xl'}
+                            noOfLines={2}
+                            color={'red.500'}
+                        >
+                            {orderDetails.ManufacturerName}
+                        </Text>
+
+                    </HStack>
+
+                    <HStack>
+
+                        <Text
+                            textAlign={'center'}
+                            noOfLines={2}
+                            fontSize={'xl'}
+                        >
                             Order Date
                         </Text>
 
@@ -311,34 +339,6 @@ export default function OrderDetails() {
                             color={'yellow.500'}
                         >
                             {orderDetails.DeliveryDate}
-                        </Text>
-
-                    </HStack>
-
-                    <HStack>
-
-                        <Text
-                            textAlign={'center'}
-                            noOfLines={2}
-                            fontSize={'xl'}
-                        >
-                            Shipment Status
-                        </Text>
-
-                        <Text
-                            textAlign={'center'}
-                            fontSize={'xl'}
-                        >
-                            :
-                        </Text>
-
-                        <Text
-                            textAlign={'center'}
-                            fontSize={'xl'}
-                            noOfLines={2}
-                            color={'purple.500'}
-                        >
-                            {orderDetails.ShipmentStatus}
                         </Text>
 
                     </HStack>
