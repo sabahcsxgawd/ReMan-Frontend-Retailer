@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
+import axios from "axios";
 
 import {
     Box,
@@ -6,8 +9,6 @@ import {
     Text,
     Image,
     Spacer,
-
-
 } from "@chakra-ui/react";
 
 import NotificationList from "./NotificationList";
@@ -15,15 +16,53 @@ import UserProfileDrawer from "./UserProfileDrawer";
 
 export default function NotificationPage() {
 
-    // TODO : fetch data from server
-    const [isloading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+    const locationData = useLocation().state;
+
+    const [isloading, setIsLoading] = useState(true);
 
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const handleOpenDrawer = () => setDrawerOpen(true);
     const handleCloseDrawer = () => setDrawerOpen(false);
 
+    // Sorting function
+    const customSort = (a, b) => {
+        // First, sort by ReadStatus (false comes first)
+        const readStatusComparison = a.ReadStatus - b.ReadStatus;
+
+        // If ReadStatus is the same, sort by DateAndTime in descending order
+        const dateComparison = new Date(b.DateAndTime) - new Date(a.DateAndTime);
+
+        // Combine the comparisons
+        return readStatusComparison || dateComparison;
+    };
+
+    const [allNotifications, setAllNotifications] = useState([]);
+
 
     const profilePicPixel = window.screen.height * 0.07;
+
+    const fetchAllNotifications = async () => {
+        const postData = {
+            sid: locationData.sid
+        };
+
+        const apiUrl = `${import.meta.env.VITE_API_URL}/notification/allNotificationsRetailer`;
+
+        try {
+            const response = await axios.post(apiUrl, postData);
+            setAllNotifications(response.data.notifications.sort(customSort));
+            setIsLoading(false);
+        }
+        catch (error) {
+            console.log('Error fetching Notifications');
+        }
+    }
+
+
+    useEffect(() => {
+        fetchAllNotifications();
+    }, []);
 
     if (isloading) {
         return (
@@ -73,6 +112,11 @@ export default function NotificationPage() {
                     src="/arrow-left-circle.svg"
                     alt="back"
                     boxSize={`${profilePicPixel}px`}
+                    onClick={
+                        () => {
+                            navigate(-1);
+                        }
+                    }
                 />
 
                 <Spacer />
@@ -98,7 +142,7 @@ export default function NotificationPage() {
                     onClick={handleOpenDrawer}
                 />
 
-                <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer}/>
+                <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
 
                 <Spacer />
 
@@ -115,14 +159,16 @@ export default function NotificationPage() {
                 overflow={"auto"}
             >
 
-                <NotificationList readStatus={true} />
-                <NotificationList readStatus={false} />
-                <NotificationList readStatus={true} />
-                <NotificationList readStatus={false} />
-                <NotificationList readStatus={true} />
-                <NotificationList readStatus={false} />
-                <NotificationList readStatus={true} />
-                <NotificationList readStatus={false} />
+                {
+                    allNotifications.map((notification) => {
+                        return (
+                            <NotificationList
+                                key={notification.nid}
+                                notification={notification}
+                            />
+                        );
+                    })
+                }
 
             </Box>
 

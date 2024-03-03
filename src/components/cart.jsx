@@ -16,11 +16,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import OrderFragment from "./orderFragment";
+import UserProfileDrawer from "./UserProfileDrawer";
 
 export default function Cart() {
 
     const navigate = useNavigate();
     const locationData = useLocation().state;
+
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+    const handleOpenDrawer = () => setDrawerOpen(true);
+    const handleCloseDrawer = () => setDrawerOpen(false);
 
     const { sid } = locationData.sid;
 
@@ -151,6 +156,9 @@ export default function Cart() {
 
     return (
         <>
+            {/* Drawer */}
+            <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+
             <Box
                 className="baloo"
                 w={'100%'}
@@ -214,6 +222,7 @@ export default function Cart() {
                     <Image
                         src={'/profile.svg'}
                         boxSize={'60%'}
+                        onClick={handleOpenDrawer}
                     />
                 </Box>
 

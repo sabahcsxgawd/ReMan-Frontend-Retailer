@@ -18,13 +18,18 @@ import {
 
 } from '@chakra-ui/react'
 
-import TestHomeCategoryItem from './HomeCategoryItem'
-import HomeProductItem from './HomeProductItem'
+import TestHomeCategoryItem from './HomeCategoryItem';
+import HomeProductItem from './HomeProductItem';
+import UserProfileDrawer from "./UserProfileDrawer";
 
 export default function HomePage() {
 
     const navigate = useNavigate();
     const locationData = useLocation().state;
+
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+    const handleOpenDrawer = () => setDrawerOpen(true);
+    const handleCloseDrawer = () => setDrawerOpen(false);
 
     const screenHeight = window.screen.height;
     const screenWidth = window.screen.width;
@@ -154,6 +159,9 @@ export default function HomePage() {
 
     return (
         <>
+            {/* Drawer */}
+            <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+
             {/* top part */}
             <Box
                 className='baloo'
@@ -220,6 +228,7 @@ export default function HomePage() {
                             isRound={true}
                             boxSize={`${screenHeight * topPartHeightPercentage * 0.6}px`}
                             bg={'#d9d9d9'}
+                            onClick={handleOpenDrawer}
                         />
 
                     </ButtonGroup>

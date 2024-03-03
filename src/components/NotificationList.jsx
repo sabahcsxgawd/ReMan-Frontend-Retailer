@@ -4,10 +4,29 @@ import {
 } from '@chakra-ui/react';
 
 
-export default function NotificationList({ readStatus }) {
+export default function NotificationList({ notification }) {
+
+    const readStatus = notification.ReadStatus;
+    const dateTime = new Date(notification.DateAndTime);
+
+    // Format date as day month year (e.g., 02 Mar 2024)
+    const formattedDate = dateTime.toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+    });
+
+    // Format time as HH:MM AM/PM (e.g., 09:53 PM)
+    const formattedTime = dateTime.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+    });
 
     const textColor = readStatus ? "#AFAFC1" : "red";
     const timeColor = readStatus ? "red.500" : "white";
+
+    console.log(notification);
 
     return (
         <Box
@@ -37,8 +56,7 @@ export default function NotificationList({ readStatus }) {
                         noOfLines={3}
                         textAlign={"left"}
                     >
-                        Fresh Group has launced a brand new
-                        product. Check it out now
+                        {notification.Message}
                     </Text>
 
                 </Box>
@@ -65,7 +83,7 @@ export default function NotificationList({ readStatus }) {
                             textAlign={"left"}
                             color={timeColor}
                         >
-                            10 : 00 PM
+                            {formattedTime}
                         </Text>
 
                     </Box>
@@ -86,7 +104,7 @@ export default function NotificationList({ readStatus }) {
                             textAlign={"right"}
                             color={timeColor}
                         >
-                            25 Jul 2024
+                            {formattedDate}
                         </Text>
 
                     </Box>

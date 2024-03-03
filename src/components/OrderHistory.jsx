@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import axios from 'axios';
 import OrderHistoryItem from './OrderHistoryItem';
+import UserProfileDrawer from "./UserProfileDrawer";
 
 import {
     Box,
@@ -23,6 +24,10 @@ export default function OrderHistory() {
 
     const navigate = useNavigate();
     const locationData = useLocation().state;
+
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+    const handleOpenDrawer = () => setDrawerOpen(true);
+    const handleCloseDrawer = () => setDrawerOpen(false);
 
     const screenHeight = window.screen.height;
     const screenWidth = window.screen.width;
@@ -83,6 +88,9 @@ export default function OrderHistory() {
 
     return (
         <>
+            {/* Drawer */}
+            <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+
             {/* top part */}
             <Box
                 className='baloo'
@@ -149,6 +157,7 @@ export default function OrderHistory() {
                             isRound={true}
                             boxSize={`${screenHeight * topPartHeightPercentage * 0.6}px`}
                             bg={'#d9d9d9'}
+                            onClick={handleOpenDrawer}
                         />
 
                     </ButtonGroup>

@@ -32,7 +32,6 @@ export default function ProductRateReview({ pid, name }) {
     };
 
     const handleSubmitReview = async () => {
-        // TODO: Submit review and rating to the server
         const postData = {
             oid: locationData.oid,
             mid: locationData.mid,

@@ -15,11 +15,17 @@ import {
     Stack
 } from '@chakra-ui/react';
 
+import UserProfileDrawer from "./UserProfileDrawer";
+
 
 export default function Checkout() {
 
     const navigate = useNavigate();
     const locationData = useLocation().state;
+
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+    const handleOpenDrawer = () => setDrawerOpen(true);
+    const handleCloseDrawer = () => setDrawerOpen(false);
 
     const [checkoutMethod, setCheckoutMethod] = useState('Cash On Delivery');
 
@@ -89,6 +95,9 @@ export default function Checkout() {
 
     return (
         <>
+            {/* Drawer */}
+            <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+            
             <Box
                 className="baloo"
                 w={'100%'}
@@ -151,6 +160,7 @@ export default function Checkout() {
                     <Image
                         src={'/profile.svg'}
                         boxSize={'60%'}
+                        onClick={handleOpenDrawer}
                     />
                 </Box>
 

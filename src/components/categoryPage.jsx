@@ -21,11 +21,16 @@ import {
 
 import PopularCategoryItems from './popularCategoryItems';
 import AllCategoryItems from './allCategoryItems';
+import UserProfileDrawer from "./UserProfileDrawer";
 
 export function CategoryPage() {
 
     const navigate = useNavigate();
     const locationData = useLocation().state;
+
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+    const handleOpenDrawer = () => setDrawerOpen(true);
+    const handleCloseDrawer = () => setDrawerOpen(false);
 
     const screenWidth = window.screen.width;
     const screenHeight = window.screen.height;
@@ -126,8 +131,14 @@ export function CategoryPage() {
                         mt={`${topPartHeight * 0.1}px`}
                         isRound={true}
                         boxSize={`${topPartHeight * 0.6}px`}
-                        icon={<Image src="profile.svg" boxSize={`${topPartHeight * 0.4}px`} />}
+                        icon={<Image src="profile.svg" boxSize={`${topPartHeight * 0.4}px`}
+                            onClick={handleOpenDrawer}
+                        />}
                     />
+
+                    {/* Drawer */}
+                    <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+
                 </HStack>
             </Box>
 
@@ -306,6 +317,11 @@ export function CategoryPage() {
                         <Image
                             src="order-history.svg"
                             boxSize={`${bottomPartHeight * 0.5}px`}
+                            onClick={
+                                () => {
+                                    navigate('/orderHistory', { state: locationData });
+                                }
+                            }
                         />
                         <Text
                             mt={`${-bottomPartHeight * 0.1}px`}

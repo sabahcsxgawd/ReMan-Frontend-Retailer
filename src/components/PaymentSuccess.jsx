@@ -5,7 +5,9 @@ import {
     Text,
     VStack,
 
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
+
+import UserProfileDrawer from "./UserProfileDrawer";
 
 export default function PaymentSuccess() {
 
@@ -17,8 +19,15 @@ export default function PaymentSuccess() {
     const sid = localStorage.getItem('sid');
     localStorage.clear();
 
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
+    const handleOpenDrawer = () => setDrawerOpen(true);
+    const handleCloseDrawer = () => setDrawerOpen(false);
+
     return (
         <>
+            {/* Drawer */}
+            <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+
             <Box
                 className="baloo"
                 w={'100%'}
@@ -86,6 +95,7 @@ export default function PaymentSuccess() {
                     <Image
                         src={'/profile.svg'}
                         boxSize={'60%'}
+                        onClick={handleOpenDrawer}
                     />
                 </Box>
 
