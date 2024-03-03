@@ -15,6 +15,7 @@ import PaymentSuccess from './components/PaymentSuccess.jsx';
 import PaymentFail from './components/PaymentFail.jsx';
 import NotificationPage from './components/NotificationPage.jsx';
 import OrderHistory from './components/OrderHistory.jsx';
+import OrderDetails from './components/OrderDetails.jsx';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPhoneNum />} />
         <Route path='/orderHistory' element={<OrderHistory />} />
+        <Route path='/order-details' element={<OrderDetails />} />
         <Route path='/notifications' element={<NotificationPage />} />
         <Route path='/payment/success' element={<PaymentSuccess />} />
         <Route path='/payment/fail' element={<PaymentFail />} />

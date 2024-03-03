@@ -29,10 +29,9 @@ export default function OrderHistoryItem({ order }) {
 
     const orderDate = new Date(order.OrderDate);
     const formattedOrderDate = `${orderDate.getUTCDate()} / ${(orderDate.getUTCMonth() + 1).toString().padStart(2, '0')} / ${orderDate.getUTCFullYear()}`;
-    console.log(orderDate);
 
     const navigate = useNavigate();
-    const locationData = useLocation().state;
+    let locationData = useLocation().state;
 
     return (
         <Box
@@ -65,6 +64,9 @@ export default function OrderHistoryItem({ order }) {
                     className='baloo'
                     w={'50%'}
                     h={'100%'}
+                    display={'flex'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
                 >
                     <VStack
                         ml={1}
@@ -117,7 +119,7 @@ export default function OrderHistoryItem({ order }) {
                                 textAlign={'right'}
                                 fontSize={'sm'}
                             >
-                                {order.mid}
+                                {order.ManufacturerName}
                             </Text>
 
                         </HStack>
@@ -208,6 +210,9 @@ export default function OrderHistoryItem({ order }) {
                     className='baloo'
                     w={'30%'}
                     h={'100%'}
+                    display={'flex'}
+                    justifyContent={'right'}
+                    alignItems={'center'}
                 >
                     <VStack>
                         <HStack>
@@ -224,9 +229,14 @@ export default function OrderHistoryItem({ order }) {
                         </Text>
 
                         <Button
-                            borderColor={'black'}
-                            borderWidth={2}
                             bg={'#d9d9d9'}
+                            borderRadius={'xl'}
+                            onClick={
+                                () => {
+                                    locationData.oid = order.oid;
+                                    navigate('/order-details', { state: locationData });
+                                }
+                            }
                         >
                             More Info
                         </Button>
