@@ -9,6 +9,14 @@ import {
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
+export function getFormattedDate(orderDate) {    
+    if (orderDate === null || orderDate === undefined) {
+        return '';
+    }
+    orderDate = new Date(orderDate);
+    return `${orderDate.getUTCDate().toString().padStart(2, '0')} / ${(orderDate.getUTCMonth() + 1).toString().padStart(2, '0')} / ${orderDate.getUTCFullYear()}`;
+}
+
 export default function OrderHistoryItem({ order }) {
 
     const orderStatusMap = {
@@ -28,7 +36,7 @@ export default function OrderHistoryItem({ order }) {
     }
 
     const orderDate = new Date(order.OrderDate);
-    const formattedOrderDate = `${orderDate.getUTCDate()} / ${(orderDate.getUTCMonth() + 1).toString().padStart(2, '0')} / ${orderDate.getUTCFullYear()}`;
+    const formattedOrderDate = getFormattedDate(orderDate);
 
     const navigate = useNavigate();
     let locationData = useLocation().state;
@@ -78,7 +86,7 @@ export default function OrderHistoryItem({ order }) {
                             spacing={0}
                         >
                             <Text
-                                w={'65%'}
+                                w={'70%'}
                                 noOfLines={1}
                                 color={'#3A59A7'}
                                 textAlign={'left'}
@@ -88,7 +96,7 @@ export default function OrderHistoryItem({ order }) {
                             </Text>
 
                             <Text
-                                w={'35%'}
+                                w={'30%'}
                                 noOfLines={1}
                                 color={'#000000'}
                                 textAlign={'right'}
@@ -120,32 +128,6 @@ export default function OrderHistoryItem({ order }) {
                                 fontSize={'sm'}
                             >
                                 {order.ManufacturerName}
-                            </Text>
-
-                        </HStack>
-
-                        <HStack
-                            w={'100%'}
-                            spacing={0}
-                        >
-                            <Text
-                                w={'45%'}
-                                noOfLines={1}
-                                color={'#000000'}
-                                textAlign={'left'}
-                                fontSize={'sm'}
-                            >
-                                Order ID :
-                            </Text>
-
-                            <Text
-                                w={'55%'}
-                                noOfLines={1}
-                                color={'#000000'}
-                                textAlign={'right'}
-                                fontSize={'sm'}
-                            >
-                                {order.oid}
                             </Text>
 
                         </HStack>
@@ -202,6 +184,32 @@ export default function OrderHistoryItem({ order }) {
 
                         </HStack>
 
+                        <HStack
+                            w={'100%'}
+                            spacing={0}
+                        >
+                            <Text
+                                w={'70%'}
+                                noOfLines={1}
+                                color={'#000000'}
+                                textAlign={'left'}
+                                fontSize={'sm'}
+                            >
+                                Shipment Status :
+                            </Text>
+
+                            <Text
+                                w={'30%'}
+                                noOfLines={1}
+                                color={'#000000'}
+                                textAlign={'right'}
+                                fontSize={'sm'}
+                            >
+                                {order.ShipmentStatus}
+                            </Text>
+
+                        </HStack>
+
                     </VStack>
 
                 </Box>
@@ -234,6 +242,7 @@ export default function OrderHistoryItem({ order }) {
                             onClick={
                                 () => {
                                     locationData.oid = order.oid;
+                                    locationData.mid = order.mid;
                                     navigate('/order-details', { state: locationData });
                                 }
                             }
