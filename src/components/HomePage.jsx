@@ -37,7 +37,7 @@ export default function HomePage() {
     const categoryImageSize = screenHeight * productsAndCategoriesHeightPercentage * 0.18;
     const productImageSize = screenHeight * productsAndCategoriesHeightPercentage * 0.9 * 0.2;
 
-    const [isloading, setIsLoading] = useState(false);
+    const [isloading, setIsLoading] = useState(true);
     const [searchText, setSearchText] = useState('');
     const [categories, setCategories] = useState([]);
     const [filteredCategories, setFilteredCategories] = useState([]);
@@ -288,7 +288,7 @@ export default function HomePage() {
                 h={`${productsAndCategoriesHeightPercentage * 100}%`}
                 top={`${(topPartHeightPercentage + searchAndFilterPartHeightPercentage) * 100}%`}
                 pos={'fixed'}
-                overflow={'scroll'}
+                overflow={'auto'}
             >
 
                 {
@@ -342,6 +342,7 @@ export default function HomePage() {
                             src='/order-history.svg'
                             alt='Order History'
                             boxSize={`${screenHeight * bottomPartHeightPercentage * 0.55}px`}
+                            onClick={() => navigate('/orderHistory', { state: locationData })}
                         />
                         <Text
                             mt={'-2'}
