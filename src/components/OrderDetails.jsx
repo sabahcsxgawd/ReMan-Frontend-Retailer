@@ -11,7 +11,6 @@ import {
     VStack,
     HStack,
     Text,
-    Textarea,
     Divider,
     Spinner,
     Button
@@ -21,7 +20,7 @@ import {
 
 import { getFormattedDate } from './OrderHistoryItem';
 import OrderDetailProductItem from './OrderDetailProductItem';
-import StarIcon from './StarIcon';
+import ProductRateReview from './ProductRateReview';
 
 export default function OrderDetails() {
 
@@ -30,43 +29,7 @@ export default function OrderDetails() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [orderDetails, setOrderDetails] = useState({});
-    const [rating, setRating] = useState(0);
-    const [review, setReview] = useState('');
-    const characterLimit = 150; // Set your desired character limit
 
-    const handleReviewChange = (event) => {
-        const inputReview = event.target.value;
-        if (inputReview.length <= characterLimit) {
-            setReview(inputReview);
-        }
-    };
-
-    const handleSubmitReview = async () => {
-        // TODO: Submit review and rating to the server
-        const postData = {
-            oid: locationData.oid,
-            mid: locationData.mid,
-            Rating: rating,
-            Review: review
-        };
-
-        const apiUrl = `${import.meta.env.VITE_API_URL}/order/addReviewRating`;
-
-        try {
-            const response = await axios.post(apiUrl, postData);
-            if (response.data.success === true) {
-                alert('Review submitted successfully');
-                setRating(0);
-                setReview('');
-            }
-        } catch (error) {
-            console.log('Error submitting review');
-        }
-    }
-
-    const handleStarClick = (clickedRating) => {
-        setRating((prevRating) => (prevRating === clickedRating ? Math.max(0, prevRating - 1) : clickedRating));
-    };
 
     const fetchOrderDetails = async () => {
         const postData = {
@@ -145,7 +108,13 @@ export default function OrderDetails() {
                         icon={<Image src="arrow-left-circle.svg" alt="back" />}
                         size="lg"
                         isRound={true}
-                        onClick={() => navigate('/orderHistory', { state: locationData })}
+                        onClick={
+                            () => {
+                                locationData.oid = null;
+                                locationData.mid = null;
+                                navigate('/orderHistory', { state: locationData })
+                            }
+                        }
                     />
                 </Box>
 
@@ -593,78 +562,18 @@ export default function OrderDetails() {
 
                     </Box>
 
-                    <Divider
-                        w={'96%'}
-                        ml={'2%'}
-                        mt={'2'}
-                        mb={'2'}
-                        borderWidth={2}
-                        borderColor={'black'}
-                    />
-
-                    <Box
-                        display={'flex'}
-                        mt={5}
-                        alignItems={'center'}
-                    >
-                        <Text
-                            fontSize={'2xl'}
-                            ml={3}
-                        >
-                            Rate
-                        </Text>
-
-                        <Spacer />
-
-                        {[1, 2, 3, 4, 5].map((index) => (
-                            <StarIcon
-                                key={index}
-                                selected={index <= rating}
-                                onClick={() => handleStarClick(index)}
-                            />
-                        ))}
-
-                    </Box>
-
-                    <Box
-                        w={'94%'}
-                        mt={5}
-                        ml={'3%'}
-                        mb={5}
-                    >
-                        <Text
-                            fontSize={'2xl'}
-                        >
-                            Review
-                        </Text>
-
-                        <Text
-                            color="gray.500"
-                        >
-                            {`${review.length}/${characterLimit} characters`}
-                        </Text>
-
-                        <VStack
-                            align="start"
-                            spacing={4}
-                        >
-                            <Textarea
-                                borderWidth={2}
-                                value={review}
-                                onChange={handleReviewChange}
-                                placeholder="Write your review..."
-                            />
-
-                            <Button
-                                colorScheme="teal"
-                                onClick={handleSubmitReview}
-                            >
-                                Submit
-                            </Button>
-
-                        </VStack>
-
-                    </Box>
+                    {
+                        orderDetails.Products.map((product) => {
+                            return (
+                                <ProductRateReview
+                                    key={product.pid}
+                                    pid={product.pid}
+                                    name={product.ProductName}
+                                />
+                            );
+                        }
+                        )
+                    }
 
                 </Box>
 
