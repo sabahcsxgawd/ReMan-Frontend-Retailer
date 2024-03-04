@@ -14,8 +14,15 @@ import UserProfileDrawer from "./UserProfileDrawer";
 export default function PaymentSuccess() {
 
     const navigate = useNavigate();
+
     const sid = localStorage.getItem('sid');
     const shopName = localStorage.getItem('shopName');
+
+    useLocation().state = {
+        sid: sid,
+        shopName: shopName
+    };
+
     localStorage.clear();
 
     const [isDrawerOpen, setDrawerOpen] = useState(false);
