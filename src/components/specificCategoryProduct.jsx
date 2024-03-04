@@ -64,7 +64,7 @@ export default function SpecificCategoryProduct() {
         }
 
     }, [searchText, products]);
-    
+
 
     return (
         <VStack className="baloo">
@@ -177,6 +177,7 @@ export default function SpecificCategoryProduct() {
                                 unit={product.Unit}
                                 unitPrice={product.UnitPrice}
                                 category={category}
+                                productImage={product.Image}
                             />
                         )
 

@@ -22,7 +22,7 @@ export default function UserProfileDrawer({ isOpen, onClose }) {
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
             <DrawerOverlay />
             <DrawerContent
-                borderRadius={'3xl'}
+                borderLeftRadius={'3xl'}
                 className='baloo'
                 opacity={0.9}
                 bg={'#0C2E62'}
@@ -33,9 +33,8 @@ export default function UserProfileDrawer({ isOpen, onClose }) {
                 <DrawerBody>
                     <VStack spacing={5} align="center">
                         <Image
-                            src="/my-profile.svg"
+                            src="/store.png"
                             boxSize="100px"
-                            borderRadius="full"
                         />
 
                         <Text
@@ -44,17 +43,17 @@ export default function UserProfileDrawer({ isOpen, onClose }) {
                             fontWeight="bold"
                             color={'black'}
                         >
-                            Abul Hossain
+                            {locationData.shopName}
                         </Text>
 
-                        <Button
+                        {/* <Button
                             w={'80%'}
                             borderRadius={'full'}
                             borderColor={'black'}
                             borderWidth={'2px'}
                         >
                             My Profile
-                        </Button>
+                        </Button> */}
 
                         <Button
                             w={'80%'}
@@ -106,15 +105,11 @@ export default function UserProfileDrawer({ isOpen, onClose }) {
                             borderRadius={'full'}
                             borderColor={'black'}
                             borderWidth={'2px'}
-                        >
-                            Analysis
-                        </Button>
-
-                        <Button
-                            w={'80%'}
-                            borderRadius={'full'}
-                            borderColor={'black'}
-                            borderWidth={'2px'}
+                            onClick={
+                                () => {
+                                    navigate('/');
+                                }
+                            }
                         >
                             Log Out
                         </Button>

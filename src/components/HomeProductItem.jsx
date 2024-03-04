@@ -7,7 +7,7 @@ import {
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function HomeProductItem({ pid, manufacturerName, productName, weightVolume, unit, unitPrice, category, productImageSize }) {
+export default function HomeProductItem({ productImage, pid, manufacturerName, productName, weightVolume, unit, unitPrice, category, productImageSize }) {
 
     const navigate = useNavigate();
     let locationData = useLocation().state;
@@ -69,7 +69,7 @@ export default function HomeProductItem({ pid, manufacturerName, productName, we
                     <VStack>
                         <Spacer />
                         <Image
-                            src={`/category-images/${category}.svg`}
+                            src={productImage}
                             boxSize={`${productImageSize}px`} />
 
                         <Spacer />

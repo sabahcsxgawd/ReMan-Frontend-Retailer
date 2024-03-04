@@ -9,7 +9,7 @@ import {
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function IndividualProductCategory({ pid, index, category, manufacturerName, productName, weightVolume, unit, unitPrice }) {
+export default function IndividualProductCategory({ productImage, pid, index, category, manufacturerName, productName, weightVolume, unit, unitPrice }) {
 
     const navigate = useNavigate();
     let locationData = useLocation().state;
@@ -81,7 +81,7 @@ export default function IndividualProductCategory({ pid, index, category, manufa
                     >
                         <Image
                             w={'80%'}
-                            src={`/category-images/${category.toLowerCase()}.svg`}
+                            src={productImage}
                         />
                     </Box>
 

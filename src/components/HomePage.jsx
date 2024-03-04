@@ -322,6 +322,7 @@ export default function HomePage() {
                             unitPrice={product.UnitPrice}
                             category={product.category}
                             productImageSize={productImageSize}
+                            productImage={product.Image}
                         />
                     ))
                 }
