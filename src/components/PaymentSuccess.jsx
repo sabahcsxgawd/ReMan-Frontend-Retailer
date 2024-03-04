@@ -1,4 +1,6 @@
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+
 import {
     Box,
     Image,
