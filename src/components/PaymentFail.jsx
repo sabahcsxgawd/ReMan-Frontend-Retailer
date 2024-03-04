@@ -14,7 +14,8 @@ import UserProfileDrawer from "./UserProfileDrawer";
 export default function PaymentFail() {
 
     const navigate = useNavigate();
-    const sid = localStorage.getItem('sid');    
+    const sid = localStorage.getItem('sid');
+    localStorage.clear();    
 
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const handleOpenDrawer = () => setDrawerOpen(true);
@@ -23,7 +24,7 @@ export default function PaymentFail() {
     return (
         <>
             {/* Drawer */}
-            <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+            {/* <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} /> */}
 
             <Box
                 className="baloo"
