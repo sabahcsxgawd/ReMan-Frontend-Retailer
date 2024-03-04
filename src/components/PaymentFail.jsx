@@ -15,6 +15,7 @@ export default function PaymentFail() {
 
     const navigate = useNavigate();
     const sid = localStorage.getItem('sid');
+    console.log(sid);
     localStorage.clear();
 
     const [isDrawerOpen, setDrawerOpen] = useState(false);
