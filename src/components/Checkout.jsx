@@ -61,6 +61,7 @@ export default function Checkout() {
 
             try {
                 const response = await axios.post(apiUrl, postData);
+                sessionStorage.setItem('sid', locationData.sid);
                 locationData.proceedToPayData = {};
                 window.location.href = response.data.url;
 
