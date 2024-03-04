@@ -16,12 +16,14 @@ import PaymentFail from './components/PaymentFail.jsx';
 import NotificationPage from './components/NotificationPage.jsx';
 import OrderHistory from './components/OrderHistory.jsx';
 import OrderDetails from './components/OrderDetails.jsx';
+import TestPage from './components/TestPage.jsx';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path='/' element={<LoginPhoneNum />} />
+        <Route path='/test' element={<TestPage />} />
         <Route path='/orderHistory' element={<OrderHistory />} />
         <Route path='/order-details' element={<OrderDetails />} />
         <Route path='/notifications' element={<NotificationPage />} />

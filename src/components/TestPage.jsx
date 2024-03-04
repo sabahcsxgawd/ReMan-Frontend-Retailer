@@ -13,16 +13,16 @@ import {
     Button,
     Spacer,
     Input,
-    useNumberInput,
-    Spinner
+    useNumberInput
 
 } from '@chakra-ui/react';
 
-export default function SelectQuantityProduct() {
+export default function TestPage() {
 
 
     const navigate = useNavigate();
     let locationData = useLocation().state;
+    let inc, dec, input;
 
     const { pid, sid } = locationData;
 
@@ -30,27 +30,6 @@ export default function SelectQuantityProduct() {
     const [loading, setLoading] = useState(true);
     const [orderQuantity, setOrderQuantity] = useState(locationData.prevOrderQuantity ? locationData.prevOrderQuantity : 0);
     const [discount, setDiscount] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
-
-
-    const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-        useNumberInput({
-            step: 10,
-            defaultValue: orderQuantity,
-            min: productInfo.MinQuantityForSale,
-            max: productInfo.TotalQuantity,
-            isRequired: true,
-            onChange: (e) => {
-                setOrderQuantity(e);
-            },
-            onInvalid: () => {
-                alert('Wrong Order Quantity');
-            }
-        });
-
-    const inc = getIncrementButtonProps();
-    const dec = getDecrementButtonProps();
-    const input = getInputProps();
 
     const goToCart = async () => {
         locationData.prevOrderQuantity = 0;
@@ -83,9 +62,6 @@ export default function SelectQuantityProduct() {
         try {
             const response = await axios.post(apiUrl, postData);
             setProductInfo(response.data.productInfo);
-            if (orderQuantity === 0) {
-                setOrderQuantity(response.data.productInfo.MinQuantityForSale);
-            }
             setLoading(false);
         } catch (error) {
             alert("Error fetching product info. Please try again later.");
@@ -93,24 +69,38 @@ export default function SelectQuantityProduct() {
     };
 
     useEffect(() => {
-        fetchProductInfo();
+        // fetchProductInfo();
 
     }, []);
 
     useEffect(() => {
 
         if (orderQuantity < productInfo.MinQuantityForDiscount) {
-            setDiscount(0.00);
+            setDiscount(0);
         }
 
         else {
-            setDiscount((Math.min(productInfo.MaximumDiscount, productInfo.MinimumDiscount + Math.floor((orderQuantity - productInfo.MinQuantityForDiscount) / productInfo.ProductQuantityForDiscountRate) * productInfo.DiscountRate)).toFixed(2));
+            setDiscount(Math.min(productInfo.MaximumDiscount, productInfo.MinimumDiscount + Math.floor((orderQuantity - productInfo.MinQuantityForDiscount) / productInfo.ProductQuantityForDiscountRate) * productInfo.DiscountRate));
         }
 
-        console.log(orderQuantity, totalPrice);
-        setTotalPrice((orderQuantity * productInfo.UnitPrice * (100 - discount) / 100).toFixed(2));
+    }, [orderQuantity]);
 
-    }, [orderQuantity, loading, productInfo]);
+    useEffect(() => {
+        if (!loading) {
+            const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+                useNumberInput({
+                    step: 10,
+                    defaultValue: orderQuantity,
+                    min: productInfo.MinQuantityForSale,
+                    max: productInfo.TotalQuantity,
+                });
+
+            inc = getIncrementButtonProps();
+            dec = getDecrementButtonProps();
+            input = getInputProps();
+        }
+    }, [loading]);
+
 
     if (loading) {
         return (
@@ -224,7 +214,6 @@ export default function SelectQuantityProduct() {
                     <Text
                         noOfLines={1}
                         fontSize={'xl'}
-                        color={'green.500'}
                     >
                         Manufacturer : {productInfo.ManufacturerName}
                     </Text>
@@ -232,7 +221,6 @@ export default function SelectQuantityProduct() {
                     <Text
                         noOfLines={1}
                         fontSize={'xl'}
-                        color={'blue.500'}
                     >
                         Product : {productInfo.ProductName}
                     </Text>
@@ -240,7 +228,6 @@ export default function SelectQuantityProduct() {
                     <Text
                         noOfLines={1}
                         fontSize={'xl'}
-                        color={'blue.500'}
                     >
                         Weight/Volume : {productInfo.Weight_volume}{productInfo.Unit}
                     </Text>
@@ -248,7 +235,6 @@ export default function SelectQuantityProduct() {
                     <Text
                         noOfLines={1}
                         fontSize={'xl'}
-                        color={'teal'}
                     >
                         Category : {productInfo.CategoryName}
                     </Text>
@@ -257,7 +243,6 @@ export default function SelectQuantityProduct() {
                         noOfLines={3}
                         textAlign={'center'}
                         fontSize={'xl'}
-                        color={'maroon'}
                     >
                         Description : {productInfo.Description}
                     </Text>
@@ -266,7 +251,6 @@ export default function SelectQuantityProduct() {
                     <Text
                         noOfLines={1}
                         fontSize={'xl'}
-                        color={'magenta'}
                     >
                         Per Unit Price : Tk. {productInfo.UnitPrice}
                     </Text>
@@ -274,7 +258,6 @@ export default function SelectQuantityProduct() {
                     <Text
                         noOfLines={1}
                         fontSize={'xl'}
-                        color={'red.500'}
                     >
                         Total Quantity : {productInfo.TotalQuantity}
                     </Text>
@@ -282,7 +265,6 @@ export default function SelectQuantityProduct() {
                     <Text
                         noOfLines={1}
                         fontSize={'xl'}
-                        color={'pink.500'}
                     >
                         Minimum Delivery Charge : {productInfo.MinimumDeliveryCharge}
                     </Text>
@@ -290,9 +272,8 @@ export default function SelectQuantityProduct() {
                     <Text
                         noOfLines={1}
                         fontSize={'xl'}
-                        color={'yellow.500'}
                     >
-                        Delivery Charge Increment Rate : {productInfo.DeliveryChargeIncreaseRate}%
+                        Delivery Charge Increment Rate : {productInfo.DeliveryChargeIncrementRate}
                     </Text>
 
                     <HStack
@@ -308,24 +289,22 @@ export default function SelectQuantityProduct() {
                         </Text>
 
                         {
-                            [...Array(Math.round(productInfo.Rating))].map((item, index) => {
+                            [...Array(Math.round(productInfo.Rating))].map((item) => {
                                 return (
                                     <Image
-                                        key={index}
                                         boxSize={'30px'}
-                                        src={'/star-yellow.svg'}
+                                        src={'star-yellow.svg'}
                                     />
                                 )
                             })
                         }
 
                         {
-                            [...Array(5 - Math.round(productInfo.Rating))].map((item, index) => {
+                            [...Array(5 - Math.round(productInfo.Rating))].map((item) => {
                                 return (
                                     <Image
-                                        key={index}
                                         boxSize={'30px'}
-                                        src={'/star-white.svg'}
+                                        src={'star-white.svg'}
                                     />
                                 )
                             })
@@ -344,7 +323,6 @@ export default function SelectQuantityProduct() {
                     <Text
                         noOfLines={1}
                         fontSize={'xl'}
-                        color={'orange.500'}
                     >
                         {
                             discount === 0 ?
@@ -391,12 +369,17 @@ export default function SelectQuantityProduct() {
                                 </Button>
 
                                 <Input
-                                    // value={orderQuantity}
+                                    {...input}
+                                    value={orderQuantity}
                                     variant={'unstyled'}
                                     textAlign={'center'}
                                     color={'green'}
                                     fontSize={'xl'}
-                                    {...input}
+                                    onChange={
+                                        () => {
+                                            setOrderQuantity(input.value);
+                                        }
+                                    }
                                 >
 
                                 </Input>
@@ -491,14 +474,14 @@ export default function SelectQuantityProduct() {
                         noOfLines={1}
                         fontSize={'2xl'}
                     >
-                        Total Price : Tk. {totalPrice}
+                        Total Price : Tk. {orderQuantity * productInfo.UnitPrice * (100 - discount) / 100}
                     </Text>
 
                     <Button
                         leftIcon={
                             <Image
                                 boxSize={'30px'}
-                                src={'/shopping-cart-white.svg'}
+                                src={'shopping-cart-white.svg'}
                             />
 
                         }
@@ -506,19 +489,15 @@ export default function SelectQuantityProduct() {
                         bg={'blue.500'}
                         color={'white'}
                         borderRadius={'xl'}
-                        variant={'outline'}
-                        _hover={
-                            {
-                                bg: 'blue.500'
-                            }
-                        }
                         onClick={
                             () => {
                                 if (orderQuantity < productInfo.MinQuantityForSale) {
                                     alert("Minimum order quantity is " + productInfo.MinQuantityForSale);
+                                    setOrderQuantity(productInfo.MinQuantityForSale);
                                 }
                                 else if (orderQuantity > productInfo.TotalQuantity) {
                                     alert("Not enough stock available.");
+                                    setOrderQuantity(productInfo.TotalQuantity);
                                 }
                                 else {
                                     goToCart();

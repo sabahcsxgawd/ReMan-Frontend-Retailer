@@ -114,7 +114,7 @@ export default function NotificationPage() {
                     boxSize={`${profilePicPixel}px`}
                     onClick={
                         () => {
-                            navigate(-1);
+                            navigate(-1, { state: locationData});
                         }
                     }
                 />
