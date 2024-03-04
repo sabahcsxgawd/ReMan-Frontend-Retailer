@@ -17,6 +17,7 @@ export default function PaymentFail() {
     const sid = localStorage.getItem('sid');
     console.log('fail sid', sid);
     localStorage.clear();
+    console.log('failedddd sid', sid);
 
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const handleOpenDrawer = () => setDrawerOpen(true);
