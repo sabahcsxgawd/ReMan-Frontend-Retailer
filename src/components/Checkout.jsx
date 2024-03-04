@@ -62,9 +62,8 @@ export default function Checkout() {
             try {
                 const response = await axios.post(apiUrl, postData);
                 localStorage.setItem('sid', locationData.sid);
+                localStorage.setItem('shopName', locationData.shopName);
                 locationData.proceedToPayData = {};
-                console.log('sid',  locationData.sid);
-                console.log('localstore', localStorage);
                 window.location.href = response.data.url;
 
                 // const postData1 = {
@@ -100,7 +99,7 @@ export default function Checkout() {
         <>
             {/* Drawer */}
             <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
-            
+
             <Box
                 className="baloo"
                 w={'100%'}

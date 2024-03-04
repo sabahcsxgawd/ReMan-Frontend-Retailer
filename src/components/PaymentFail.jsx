@@ -15,6 +15,7 @@ export default function PaymentFail() {
 
     const navigate = useNavigate();
     const sid = localStorage.getItem('sid');
+    const shopName = localStorage.getItem('shopName');
     localStorage.clear();    
 
     const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -52,7 +53,8 @@ export default function PaymentFail() {
                         () => {
                             navigate('/home', {
                                 state: {
-                                    sid: sid
+                                    sid: sid,
+                                    shopName: shopName
                                 }
                             });
                         }
@@ -163,7 +165,8 @@ export default function PaymentFail() {
                         () => {
                             navigate('/home', {
                                 state: {
-                                    sid: sid
+                                    sid: sid,
+                                    shopName: shopName
                                 }
                             });
                         }

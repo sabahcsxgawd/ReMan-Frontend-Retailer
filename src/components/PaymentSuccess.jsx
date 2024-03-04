@@ -13,8 +13,9 @@ import UserProfileDrawer from "./UserProfileDrawer";
 
 export default function PaymentSuccess() {
 
-    const navigate = useNavigate();    
+    const navigate = useNavigate();
     const sid = localStorage.getItem('sid');
+    const shopName = localStorage.getItem('shopName');
     localStorage.clear();
 
     const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -52,7 +53,8 @@ export default function PaymentSuccess() {
                         () => {
                             navigate('/home', {
                                 state: {
-                                    sid: sid
+                                    sid: sid,
+                                    shopName: shopName
                                 }
                             });
                         }
@@ -170,7 +172,8 @@ export default function PaymentSuccess() {
                         () => {
                             navigate('/home', {
                                 state: {
-                                    sid: sid
+                                    sid: sid,
+                                    shopName: shopName
                                 }
                             });
                         }
