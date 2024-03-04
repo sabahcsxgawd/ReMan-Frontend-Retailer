@@ -18,6 +18,8 @@ export default function UserProfileDrawer({ isOpen, onClose }) {
     const navigate = useNavigate();
     const locationData = useLocation().state;
 
+    console.log(locationData);
+
     return (
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
             <DrawerOverlay />

@@ -18,10 +18,10 @@ export default function PaymentSuccess() {
     const sid = localStorage.getItem('sid');
     const shopName = localStorage.getItem('shopName');
 
-    useLocation().state = {
-        sid: sid,
-        shopName: shopName
-    };
+    // useLocation().state = {
+    //     sid: sid,
+    //     shopName: shopName
+    // };
 
     localStorage.clear();
 

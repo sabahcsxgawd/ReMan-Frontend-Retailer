@@ -14,14 +14,14 @@ import UserProfileDrawer from "./UserProfileDrawer";
 export default function PaymentFail() {
 
     const navigate = useNavigate();
-    
+
     const sid = localStorage.getItem('sid');
     const shopName = localStorage.getItem('shopName');
 
-    useLocation().state = {
-        sid:sid,
-        shopName:shopName
-    };
+    // useLocation().state = {
+    //     sid:sid,
+    //     shopName:shopName
+    // };
 
     localStorage.clear();    
 
@@ -32,7 +32,7 @@ export default function PaymentFail() {
     return (
         <>
             {/* Drawer */}
-            <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />
+            {/* <UserProfileDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} /> */}
 
             <Box
                 className="baloo"
