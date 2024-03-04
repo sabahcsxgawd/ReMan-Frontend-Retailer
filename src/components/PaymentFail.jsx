@@ -14,8 +14,8 @@ import UserProfileDrawer from "./UserProfileDrawer";
 export default function PaymentFail() {
 
     const navigate = useNavigate();
-    const sid = sessionStorage.getItem('sid');
-    sessionStorage.clear();
+    const sid = localStorage.getItem('sid');
+    localStorage.clear();
 
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const handleOpenDrawer = () => setDrawerOpen(true);
