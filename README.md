@@ -26,6 +26,8 @@ Swagger was used to document the API endpoints. [Swagger Link](https://reman-bac
 
 # Features for Retailers
 
+- **Test Login Details**: Phone:+8802222222222, Password:22222
+
 - **Marketplace Browsing**: Retailers can explore a categorized marketplace and view products from various manufacturers.
 - **Bulk Ordering Discounts**: Discounts increase with higher order amounts, making bulk purchases more economical.
 - **Order Management**: 
