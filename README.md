@@ -9,7 +9,7 @@
 # **Project Architecture**
 
 We followed the MVC Architecture for this project
-![](public/Architecture/architecture1.png)
+![](public/architecture1.png)
 
 # **Tech Stack & Tools**
 
